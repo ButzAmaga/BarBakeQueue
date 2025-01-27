@@ -4,6 +4,7 @@
 python -m venv web_env 
 
 # activate environment
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 .\web_env\Scripts\activate
 
 # execute 
