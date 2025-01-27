@@ -1,0 +1,5 @@
+# set the execution of bash temporary
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+# deactivation of python env 
+deactivate

@@ -1,0 +1,10 @@
+# assuming python and pip is already installed
+
+# Create new env  
+python -m venv web_env 
+
+# activate environment
+.\web_env\Scripts\activate
+
+# execute 
+pip install -r requirements.txt
