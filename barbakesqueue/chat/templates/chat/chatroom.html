@@ -29,13 +29,13 @@
         // execute when a new message is recieved
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            document.querySelector('#chat-log').value += (data.message + '\n');
+            document.querySelector('#chat-log').value += (`${data.user} : ${data.message}` + `\n`);
             console.log(data.type)
         };
 
         // execute when the connection to the server is unreached
         chatSocket.onclose = function(e) {
-            console.error('Chat socket closed unexpectedly');
+            console.error('Chat socket closed unexpectedly or you are not logged in');
         };
 
         document.querySelector('#chat-message-submit').onclick = function(e) {

@@ -9,6 +9,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "bootstrap5": "^1.1.9"
+    "bootstrap5": "^1.1.9",
+    "htmx.org": "^1.9.12"
   }
 }

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-s&1ycp3&+gqk=genscco(r0+5!o%o!e1l65%7j65*0zuipotgu
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -121,6 +121,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]  # Optional: Global static files directory
+STATIC_ROOT = BASE_DIR / "staticfiles"  # Used for `collectstatic` (for production)
+
+# MEDIA FILES CONFIGURATION
+MEDIA_URL = '/media/'  # URL to access uploaded media
+MEDIA_ROOT = BASE_DIR / "media"  # Where uploaded files are stored
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
