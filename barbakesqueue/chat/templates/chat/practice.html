@@ -1,0 +1,74 @@
+{% extends "core/core.html" %}
+
+
+
+{% block links %}
+    <style>
+        /* custom loadng */
+        .htmx-indicator{
+            display:none;
+        }
+        .htmx-request .htmx-indicator{
+            display:inline;
+        }
+</style>
+{% endblock links %}
+    
+
+{% block content %}
+   <h3>HTMX PRACTICE</h3> 
+
+   <div id="parent"> 
+        <button hx-get="{% url 'test1' %}" hx-trigger="click" hx-target="#parent" hx-swap="outerHTML">
+            Click me to replace
+            <h2 class="htmx-indicator">Loading...</h2>
+        </button>
+   </div>
+
+   <!-- mouse trigger example -->
+   <div id="target2">
+        Target 2
+   </div>
+
+   <!-- issue a request when the mouse enter the p and only once -->
+   <div hx-get="{% url 'test1' %}" hx-trigger="mouseenter once" hx-target="#target2" hx-swap="innerHTML">
+        Enter your mouse here to change the target 2
+        <h2 class="htmx-indicator">Loading...</h2>
+   </div>
+
+   <!-- form_test -->
+   <form id="form_btn"  hx-trigger="submit" hx-target="#form_target" hx-swap="innerHTML" hx-post="{% url 'personSubmit' %}" >
+        {% csrf_token %}
+        <div id="form_target">
+            {{form}}    
+        </div>
+        <button type="submit" >submit</button>
+   </form>
+
+   <div hx-ext="sse" sse-connect="{% url 'notification' %}">
+      <h2>Notification Area</h2>
+
+      <!-- Notifications will be updated here -->
+      <div id="notification_area" sse-swap="counter"></div>
+   </div>
+
+{% endblock content %}
+
+
+{% block script %}
+     <script>
+            // Listen for the htmx:response event to check the response status code
+         document.getElementById("form_btn").addEventListener('htmx:response', function(event) {
+          const statusCode = event.detail.xhr.status;  // Get the HTTP response status code
+          console.log("asdasd")
+          if (statusCode === 200) {
+            console.log('Request was successful!');
+            // You can also do something with the response content here
+          } else {
+            console.log('status:', statusCode);
+          }
+        });
+   </script> 
+{% endblock script %}
+    
+    
