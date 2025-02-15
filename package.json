@@ -11,5 +11,8 @@
   "dependencies": {
     "bootstrap5": "^1.1.9",
     "htmx.org": "^1.9.12"
+  },
+  "devDependencies": {
+    "sass": "^1.85.0"
   }
 }

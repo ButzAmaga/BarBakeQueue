@@ -6,5 +6,7 @@ class Message(models.Model):
     sender = models.ForeignKey(User, null=True, related_name='sent_messages' , on_delete=models.SET_NULL)
     receiver = models.ForeignKey(User, null=True, related_name='received_messages' , on_delete=models.SET_NULL)
     created_at = models.DateField()
+
+    
     
     
