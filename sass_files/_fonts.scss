@@ -1,0 +1,22 @@
+@font-face {
+  font-family: 'Poppins'; /* Name for the font */
+  src: url('../fonts/Poppins/Poppins-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Poppins'; /* Name for the font */
+  src: url('../fonts/Poppins/Poppins-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: bold;
+}
+
+@font-face {
+  font-family: 'Pacifico'; /* Name for the font */
+src: url('../fonts/Pacifico/Pacifico-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+$font-family-base: 'Poppins', "Times New Roman";

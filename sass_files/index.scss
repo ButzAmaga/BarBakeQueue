@@ -1,0 +1,29 @@
+
+// colors
+$primary: #BE2776;
+
+$black_900: #161616;
+
+
+
+// forms 
+
+$input-bg: transparent;
+$input-border-color: $black_900;
+$input-border-width: .15em;
+
+$input-focus-border-color: $primary;
+$input-focus-box-shadow:  none;
+
+
+// custom 
+
+@import 'fonts';
+
+// bootstrap 
+@import '../node_modules/bootstrap/scss/functions';
+@import '../node_modules/bootstrap/scss/variables';
+
+
+@import '../node_modules/bootstrap/scss/bootstrap';
+
