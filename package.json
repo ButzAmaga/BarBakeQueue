@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1", 
+    "sass_run" : "sass sass_files/index.scss barbakesqueue/static/css/index.css --watch"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "bootstrap5": "^1.1.9",
+    "bootstrap": "^5.3.3",
     "htmx.org": "^1.9.12"
   },
   "devDependencies": {

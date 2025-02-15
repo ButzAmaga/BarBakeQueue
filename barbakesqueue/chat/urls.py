@@ -1,6 +1,6 @@
 from django.urls import path, include
 from .views import * 
-appname = 'chat'
+app_name = 'chat'
 
 urlpatterns = [
     path('lobby', Index.as_view(), name='main'), # chat room lobby
