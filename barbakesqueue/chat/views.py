@@ -15,7 +15,7 @@ class Index(TemplateView):
     
 
 class Room(TemplateView):
-    template_name = 'chat/chatroom.html'
+    template_name = 'chat/chatroom_2.html'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -5,7 +5,7 @@ class Message(models.Model):
     message = models.TextField()
     sender = models.ForeignKey(User, null=True, related_name='sent_messages' , on_delete=models.SET_NULL)
     receiver = models.ForeignKey(User, null=True, related_name='received_messages' , on_delete=models.SET_NULL)
-    created_at = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     
     

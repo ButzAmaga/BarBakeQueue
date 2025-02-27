@@ -1,0 +1,10 @@
+
+
+<!-- will be appended to #message div -->
+<div id="chat_box" hx-swap-oob="beforeend">
+    <div class="d-flex flex-column {% if is_receiver %}align-items-end{% else %}align-items-start{% endif %}">
+        <p style="font-size: .8em;" class="mb-0">{{sender}}</p>
+        <p class="p-2 rounded border border-1 mb-0 {% if is_receiver %}bg-primary text-white{% endif %}
+            ">{{message}}</p>
+    </div>
+</div>

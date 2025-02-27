@@ -3,9 +3,20 @@
 
 
 {% block content %}
-  <textarea id="chat-log" cols="100" rows="20"></textarea><br>
-  <input id="chat-message-input" type="text" size="100"><br>
-  <input id="chat-message-submit" type="button" value="Send">  
+   
+    <div class="container" hx-ext="ws" ws-connect="/ws/chat/xxx/">
+
+        <div id="chat_box" class="d-flex flex-column gap-4">
+
+        </div>
+
+        <!-- send form --> 
+        <form class="mt-5" id="form"  ws-send>
+
+            <input id="chat-message-input" class="form-control" type="text" name="message" size="100"/><br>
+            <button class="btn btn-primary" type="submit">Send</button>
+        </form> 
+    </div>
 
   {{ chatroom|json_script:'room-name' }}
 
@@ -14,16 +25,20 @@
 
 {% block script %}
     <script>
+        document.body.addEventListener("htmx:wsAfterSend", function () {
+            document.getElementById("chat-message-input").value = "";
+        });
+    </script>
+    <!-- 
+    <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
         console.log(roomName)
+        const socket_path = 'ws://' + window.location.host + '/ws/chat/' + "xxx" + '/'
 
+        console.log(socket_path)
         // connect to the server chat features
         const chatSocket = new WebSocket(
-            'ws://'
-            + window.location.host
-            + '/ws/chat/'
-            + roomName
-            + '/'
+           socket_path
         );
         
         // execute when a new message is recieved
@@ -47,7 +62,14 @@
             }));
             messageInputDom.value = '';
         };
-    </script>
+    console.log(htmx.extensions);
+    </script>-->
+
+
 {% endblock script %}
     
+
+{% block scripts %}
     
+{% endblock scripts %}
+     
