@@ -9,12 +9,12 @@
         <p class="mt-2 mb-0">{{object}}</p>
 
 
-        <div id="chat_box" class="d-flex flex-column gap-4">
+        <div style="height: 350px; " id="chat_box" class="d-flex flex-column gap-4 overflow-y-scroll">
 
         </div>
 
         <!-- send form --> 
-        <form class="mt-2" id="form"  ws-send>
+        <form class="mt-2 d-flex gap-2" id="form"  ws-send>
 
             <input id="chat-message-input" class="form-control" type="text" name="message" size="100"/><br>
             <button class="btn btn-primary" type="submit">Send</button>
