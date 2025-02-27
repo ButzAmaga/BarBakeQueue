@@ -4,14 +4,17 @@
 
 {% block content %}
    
-    <div class="container" hx-ext="ws" ws-connect="/ws/chat/xxx/">
+    <div class="w-100" hx-ext="ws" ws-connect="/ws/chat/channel_{{object.id}}/">
+
+        <p class="mt-2 mb-0">{{object}}</p>
+
 
         <div id="chat_box" class="d-flex flex-column gap-4">
 
         </div>
 
         <!-- send form --> 
-        <form class="mt-5" id="form"  ws-send>
+        <form class="mt-2" id="form"  ws-send>
 
             <input id="chat-message-input" class="form-control" type="text" name="message" size="100"/><br>
             <button class="btn btn-primary" type="submit">Send</button>

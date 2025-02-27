@@ -9,13 +9,26 @@
 {% block content %}
 
     <div class="container">
+        
 
-   <p>Enter the chat room</p>
-   <p style="font-family: 'Pacifico';">Enter the chat room</p>
+        <h3>Messages</h3>
+        <div class="row">
 
-   <br>
-   <input class="form-control" id="room-name-input" type="text" size="100"><br>
-   <input class="btn btn-primary" id="room-name-submit" type="button" value="Enter">
+            <!-- customer accounts -->
+            <div class="col row-cols-2">
+                {% for customer in customers %}
+                    <p href="{% url 'chat:room' customer.id %}" class="p-2" hx-get="{% url 'chat:room' customer.id %}" hx-target="#messageBox" hx-swap="innerHTML">{{customer}}</p>
+                {% endfor %}
+            </div>
+
+            <!-- Message Box -->
+            <div class="col row-cols-4 border border-1 rounded" id="messageBox">
+                Message
+            </div>
+        </div>
+        
+            
+   
     </div>
 
 

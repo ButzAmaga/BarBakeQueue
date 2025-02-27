@@ -90,8 +90,20 @@ class Async_ChatConsumer(AsyncWebsocketConsumer):
         
         # checks if the user is logged in 
         if not self.user.is_authenticated:
+            
+            self.send(json.dumps({
+                'type' : 'login_required',
+                'message': 'Please log in an account to access the chat features'
+            }))
+
+            
             await self.close()
         
+                    
+        # get the user first user group
+        self.user_type = await self.user.groups.afirst()
+        
+        # add to channel
         await self.channel_layer.group_add(
             self.group_name,
             self.channel_name
@@ -100,74 +112,44 @@ class Async_ChatConsumer(AsyncWebsocketConsumer):
         # accept the connection 
         await self.accept()
         
-        condition = Q(sender = self.user.id) | Q(receiver = self.user.id)
-        async for message in Message.objects.select_related("sender", "receiver").filter(condition).order_by('created_at'):
+        '''
+            if user is customer then let condition to self.user, if user is staff, decode the user and use it as filter id
+        '''
+        
+        if self.user_type.name == 'Customer':
+            user_id = self.user
+        elif self.user_type.name == 'Staff':
+            text = self.room_name
+            user_id = int(text.split("_")[-1])
+            user = await User.objects.aget(id = user_id)
             
-            if message.sender.id != self.user.id:
+            # the target user to chat with
+            user_id = user 
+        
+        async for message in Message.objects.select_related("user").filter(user = user_id).order_by('created_at'):
+            
+            '''
+                check if the message is owned by the channel owner, if not then she/he recieved the message
+            '''
+            if message.is_channel_sender != False:
                 is_receiver = True
+                sender = 'Barbakesqueue Staff'
             else:
                 is_receiver = False        
+                sender = self.user
 
 
             # Render HTML template with message data
             html_content = render_to_string("chat/chat_instance.html", {
                 "message":  message.message,
-                "sender": message.sender, 
+                "sender": sender, 
                 "is_receiver" : is_receiver
             })
-            print(message.created_at)
+        
             # await asyncio.sleep(1)  # ✅ Yields control to other tasks
             await self.send(text_data=html_content)
         
-   
-        
-        
-    @database_sync_to_async
-    def get_messages(self):
-        return Message.objects.all()
 
-           
-    async def get_old_messages(self):
-        '''
-            sync_to_async create a seperate thread and runs the  in sync within it, if two instructions are executed within that
-            then in seperate thread run the two instructions in sync manner
-        '''
-        
-        ''' 
-            get all old messages
-            database_sync_to_async runs in seperated thread so the instruction below this will be executed without waiting for this
-            to complete unless the instruction is wrap into sync_to_async which is also runs in different thread
-            and will wait to other similar execution like the database sync_to_async
-        '''
-        condition = Q(sender = self.user) | Q(receiver = self.user)
-        old_message = await database_sync_to_async(Message.objects.filter)(condition)
-
-        print("Getting old messages") 
-        '''
-            
-        '''
-        await sync_to_async(print)(old_message)
-        
-        def send_messages(messages):
-            for message in messages:
-                
-                if message.sender != self.user:
-                    is_receiver = True
-                else:
-                    is_receiver = False        
-
-                # Render HTML template with message data
-                html_content = render_to_string("chat/chat_instance.html", {
-                    "message": message.message,
-                    "sender": str(message.sender), 
-                    "is_receiver" : is_receiver
-                })
-                
-                print(html_content)
-                self.send(text_data=html_content)
-                
-        await sync_to_async(send_messages)(old_message)
-       
             
     
     async def disconnect(self, code):
@@ -188,6 +170,47 @@ class Async_ChatConsumer(AsyncWebsocketConsumer):
        
        
        '''
+            Save the Message to the database
+       '''
+
+       
+       if self.user_type.name == "Customer":
+           user = self.user
+           is_channel_sender = True 
+       elif self.user_type.name == 'Staff':
+    
+           is_channel_sender = False
+           
+           '''
+               get the user account of receiver, optimize this by saving it as global
+           '''
+           text = self.room_name
+           user_id = int(text.split("_")[-1])
+           user = await User.objects.aget(id = user_id)
+       
+       else:
+           print('Invalid user')
+           self.close()    
+           
+       # save to the database
+       message = await database_sync_to_async(Message.objects.create)(  
+            user = user,
+            message = data['message'],
+            is_channel_sender = is_channel_sender
+       )
+       
+       
+       '''
+           check if the message is owned by the channel owner, if not then she/he recieved the message
+       '''
+       if self.user_type.name != 'Customer':
+           is_receiver = True
+           sender = 'Barbakesqueue Staff'
+       else:
+           is_receiver = False        
+           sender = self.user
+       
+       '''
             group_send only supports JSON-serializable data.
        '''
        await self.channel_layer.group_send(
@@ -200,28 +223,16 @@ class Async_ChatConsumer(AsyncWebsocketConsumer):
        )
        
     async def send_message(self, event):
+        '''
+            Message, implement the user and determine the is_sender through group permission?
         
+        '''
         data = event['data']
+        
+        # add attribute type chat
         data['type'] = 'chat'
         
-        
-        if event["sender_id"] != self.user.id:
             
-            sender = await database_sync_to_async(User.objects.get)(
-                id = event["sender_id"]
-            )
-            
-            '''
-                message not saved to the database unless a reciver caught the message
-            '''
-            new_message = await database_sync_to_async(Message.objects.create)(
-                sender = sender,
-                receiver = self.user,
-                message = data['message']
-            )
-            print(new_message)
-
-       
         if event["sender_id"] != self.user.id:
             is_receiver = True
         else:
