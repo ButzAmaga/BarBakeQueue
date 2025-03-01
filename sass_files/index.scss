@@ -1,4 +1,8 @@
 
+html{
+    font-size: 16px !important;
+}
+
 // colors
 $primary: #BE2776;
 
@@ -19,6 +23,10 @@ $input-focus-box-shadow:  none;
 // custom 
 
 @import 'fonts';
+
+
+// navbar variables
+@import 'navbar_variables';
 
 // bootstrap 
 @import '../node_modules/bootstrap/scss/functions';

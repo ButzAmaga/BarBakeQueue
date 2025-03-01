@@ -1,9 +1,10 @@
-{% extends "core/core.html" %}
+{% extends "core/core_staff.html" %}
 
 
 {% block title %}
-   Chat Lobby 
+    Messages
 {% endblock title %}
+
     
 
 {% block content %}
@@ -11,13 +12,26 @@
     <div class="container">
         
 
-        <h3>Messages</h3>
+        <div>
+
+        </div>
+
+        <h3 class="fw-bold">Messages</h3>
         <div class="row">
 
             <!-- customer accounts -->
             <div class="col row-cols-2">
+                
+                <!-- search -->
+                <div class="">
+                    <form class="position-relative" action="#" method="get">
+                        <input type="text" name="name" class="form-control form-control-lg pe-5" placeholder="Search Message" style="font-size: .9em;">
+                    <button class="btn position-absolute rounded rounded-1 d-flex align-items-center justify-content-center p-0" style="width: 2em; height: 2em; background-color: black; color: white; top: 50%; right: 2%; transform: translateY(-50%);">Q</button>
+                    </form>
+                </div>
+
                 {% for customer in customers %}
-                    <p href="{% url 'chat:room' customer.id %}" class="p-2" hx-get="{% url 'chat:room' customer.id %}" hx-target="#messageBox" hx-swap="innerHTML">{{customer}}</p>
+                    <p  href="{% url 'chat:room' customer.id %}" class="p-2" hx-get="{% url 'chat:room' customer.id %}" hx-target="#messageBox" hx-swap="innerHTML">{{customer}}</p>
                 {% endfor %}
             </div>
 
