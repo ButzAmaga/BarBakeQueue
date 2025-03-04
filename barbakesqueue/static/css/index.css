@@ -1,4 +1,8 @@
 @charset "UTF-8";
+html {
+  font-size: 16px !important;
+}
+
 @font-face {
   font-family: "Poppins"; /* Name for the font */
   src: url("../fonts/Poppins/Poppins-Regular.ttf") format("truetype");
@@ -8,8 +12,8 @@
 @font-face {
   font-family: "Poppins"; /* Name for the font */
   src: url("../fonts/Poppins/Poppins-Bold.ttf") format("truetype");
-  font-weight: normal;
-  font-style: bold;
+  font-weight: bold;
+  font-style: normal;
 }
 @font-face {
   font-family: "Pacifico"; /* Name for the font */
@@ -17,6 +21,10 @@
   font-weight: normal;
   font-style: normal;
 }
+.nav-link.active {
+  font-weight: bold;
+}
+
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)
  * Copyright 2011-2024 The Bootstrap Authors
@@ -3749,7 +3757,8 @@ textarea.form-control-lg {
 .nav {
   --bs-nav-link-padding-x: 1rem;
   --bs-nav-link-padding-y: 0.5rem;
-  --bs-nav-link-font-weight: ;
+  --bs-nav-link-font-size: 0.9em;
+  --bs-nav-link-font-weight: normal;
   --bs-nav-link-color: var(--bs-link-color);
   --bs-nav-link-hover-color: var(--bs-link-hover-color);
   --bs-nav-link-disabled-color: var(--bs-secondary-color);
@@ -3888,9 +3897,9 @@ textarea.form-control-lg {
   --bs-navbar-hover-color: rgba(var(--bs-emphasis-color-rgb), 0.8);
   --bs-navbar-disabled-color: rgba(var(--bs-emphasis-color-rgb), 0.3);
   --bs-navbar-active-color: rgba(var(--bs-emphasis-color-rgb), 1);
-  --bs-navbar-brand-padding-y: 0.3125rem;
-  --bs-navbar-brand-margin-end: 1rem;
-  --bs-navbar-brand-font-size: 1.25rem;
+  --bs-navbar-brand-padding-y: 0;
+  --bs-navbar-brand-margin-end: 0;
+  --bs-navbar-brand-font-size: 0.9em;
   --bs-navbar-brand-color: rgba(var(--bs-emphasis-color-rgb), 1);
   --bs-navbar-brand-hover-color: rgba(var(--bs-emphasis-color-rgb), 1);
   --bs-navbar-nav-link-padding-x: 0.5rem;
@@ -3937,7 +3946,8 @@ textarea.form-control-lg {
 .navbar-nav {
   --bs-nav-link-padding-x: 0;
   --bs-nav-link-padding-y: 0.5rem;
-  --bs-nav-link-font-weight: ;
+  --bs-nav-link-font-size: 0.9em;
+  --bs-nav-link-font-weight: normal;
   --bs-nav-link-color: var(--bs-navbar-color);
   --bs-nav-link-hover-color: var(--bs-navbar-hover-color);
   --bs-nav-link-disabled-color: var(--bs-navbar-disabled-color);

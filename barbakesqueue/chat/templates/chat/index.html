@@ -1,21 +1,48 @@
-{% extends "core/core.html" %}
+{% extends "core/core_staff.html" %}
 
 
 {% block title %}
-   Chat Lobby 
+    Messages
 {% endblock title %}
+
     
 
 {% block content %}
 
     <div class="container">
+        
 
-   <p>Enter the chat room</p>
-   <p style="font-family: 'Pacifico';">Enter the chat room</p>
+        <div>
 
-   <br>
-   <input class="form-control" id="room-name-input" type="text" size="100"><br>
-   <input class="btn btn-primary" id="room-name-submit" type="button" value="Enter">
+        </div>
+
+        <h3 class="fw-bold">Messages</h3>
+        <div class="row gap-5">
+
+            <!-- customer accounts -->
+            <div class="col col-3">
+                
+                <!-- search -->
+                <div class="">
+                    <form class="position-relative" action="#" method="get">
+                        <input type="text" name="name" class="form-control form-control-lg pe-5" placeholder="Search Message" style="font-size: .9em;">
+                    <button class="btn position-absolute rounded rounded-1 d-flex align-items-center justify-content-center p-0" style="width: 2em; height: 2em; background-color: black; color: white; top: 50%; right: 2%; transform: translateY(-50%);">Q</button>
+                    </form>
+                </div>
+
+                {% for customer in customers %}
+                    <p  href="{% url 'chat:room' customer.id %}" class="p-2" hx-get="{% url 'chat:room' customer.id %}" hx-target="#messageBox" hx-swap="innerHTML">{{customer}}</p>
+                {% endfor %}
+            </div>
+
+            <!-- Message Box -->
+            <div class="col border border-1 rounded" id="messageBox">
+                Message
+            </div>
+        </div>
+        
+            
+   
     </div>
 
 
