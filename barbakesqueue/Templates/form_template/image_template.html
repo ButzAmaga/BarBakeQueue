@@ -1,0 +1,30 @@
+
+<div class="form-group">
+    <div class="d-flex gap-3 align-items-center">
+        <img id="{{field.id_for_label}}_img" style="width: 5em; aspect-ratio: 1/1; display: block;" src="{{image_path}}" class="rounded border border-1" alt="">
+        <div class="flex-fill">
+            <label for="{{ field.id_for_label }}" class="form-label mt-1">{% if not is_create %}Replace{% endif %} {{field.label}}</label>
+            <input id="{{ field.id_for_label }}" name="{{ field.name }}" type="file" class="form-control {% if field.errors|length %}is-invalid{% endif %}"  accept="image/*">
+        </div>
+    </div>
+
+    <div class="errors">{{ field.errors }}</div>
+
+    <script>
+        document.getElementById("{{field.id_for_label}}").addEventListener("change", function(event) {
+                    let file = event.target.files[0]; // Get the selected file
+                    let imgElement = document.getElementById("{{field.id_for_label}}_img");
+        
+                    if (file) {
+                        let reader = new FileReader();
+                    
+                        reader.onload = function(e) {
+                            imgElement.src = e.target.result;
+                            imgElement.style.display = "block"; // Show image
+                        };
+                    
+                        reader.readAsDataURL(file); // Read the file as a data URL, this executes the onload of reader
+                    }
+                });
+    </script>
+</div>
