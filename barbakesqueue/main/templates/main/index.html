@@ -1,6 +1,36 @@
 {% extends 'core/core.html' %}
 
+{% block content %}
+    <link rel="stylesheet" href="styles.css">
+{% endblock content %}
 
 {% block content %}
-    Home page
+<div id="chat-container">
+    <!-- Floating Chat Icon -->
+    <div id="chat-icon" onclick="toggleChat()" title="Chat with us">
+        💬
+    </div>
+    
+    <!-- Initial Message Bubble -->
+    <div id="initial-message" class="fade-in">
+        Talk with the admin to personalize your cakes.
+        <span id="close-msg" onclick="closeMessage()">&times;</span>
+    </div>
+    
+    <!-- Floating Chat Box -->
+    <div id="chat-box" class="hidden">
+        <div id="chat-header">
+            <span>Live Chat</span>
+        </div>
+        <div id="chat-history"></div>
+        <div id="chat-input-container">
+            <input type="text" id="chat-input" placeholder="Type a message...">
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
+</div>
 {% endblock content %}
+
+{% block scripts %}
+    <script defer src="script.js"></script>
+{% endblock scripts %}
