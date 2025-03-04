@@ -1,0 +1,19 @@
+{% extends 'core/core.html' %}
+
+
+
+{% block content %}
+
+   <div class="container">
+
+      Log in 
+      {% csrf_token %}
+      <form action="{% url 'account:login' %}" method="post">
+         {% csrf_token %}
+         {{form}}
+         <button type="submit">Login</button>
+      </form>
+   </div>
+   
+{% endblock content %}
+    
