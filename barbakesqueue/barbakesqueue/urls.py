@@ -6,6 +6,7 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('chat/', include('chat.urls')),
+    path('account/', include('account.urls'))
 ]
 
 # Serve media files in development

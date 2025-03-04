@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'notification',
     'cake',
     'order',
+    'account'
 ]
 
 MIDDLEWARE = [
@@ -143,3 +144,6 @@ CHANNEL_LAYERS = {
         "BACKEND": "channels.layers.InMemoryChannelLayer",
     },
 }
+
+LOGIN_REDIRECT_URL = '/'  # URL to redirect to after successful login
+LOGOUT_REDIRECT_URL = 'account/login/'  # URL to redirect to after logout
