@@ -4,14 +4,26 @@
 
 {% block content %}
 
-   <div class="container">
+   <div style="height: 80vh;" class="container d-flex justify-content-center align-items-center">
 
-      Log in 
       {% csrf_token %}
-      <form action="{% url 'account:login' %}" method="post">
+      <form class="p-4 shadow rounded d-flex flex-column gap-3" style="width: 100%; max-width: 420px;" action="{% url 'account:login' %}" method="post">
+
+         <h4 class="fw-bold">Login</h4>
          {% csrf_token %}
-         {{form}}
-         <button type="submit">Login</button>
+
+         {% include 'form_template/text_template.html' with field=form.username %}
+         {% include 'form_template/text_template.html' with field=form.password %}
+
+         <a style="font-size: .9em;" class="text-center">Forgot password?</a>
+
+         <div class="mt-4 d-flex flex-column">
+            <p style="font-size: .9em;" class="text-center text-black-50 ">Don`t have an account? <a href="#" class="fw-bold">Sign up</a></p>
+            <button type="submit" class="btn btn-primary align-self-stretch align-self-end ">Login</button>
+         </div>
+         
+
+
       </form>
    </div>
    

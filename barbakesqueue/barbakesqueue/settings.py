@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'notification',
     'cake',
     'order',
-    'account'
+    'account',
+    'main'
 ]
 
 MIDDLEWARE = [
@@ -146,4 +147,4 @@ CHANNEL_LAYERS = {
 }
 
 LOGIN_REDIRECT_URL = '/'  # URL to redirect to after successful login
-LOGOUT_REDIRECT_URL = 'account/login/'  # URL to redirect to after logout
+LOGOUT_REDIRECT_URL = 'chat/lobby/'  # URL to redirect to after logout
