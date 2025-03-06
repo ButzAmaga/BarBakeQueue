@@ -44,7 +44,7 @@
           <ul class="navbar-nav mb-2 mb-lg-0">
 
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link {{home_active}}" aria-current="page" href="{% url 'main:index' %}">Home</a>
             </li>
 
             <li class="nav-item">
@@ -59,7 +59,18 @@
               <a class="nav-link fw-normal" href="#">About Us</a>
             </li>
             
-            <a href="{% url 'account:login' %}" class="btn btn-primary mt-3 mt-lg-0 ms-lg-5">Login</a>
+            {% if user.is_authenticated %}
+              <li class="ms-lg-3 nav-item">
+
+                <a class="mb-0 ms-3 nav-link fw-normal">Welcome, {{ user.username }}!</a>
+              </li>
+            {% else %}
+
+              {% if not is_login_page %}
+                <a href="{% url 'account:login' %}" class="btn btn-primary mt-3 mt-lg-0 ms-lg-5">Login</a>
+              {% endif %}
+                
+            {% endif %}
           </ul>
 
 

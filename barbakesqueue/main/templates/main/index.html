@@ -1,4 +1,5 @@
 {% extends 'core/core.html' %}
+{% load static %}
 
 
 {% block links %}
@@ -6,8 +7,58 @@
     
 
 {% block content %}
-    Home page
-    
+   
+    <div class="container mt-3">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+
+            
+            {% for cake in cakes %}
+                <div class="col">
+                    <div class="shadow shadow-sm">
+                        <div>
+
+                            <img src="{{cake.main_pic.url}}" style="width: 100%; aspect-ratio: 1.5/1;" class="object-fit-cover" alt="cake_image">
+
+                            <div class="p-3 mt-2">
+                                <p style="font-size: 1.5em;" class="fw-bold mb-0">${{cake.price}}</p>
+                                <p style="font-family: Pacifico;" class="m-0 text-black">{{cake.name}}</p>
+
+
+                                <div class="d-flex justify-content-between mt-3">
+                                    
+                                    <div>
+                                        
+                                        {% for _ in cake.rating %}
+                                            <img style="width: 1em; aspect-ratio: 1/1;" src="{% static 'images/icons/active_star.png' %}" alt="">
+                                        {% endfor %}
+                                            
+                                    </div>
+
+                                    <div class="d-flex justify-content-end gap-2 ">
+                                        <button class="btn p-0" title="detail">
+                                            <img style="width: 1.5em; aspect-ratio: 1/1;" src="{% static 'images/icons/eye.png' %}" alt="">
+                                        </button>    
+                                        <button class="btn p-0" title="add to cart">
+                                            <img style="width: 1.5em; aspect-ratio: 1/1;" src="{% static 'images/icons/add_cart.png' %}" alt="">
+                                        </button>    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 
+                        
+                        <p>Flavor: {{cake.flavor}}</p>
+                        <p>Availability: {{cake.availability}}</p>
+                        -->
+                    </div>
+                </div>
+            {% endfor %}
+                
+
+        </div>
+    </div>
+
 {% endblock content %}
 
 

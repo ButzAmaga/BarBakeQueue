@@ -50,11 +50,17 @@ class Cake(models.Model):
     price = models.IntegerField()
     caketype = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
+
+    main_pic = models.ImageField(upload_to='cake/main/', null=True)
+    
    #layer = models.ManyToManyField('Layer')
     flavor = models.CharField(max_length=100)
    #filling = models.ManyToManyField('Filling')
     availability = models.CharField(max_length=20, choices=AVAILABILITY_CHOICES)
     group_by = models.CharField(max_length=20, choices=OCCASION_CHOICES)
+
+    rating = models.CharField(max_length=5, default='xxxxx')
+    
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

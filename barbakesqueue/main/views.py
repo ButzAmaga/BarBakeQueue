@@ -1,6 +1,9 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView,ListView
+from cake.models import *
 # Create your views here.
 
-class Index(TemplateView):
+class Index(ListView):
     template_name = 'main/index.html'
+    model = Cake
+    context_object_name = 'cakes'
