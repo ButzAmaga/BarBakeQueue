@@ -40,7 +40,7 @@
         </button>
 
         <!-- collapsable links -->
-        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse justify-content-end mt-3 mt-lg-0" id="navbarSupportedContent">
           <ul class="navbar-nav mb-2 mb-lg-0">
 
             <li class="nav-item">
@@ -58,9 +58,12 @@
             <li class="nav-item">
               <a class="nav-link fw-normal" href="#">About Us</a>
             </li>
-
-
+            
+            <a href="{% url 'account:login' %}" class="btn btn-primary mt-3 mt-lg-0 ms-lg-5">Login</a>
           </ul>
+
+
+
         </div>
       </div>
     </nav>    
