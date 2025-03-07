@@ -5,7 +5,7 @@
 __pycache__/
 *.sqlite3
 web_env
-barbakesqueue\staticfiles
+barbakesqueue/staticfiles
 
 # Node.js-related files
 node_modules/
