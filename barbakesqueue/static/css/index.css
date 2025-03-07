@@ -21,6 +21,14 @@ html {
   font-weight: normal;
   font-style: normal;
 }
+.img-zoom-hover {
+  transition: 0.5s ease;
+}
+
+.img-zoom-hover:hover {
+  transform: scale(1.2);
+}
+
 .nav-link.active {
   font-weight: bold;
 }

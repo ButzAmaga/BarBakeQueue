@@ -16,7 +16,7 @@
     </style>
 
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
-
+    
     {% block links %}
         
     {% endblock links %}
@@ -31,7 +31,6 @@
         <!-- business logo -->
         <a class="navbar-brand d-flex align-items-center gap-3" href="#">
             <img style="width: 4em; aspect-ratio: 1/1;" src="{% static 'images/logo/logo.png' %}" alt="">
-            <p class="mb-0" style="font-size: 1em;">Barbakesqueue</p>
         </a>
 
         <!-- mobile toggler -->
@@ -60,9 +59,14 @@
             </li>
             
             {% if user.is_authenticated %}
-              <li class="ms-lg-3 nav-item">
+              <li class="ms-lg-5 nav-item d-flex gap-3 align-items-center">
 
-                <a class="mb-0 ms-3 nav-link fw-normal">Welcome, {{ user.username }}!</a>
+                
+                <button class="btn p-0 position-relative" title="Cart">
+                  <img src="{% static 'images/icons/shopping_cart.png' %}" style="width: 2em; aspect-ratio: 1/1;" alt="">
+                  <div style="top: -5%; left: 28%; background-color: red; width: .9em; aspect-ratio: 1/1;" class="position-absolute rounded rounded-5"></div>
+                </button> 
+                <img src="{{user.account.profile_pic.url}}" style="width: 2.5em; aspect-ratio: 1/1;" class="border border-1 rounded rounded-5" alt="Profile Pic">
               </li>
             {% else %}
 

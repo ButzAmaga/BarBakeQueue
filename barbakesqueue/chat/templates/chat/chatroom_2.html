@@ -1,7 +1,8 @@
 {% extends "core/core_chat.html" %}
 
 {% block content %}
-   
+    
+
     <div class="w-100" hx-ext="ws" ws-connect="/ws/chat/channel_{{object.id}}/">
 
         <p class="mt-2 mb-0">{{object}}</p>

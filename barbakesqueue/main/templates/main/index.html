@@ -9,15 +9,17 @@
 {% block content %}
    
     <div class="container mt-3">
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xxl-4 g-3">
 
             
             {% for cake in cakes %}
                 <div class="col">
                     <div class="shadow shadow-sm">
-                        <div>
-
-                            <img src="{{cake.main_pic.url}}" style="width: 100%; aspect-ratio: 1.5/1;" class="object-fit-cover" alt="cake_image">
+                        <div class="overflow-hidden">
+                            
+                            <div  class="overflow-hidden" >
+                                <img src="{{cake.main_pic.url}}" style="width: 100%; aspect-ratio: 1.5/1;" class="object-fit-cover img-zoom-hover" alt="cake_image">
+                            </div>
 
                             <div class="p-3 mt-2">
                                 <p style="font-size: 1.5em;" class="fw-bold mb-0">${{cake.price}}</p>
