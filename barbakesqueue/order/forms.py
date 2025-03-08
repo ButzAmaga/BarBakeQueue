@@ -1,4 +1,4 @@
-from django.forms import forms
+from django import forms
 from .models import *
 
 '''
@@ -8,7 +8,7 @@ class AddToCartForm(forms.ModelForm):
     
     class Meta:
         model = Cart
-        excludes = ["customer"]
+        exclude = ["cake", "customer"]
         
 
         

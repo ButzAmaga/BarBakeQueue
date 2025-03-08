@@ -1,0 +1,9 @@
+<form action="{% url 'order:cart_form' cake.id %}" method="post">
+
+    <p>{{cake}}</p>
+
+    {% csrf_token %}
+    {{form}}
+
+    <button class="btn btn-primary">Add to cart</button>
+</form>
