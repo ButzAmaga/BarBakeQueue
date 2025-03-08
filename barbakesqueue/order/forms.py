@@ -8,7 +8,9 @@ class AddToCartForm(forms.ModelForm):
     
     class Meta:
         model = Cart
-        fields = "__all__"
+        excludes = ["customer"]
+        
+
         
         
     
