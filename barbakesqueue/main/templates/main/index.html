@@ -40,7 +40,10 @@
                                         <button class="btn p-0" title="detail">
                                             <img style="width: 1.5em; aspect-ratio: 1/1;" src="{% static 'images/icons/eye.png' %}" alt="">
                                         </button>    
-                                        <button data-bs-target="#modal_out" data-bs-toggle="modal" class="btn p-0" title="add to cart">
+                                        <button data-bs-target="#modal_out" data-bs-toggle="modal" 
+                                                class="btn p-0" title="add to cart"
+                                                hx-get="{% url 'order:cart_form' cake.id %}" hx-target="#modal_out_content" 
+                                                hx-swap="innerHTML">
                                             <img style="width: 1.5em; aspect-ratio: 1/1;" src="{% static 'images/icons/add_cart.png' %}" alt="">
                                         </button>    
                                     </div>

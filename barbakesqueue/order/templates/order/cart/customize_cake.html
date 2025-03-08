@@ -1,5 +1,5 @@
-<form action="{% url 'order:cart_form' cake.id %}" method="post">
-
+<form class="p-4" hx-post="{% url 'order:cart_form' cake.id %}" method="post">
+    <img src="{{cake.main_pic.url}}" style="width: 3em; aspect-ratio: 1/1;" alt="">
     <p>{{cake}}</p>
 
     {% csrf_token %}

@@ -10,7 +10,9 @@ class AddToCartForm(forms.ModelForm):
         model = Cart
         exclude = ["cake", "customer"]
         
-
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["quantity"].initial = 1
         
         
     
