@@ -50,3 +50,17 @@ class Cart_form(CakeDetailMixin, generic.CreateView):
         
         return super().form_valid(form)
   
+class Cart_items(generic.ListView):
+    model = Cart
+    template_name = "order/cart/cart_items.html"
+    context_object_name = 'cart_items'
+    
+    
+    def get_queryset(self):
+        '''
+            get the current user customer id and then get the customer`s cart items
+        '''
+        customer_id = customer.objects.get(account = self.request.user)
+        items = self.model.objects.filter(customer = customer_id)
+        
+        return items

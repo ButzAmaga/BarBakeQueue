@@ -1,0 +1,14 @@
+<div class="p-4">
+    
+    <h3>Cart</h3> 
+    <div class="d-flex flex-column gap-3">
+        {% for cart in cart_items  %}
+            <div>
+                <img src="{{cart.cake.main_pic.url}}" style="width: 3em; aspect-ratio: 1/1;" alt="">
+                <p>{{cart.cake}}</p>
+                <p>{{cart.quantity}}</p>
+            </div>
+        {% endfor %}
+    </div>
+        
+</div>

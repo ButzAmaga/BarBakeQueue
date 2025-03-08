@@ -62,7 +62,10 @@
               <li class="ms-lg-5 nav-item d-flex gap-3 align-items-center">
 
                 
-                <button data-bs-target="#modal_out" data-bs-toggle="modal" class="btn p-0 position-relative" title="Cart">
+                <button data-bs-target="#modal_out" data-bs-toggle="modal" 
+                        class="btn p-0 position-relative" title="Cart"
+                        hx-get="{% url 'order:cart_items' %}" hx-target="#modal_out_content"
+                        hx-swap="innerHTML">
                   <img src="{% static 'images/icons/shopping_cart.png' %}" style="width: 2em; aspect-ratio: 1/1;" alt="">
                   <div style="top: -5%; left: 28%; background-color: red; width: .9em; aspect-ratio: 1/1;" class="position-absolute rounded rounded-5"></div>
                 </button> 
