@@ -1,7 +1,7 @@
 import chardet
 
 # Read the content of the original JSON file
-with open('db_data.json', 'rb') as f:
+with open('data_backup.json', 'rb') as f:
     content = f.read()
 
 # Detect the encoding
