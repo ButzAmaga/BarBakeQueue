@@ -39,7 +39,7 @@ class Cart_form(CakeDetailMixin, generic.CreateView):
             get the current user customer id
         '''
 
-        
+
         customer_instance = customer.objects.get(account = self.request.user)
         
         # added the customer_instance of current user to the form instance
