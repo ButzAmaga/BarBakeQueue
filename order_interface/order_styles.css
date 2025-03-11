@@ -1,0 +1,139 @@
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fff0f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Order Summary Container */
+.order-summary {
+    width: 80%;
+    max-width: 800px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(216, 50, 137, 0.3);
+    padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+.order-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #D83289;
+    text-align: center;
+}
+
+.order-items {
+    list-style-type: none;
+    padding: 0;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #D83289;
+}
+
+.order-item img {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-item-details {
+    flex: 1;
+    margin-left: 12px;
+}
+
+.order-item-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #D83289;
+}
+
+.order-item-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #D83289;
+}
+
+/* Down Payment Section */
+.down-payment {
+    margin-top: 20px;
+    padding: 15px;
+    background: #fff0f5;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.payment-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #D83289;
+    margin-bottom: 10px;
+}
+
+.receipt-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #D83289;
+    display: block;
+    margin-top: 10px;
+}
+
+.receipt-upload {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    border: 2px dashed #D83289;
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* Checkout Buttons */
+.checkout-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn {
+    background: linear-gradient(135deg, #D83289, #ff80b3);
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #ff80b3, #D83289);
+    transform: scale(1.05);
+}
+
+/* Overlay Background */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}

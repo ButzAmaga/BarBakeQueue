@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+    <link rel="stylesheet" href="order_styles.css">
+    <script src="order_script.js"></script>
+</head>
+<body>
+    <div class="order-summary">
+        <h2 class="order-title">Order Summary</h2>
+        <div id="order-items">
+            <!-- Order items will be dynamically inserted here -->
+        </div>
+
+        <div class="down-payment">
+            <h3 class="payment-title">Down Payment</h3>
+            <p>Down payment should be made through <strong>GCash</strong> or <strong>PayMaya</strong>.</p>
+            <p>Required Down Payment: <strong>30-50%</strong> of Total</p>
+            <label for="receipt-upload" class="receipt-label">Upload Receipt Proof:</label>
+            <input type="file" id="receipt-upload" accept="image/*" class="receipt-upload">
+        </div>
+
+        <div class="checkout-buttons">
+            <button class="btn">Proceed with Payment</button>
+            <button class="btn">Cancel Order</button>
+        </div>
+    </div>
+</body>
+</html>
