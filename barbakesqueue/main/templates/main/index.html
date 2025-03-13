@@ -15,47 +15,41 @@
             {% for cake in cakes %}
                 <div class="col">
                     <div class="shadow shadow-sm cake-card cake-img-zoom">
-                        <div class="overflow-hidden">
                             
-                            <div  class="overflow-hidden" >
-                                <img src="{{cake.main_pic.url}}" style="width: 100%; aspect-ratio: 1.5/1;" class="object-fit-cover img-zoom-target" alt="cake_image">
-                            </div>
+                        <div  class="overflow-hidden">
+                            <img src="{{cake.main_pic.url}}" style="width: 100%; aspect-ratio: 1.5/1;" class="object-fit-cover img-zoom-target" alt="cake_image">
+                        </div>
 
-                            <div class="p-3 mt-2">
-                                <p style="font-size: 1.5em;" class="fw-bold mb-0">${{cake.price}}</p>
-                                <p style="font-family: Pacifico;" class="m-0 text-black">{{cake.name}}</p>
+                        <div class="p-3 mt-2">
+                            <p style="font-size: 1.5em;" class="fw-bold mb-0">${{cake.price}}</p>
+                            <p style="font-family: Pacifico;" class="m-0 text-black">{{cake.name}}</p>
 
 
-                                <div class="d-flex justify-content-between mt-3">
+                            <div class="d-flex justify-content-between mt-3">
+                                
+                                <div>
                                     
-                                    <div>
+                                    {% for _ in cake.rating %}
+                                        <img style="width: 1em; aspect-ratio: 1/1;" src="{% static 'images/icons/active_star.png' %}" alt="">
+                                    {% endfor %}
                                         
-                                        {% for _ in cake.rating %}
-                                            <img style="width: 1em; aspect-ratio: 1/1;" src="{% static 'images/icons/active_star.png' %}" alt="">
-                                        {% endfor %}
-                                            
-                                    </div>
+                                </div>
 
-                                    <div class="d-flex justify-content-end gap-2 ">
-                                        <button class="btn p-0" title="detail">
-                                            <img style="width: 1.5em; aspect-ratio: 1/1;" src="{% static 'images/icons/eye.png' %}" alt="">
-                                        </button>    
-                                        <button data-bs-target="#modal_out" data-bs-toggle="modal" 
-                                                class="btn p-0" title="add to cart"
-                                                hx-get="{% url 'order:cart_form' cake.id %}" hx-target="#modal_out_content" 
-                                                hx-swap="innerHTML">
-                                            <img style="width: 1.5em; aspect-ratio: 1/1;" src="{% static 'images/icons/add_cart.png' %}" alt="">
-                                        </button>    
-                                    </div>
+                                <div class="d-flex justify-content-end gap-2 ">
+                                    <button class="btn p-0" title="detail">
+                                        <img style="width: 1.5em; aspect-ratio: 1/1;" src="{% static 'images/icons/eye.png' %}" alt="">
+                                    </button>    
+                                    <button data-bs-target="#modal_out" data-bs-toggle="modal" 
+                                            class="btn p-0" title="add to cart"
+                                            hx-get="{% url 'order:cart_form' cake.id %}" hx-target="#modal_out_content" 
+                                            hx-swap="innerHTML">
+                                        <img style="width: 1.5em; aspect-ratio: 1/1;" src="{% static 'images/icons/add_cart.png' %}" alt="">
+                                    </button>    
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- 
-                        
-                        <p>Flavor: {{cake.flavor}}</p>
-                        <p>Availability: {{cake.availability}}</p>
-                        -->
+
                     </div>
                 </div>
             {% endfor %}
