@@ -8,7 +8,7 @@ class AddToCartForm(forms.ModelForm):
     
     class Meta:
         model = Cart
-        exclude = ["cake", "customer"]
+        exclude = ["cake", "customer", "order_id", "is_ordered"]
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

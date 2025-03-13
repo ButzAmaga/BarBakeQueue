@@ -58,9 +58,9 @@ class Cart_items(generic.ListView):
     
     def get_queryset(self):
         '''
-            get the current user customer id and then get the customer`s cart items
+            get the current user customer id and then get the customer`s cart items, which are not ordered
         '''
         customer_id = customer.objects.get(account = self.request.user)
-        items = self.model.objects.filter(customer = customer_id)
+        items = self.model.objects.filter(customer = customer_id, is_ordered = False)
         
         return items

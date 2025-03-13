@@ -29,6 +29,22 @@ html {
   transform: scale(1.2);
 }
 
+.cake-card {
+  transition: 0.25s ease-out;
+}
+
+.cake-card:hover {
+  box-shadow: 0px 0px 0.2em 0px #BE2776 !important;
+}
+
+.cake-img-zoom .img-zoom-target {
+  transition: 0.5s ease;
+}
+
+.cake-img-zoom:hover .img-zoom-target {
+  transform: scale(1.2);
+}
+
 .nav-link.active {
   font-weight: bold;
 }
