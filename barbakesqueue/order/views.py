@@ -39,7 +39,6 @@ class Cart_form(CakeDetailMixin, generic.CreateView):
             get the current user customer id
         '''
 
-
         customer_instance = customer.objects.get(account = self.request.user)
         
         # added the customer_instance of current user to the form instance
@@ -49,6 +48,7 @@ class Cart_form(CakeDetailMixin, generic.CreateView):
         form.instance.cake = self.get_object()
         
         return super().form_valid(form)
+
   
 class Cart_items(generic.ListView):
     model = Cart
@@ -64,3 +64,33 @@ class Cart_items(generic.ListView):
         items = self.model.objects.filter(customer = customer_id, is_ordered = False)
         
         return items
+
+class Cart_items_v2(generic.FormView):
+    form_class = OrderFormSet
+    template_name = "order/cart/cart_items_v2.html"
+    success_url = reverse_lazy("order:cart_items_v2")
+
+    def get_form_kwargs(self):
+        context = super().get_form_kwargs()
+
+        # pass the queryset to get the cart of logged in user
+        context['queryset'] = Cart.objects.filter(customer = self.request.user.account, is_ordered = False)
+        
+        return context 
+    
+    def form_valid(self, form):
+        ''' create an order and save the instances with order '''
+        
+        instances = form.save(commit = False)
+        
+        order = Order.objects.create(customer = self.request.user.account)
+
+        for instance in instances:
+            instance.order_id = order
+            instance.save() 
+        
+        
+            
+        
+        return super().form_valid(form)
+    

@@ -14,5 +14,17 @@ class AddToCartForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields["quantity"].initial = 1
         
+
+class AddToOrderForm(forms.ModelForm):
+    class Meta:
+        model = Cart
+        fields = ["is_ordered"]
+        # fields = '__all__'
+
+orderBaseModelFormSet = forms.modelformset_factory(Cart, form=AddToOrderForm) 
+
+class OrderFormSet(orderBaseModelFormSet):
+    pass
+    
         
     
