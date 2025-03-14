@@ -5,6 +5,7 @@ from .forms import *
 from customer.models import *
 from django.shortcuts import get_object_or_404
 from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.list import MultipleObjectMixin
 from cake.models import *
 from django.urls import reverse_lazy
 # Create your views here.
@@ -69,13 +70,28 @@ class Cart_items_v2(generic.FormView):
     form_class = OrderFormSet
     template_name = "order/cart/cart_items_v2.html"
     success_url = reverse_lazy("order:cart_items_v2")
+    model = Cart
 
+    def get_queryset(self):
+        ''' get the user`s cart '''
+        user_cart = self.model.objects.filter(customer = self.request.user.account, is_ordered = False)
+        return user_cart
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        """ get the user`s cart """        
+        context["carts"] = self.get_queryset()
+
+        return context
+        
+        
     def get_form_kwargs(self):
         context = super().get_form_kwargs()
 
-        # pass the queryset to get the cart of logged in user
-        context['queryset'] = Cart.objects.filter(customer = self.request.user.account, is_ordered = False)
-        
+        # pass the queryset to get the cart of logged in user, use as basis for the form validation
+        context['queryset'] = self.get_queryset()
+                
         return context 
     
     def form_valid(self, form):

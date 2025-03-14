@@ -1,26 +1,39 @@
-<form class="d-flex flex-column gap-2" hx-post="{% url 'order:cart_items_v2' %}" hx-swap="outerHTML" method="post">
+<form class="d-flex flex-column gap-2 p-4" hx-post="{% url 'order:cart_items_v2' %}" hx-swap="outerHTML" method="post">
 
     {% csrf_token %}
     
 
-    {{form}}
-    
-    {% comment %}
-        
     {{form.management_form}}
-    {% for instance in form  %}
 
-        <div class="d-flex gap-1">
-            {{instance}}
-        </div>
-
+    <!-- cart items parent -->
+    <div class="d-flex flex-column gap-3">
         
-    {% endfor %}
-    {% endcomment %}
+        {% for cart in carts  %}
+
+            <div class="d-flex gap-1">
+                <!-- img with checkbox -->
+                <div  class="position-relative">
+                    <img src="{{cart.cake.main_pic.url}}" style="width: 5em; aspect-ratio: 1/1; object-fit: cover;" alt="">
+                    <!-- checkbox and cake_id -->
+                    <div class="bg-white d-flex top-0 position-absolute" style="height: fit-content;">
+                        <input class="m-0 form-check-input border border-primary" type="checkbox" name="form-{{forloop.counter0}}-is_ordered" id="id_form-{{forloop.counter0}}-is_ordered">
+                    </div>
+            
+                    <input class="d-none" type="hidden" name="form-{{forloop.counter0}}-id" value="{{cart.id}}" id="id_form-{{forloop.counter0}}-id">
+                </div>
+
+                <!-- cake text info -->
+                <div>
+                    <p>{{cart.cake.name}}</p>
+                    <p>{{cart.quantity}}</p>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+    </div>
             
         
-
-
-        
-    <button class="btn btn-primary" type="submit">Place Order</button>
+    <button class="btn btn-primary align-self-end" type="submit">Place Order</button>
 </form>
