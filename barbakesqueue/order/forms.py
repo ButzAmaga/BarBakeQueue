@@ -21,7 +21,7 @@ class AddToOrderForm(forms.ModelForm):
         fields = ["is_ordered"]
         # fields = '__all__'
 
-orderBaseModelFormSet = forms.modelformset_factory(Cart, form=AddToOrderForm) 
+orderBaseModelFormSet = forms.modelformset_factory(Cart, form=AddToOrderForm, extra=0) 
 
 class OrderFormSet(orderBaseModelFormSet):
     pass

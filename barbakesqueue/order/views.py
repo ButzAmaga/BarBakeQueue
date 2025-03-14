@@ -79,18 +79,23 @@ class Cart_items_v2(generic.FormView):
         return context 
     
     def form_valid(self, form):
-        ''' create an order and save the instances with order '''
+        ''' create an order instance and save the ordered cart instances with order '''
         
         instances = form.save(commit = False)
         
-        order = Order.objects.create(customer = self.request.user.account)
+        # check if the customer id is in the season, if not get it and add to seassion
+        customer_id = self.request.session.get("customer_id")
+        
+        if not customer_id :
+            print("Not in seasson, creating")
+            self.request.session["customer_id"] = self.request.user.account.id
+            customer_id = self.request.session.get("customer_id")
+
+        order = Order.objects.create(customer = customer.objects.get(id = customer_id))
 
         for instance in instances:
             instance.order_id = order
             instance.save() 
-        
-        
-            
         
         return super().form_valid(form)
     
