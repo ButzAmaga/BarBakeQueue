@@ -33,6 +33,10 @@ $input-focus-box-shadow:  none;
 @import '../node_modules/bootstrap/scss/functions';
 @import '../node_modules/bootstrap/scss/variables';
 
+// Merge with Bootstrap's default theme colors
+$theme-colors: map-merge($theme-colors, (
+  "black-900": $black_900
+));
 
 @import '../node_modules/bootstrap/scss/bootstrap';
 

@@ -8,3 +8,7 @@ $navbar-brand-margin-end: 0;
 .nav-link.active{
     font-weight: bold;
 }
+
+.nav-pills  .nav-item .nav-link{
+    color: $black_900;
+}

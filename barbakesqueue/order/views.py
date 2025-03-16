@@ -10,6 +10,10 @@ from cake.models import *
 from django.urls import reverse_lazy
 # Create your views here.
 
+
+class Index(generic.TemplateView):
+    template_name = "order/index.html"
+
 class CakeDetailMixin(SingleObjectMixin):
     model = Cake
     
@@ -115,3 +119,4 @@ class Cart_items_v2(generic.FormView):
         
         return super().form_valid(form)
     
+
