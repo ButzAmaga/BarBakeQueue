@@ -9,7 +9,7 @@ class Cart(models.Model):
     cake = models.ForeignKey(Cake, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     
-    order_id = models.ForeignKey("Order", on_delete=models.DO_NOTHING, null=True, blank=True, default=None) 
+    order_id = models.ForeignKey("Order", on_delete=models.SET_NULL, null=True, blank=True, default=None) 
     is_ordered = models.BooleanField(default=False)
     
     date_added = models.DateTimeField(auto_now_add=True)    
@@ -19,8 +19,18 @@ class Cart(models.Model):
         return f"{self.customer}`s {self.cake}" 
 
 class Order(models.Model):
+    
+    status_choices = (
+        ("not paid", "not paid"),
+        ("paid", "paid"),
+        ("in progress", "in progress"),
+        ("delivered", "delivered")
+    )
+    
     customer = models.ForeignKey(customer, related_name="orders", on_delete=models.CASCADE)
     
+    status = models.CharField(choices=status_choices, max_length=15, default="not paid")
+     
     date_ordered = models.DateTimeField(auto_now_add=True)    
     
     def __str__(self):

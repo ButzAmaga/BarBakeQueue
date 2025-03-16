@@ -4,30 +4,51 @@
 {% block content %}
 
     <div class="container">
-
+        <!-- header and nav pills -->
         <h3 class="mt-5" style="font-family: Pacifico;">Orders</h3> 
-        <ul class="nav nav-pills mt-4">
-            <li style="width: 7.5em;" class="nav-item text-center">
-                <a class="nav-link active" aria-current="page" href="#">Not paid</a>
+        <ul id="order_pills" class="nav nav-pills mt-4">
+            <li style="width: 7.8em;" class="nav-item text-center"
+                hx-get="{% url 'order:not_paid' %}" hx-target="#pill-content" hx-swap="innerHTML">
+                <a class="nav-link active" aria-current="page" href="#">No payment</a>
             </li>
-            <li style="width: 7.5em;" class="nav-item text-center">
+            <li style="width: 7.8em;" class="nav-item text-center">
               <a class="nav-link" href="#">Paid</a>
             </li>
-            <li style="width: 7.5em;" class="nav-item text-center">
+            <li style="width: 7.8em;" class="nav-item text-center">
               <a class="nav-link" href="#">Delivered</a>
             </li>
         </ul>
 
-        <div class="table-responsive">
-            <table class="table">
-                
-            </table>
+        <!-- changable content -->
+        <div id="pill-content" class="table-responsive mt-4"
+              hx-get="{% url 'order:not_paid' %}" hx-swap="innerHTML"
+              hx-trigger="load">
+
+              <p class="text-center">loading...</p>
         </div>
     </div>
 {% endblock content %}
 
 
 {% block script %}
-    
+    <script>
+
+        $(() => {
+
+            const order_pills_link = $("#order_pills .nav-link") 
+            
+            order_pills_link.on("click", function() {
+
+                // clear the active class to the order_pills_link
+                order_pills_link.removeClass("active")
+
+                // add the active class to current invoked pill
+                $(this).addClass("active")
+            })
+
+            console.log(order_pills_link)
+        })
+
+    </script>
 {% endblock script %}
     

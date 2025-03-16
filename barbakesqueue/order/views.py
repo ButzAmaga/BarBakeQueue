@@ -11,8 +11,26 @@ from django.urls import reverse_lazy
 # Create your views here.
 
 
+# admin view
+
 class Index(generic.TemplateView):
     template_name = "order/index.html"
+
+class Get_unpaid_order(generic.ListView):
+    model = Order
+    template_name = "order/unpaid_order_instances.html"
+    context_object_name = "orders"
+    
+    def get_queryset(self):
+        ''' return all order that is not paid '''
+        instances = self.model.objects.filter(status = "not paid").order_by("-date_ordered")
+        return instances
+
+
+
+
+
+# customer view 
 
 class CakeDetailMixin(SingleObjectMixin):
     model = Cake
@@ -21,8 +39,6 @@ class CakeDetailMixin(SingleObjectMixin):
         #Fetch the specific Cake that the user is adding to the cart.
         return get_object_or_404(Cake, pk=self.kwargs["pk"])  # Get Cake from URL
     
-
-
 class Cart_Created(generic.TemplateView):
     template_name = "order/cart/created_cart.html"
 

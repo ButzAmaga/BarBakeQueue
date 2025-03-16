@@ -1,0 +1,29 @@
+<table class="table table-borderless">
+    <thead>
+        <tr>
+          <th >Order id</th>
+          <th >Customer</th>
+          <th >Date ordered</th>
+          <th >Delivery date</th>
+          <th >Total</th>
+          <th >Actions</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        {% for order in orders  %}
+            <tr>
+                <th scope="row" class="text-end">{{order.id}}</th>
+                <td class="d-flex align-items-center gap-2">
+                    <img src="{{order.customer.profile_pic.url}}" style="width: 2em; aspect-ratio: 1/1;" class="rounded-5">
+                    <span>{{order.customer.first_name}}</span>
+                </td>
+                <td>{{order.date_ordered|date:'m/d/y'}}</td>
+                <td class="fw-bold">Not Set</td>
+                <td class="text-end fw-bold">$0</td>
+                <td>Not Set</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+        
+</table>
