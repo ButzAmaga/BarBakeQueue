@@ -3,28 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Summary</title>
+    <title>Order Interface</title>
     <link rel="stylesheet" href="order_styles.css">
-    <script src="order_script.js"></script>
+    <script src="https://kit.fontawesome.com/1fd114d0f4.js" crossorigin="anonymous"></script>
+    <script src="order_script.js" defer></script>
 </head>
 <body>
-    <div class="order-summary">
-        <h2 class="order-title">Order Summary</h2>
-        <div id="order-items">
-            <!-- Order items will be dynamically inserted here -->
+    <div class="order-modal">
+        <div class="order-header">
+            <h2 class="order-title">Order <i class="fa-solid fa-cart-plus cart-icon"></i></h2>
         </div>
+        <table class="order-table">
+            <thead>
+                <tr>
+                    <th>Order #</th>
+                    <th>Status</th>
+                    <th>Date Ordered</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="order-table-body">
+                <!-- Orders will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </div>
 
-        <div class="down-payment">
-            <h3 class="payment-title">Down Payment</h3>
-            <p>Down payment should be made through <strong>GCash</strong> or <strong>PayMaya</strong>.</p>
-            <p>Required Down Payment: <strong>30-50%</strong> of Total</p>
-            <label for="receipt-upload" class="receipt-label">Upload Receipt Proof:</label>
-            <input type="file" id="receipt-upload" accept="image/*" class="receipt-upload">
-        </div>
-
-        <div class="checkout-buttons">
-            <button class="btn">Proceed with Payment</button>
-            <button class="btn">Cancel Order</button>
+    <!-- Order Details Modal -->
+    <div id="order-details-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="order-number">Order #</h2>
+                <i class="fa-solid fa-cart-plus"></i>
+            </div>
+            <table class="details-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="order-items-list">
+                    <!-- Order items will be dynamically inserted here -->
+                </tbody>
+            </table>
+            <div class="order-summary">
+                <p><strong>Status:</strong> <span id="order-status" class="status-label"></span></p>
+                <p><strong>Date ordered:</strong> <span id="order-date"></span></p>
+                <p><strong>Total:</strong> <span id="order-total"></span></p>
+            </div>
+            <div class="modal-actions">
+                <button id="return-btn" class="btn">Return</button>
+                <button id="cancel-order-btn" class="btn btn-danger hidden">Cancel Order</button>
+            </div>
         </div>
     </div>
 </body>
