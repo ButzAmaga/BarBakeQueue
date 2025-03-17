@@ -43,11 +43,11 @@
           <ul class="navbar-nav mb-2 mb-lg-0">
 
             <li class="nav-item">
-              <a class="nav-link {{home_active}}" aria-current="page" href="{% url 'main:index' %}">Home</a>
+              <a class="nav-link {{home_active}}" aria-current="page" href="#">Home</a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#">Cakes</a>
+              <a class="nav-link {{cake_active}}" href="#">Cakes</a>
             </li>
 
             <li class="nav-item">
@@ -92,12 +92,12 @@
     
 
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script> 
+    <script src="{% static 'js/jquery.min.js' %}"></script> 
     <script src="{% static 'js/htmx.min.js' %}"></script> 
     <script src="{% static 'js/sse.js' %}"></script> 
     <script src="{% static 'js/ws.js' %}"></script> 
-    {% block script %}
-        
-    {% endblock script %}
+    
+    {% block script %}{% endblock script %}
 
         
 </body>

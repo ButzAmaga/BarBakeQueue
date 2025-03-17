@@ -3,7 +3,7 @@ from django.views.generic import TemplateView,ListView
 from cake.models import *
 # Create your views here.
 
-class Index(ListView):
-    template_name = 'main/index.html'
+class Cake_page(ListView):
+    template_name = 'main/cake_page.html'
     model = Cake
     context_object_name = 'cakes'
