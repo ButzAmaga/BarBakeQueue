@@ -13,7 +13,7 @@ class Index(ListView):
     
     def get_queryset(self):
         
-        customers = self.model.objects.filter(groups__name="Customer")
+        customers = self.model.objects.prefetch_related("account").filter(groups__name="Customer")
         
         return customers
     
