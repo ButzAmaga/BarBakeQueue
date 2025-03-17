@@ -8,6 +8,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.list import MultipleObjectMixin
 from cake.models import *
 from django.urls import reverse_lazy
+from django.db.models import Sum
 # Create your views here.
 
 
@@ -23,7 +24,7 @@ class Get_unpaid_order(generic.ListView):
     
     def get_queryset(self):
         ''' return all order that is not paid '''
-        instances = self.model.objects.filter(status = "not paid").order_by("-date_ordered")
+        instances = self.model.objects.filter(status = "not paid").annotate(total_price = Sum("cart_items__cake__price") ).order_by("-date_ordered")
         return instances
 
 

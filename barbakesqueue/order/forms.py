@@ -21,10 +21,19 @@ class AddToOrderForm(forms.ModelForm):
         fields = ["is_ordered"]
         # fields = '__all__'
 
-orderBaseModelFormSet = forms.modelformset_factory(Cart, form=AddToOrderForm, extra=0) 
+
+    
+
+orderBaseModelFormSet = forms.modelformset_factory(Cart, form=AddToOrderForm,  extra=0) 
 
 class OrderFormSet(orderBaseModelFormSet):
-    pass
+    def clean(self):
+        """ if there is no cart marked raise an error """ 
+        if not self.has_changed():
+            raise forms.ValidationError("No cart item have been ordered")
+
+        return super().clean()
+
     
         
     

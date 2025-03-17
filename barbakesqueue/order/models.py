@@ -9,7 +9,7 @@ class Cart(models.Model):
     cake = models.ForeignKey(Cake, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     
-    order_id = models.ForeignKey("Order", on_delete=models.SET_NULL, null=True, blank=True, default=None) 
+    order_id = models.ForeignKey("Order", related_name= "cart_items", on_delete=models.SET_NULL, null=True, blank=True, default=None) 
     is_ordered = models.BooleanField(default=False)
     
     date_added = models.DateTimeField(auto_now_add=True)    

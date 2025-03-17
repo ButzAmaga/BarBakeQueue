@@ -20,7 +20,7 @@
                 </td>
                 <td>{{order.date_ordered|date:'m/d/y'}}</td>
                 <td class="fw-bold">Not Set</td>
-                <td class="text-end fw-bold">$0</td>
+                <td class="text-end fw-bold">${{order.total_price}}</td>
                 <td>Not Set</td>
             </tr>
         {% endfor %}
