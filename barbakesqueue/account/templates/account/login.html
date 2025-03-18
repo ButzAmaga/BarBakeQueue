@@ -10,6 +10,22 @@
       <form class="p-4 shadow rounded d-flex flex-column gap-3" style="width: 100%; max-width: 420px;" action="{% url 'account:login' %}" method="post">
 
          <h4 class="fw-bold">Login</h4>
+
+         
+         {% if form.non_field_errors %}
+
+            <div class="alert alert-danger">
+
+               {% for error in form.non_field_errors  %}
+                  <p class="mb-0" style="font-size: .9em;">{{error}}</p>
+               {% endfor %}
+
+            </div>
+            
+         {% endif %}
+            
+
+
          {% csrf_token %}
 
          {% include 'form_template/text_template.html' with field=form.username %}

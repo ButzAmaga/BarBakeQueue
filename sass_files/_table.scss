@@ -1,0 +1,15 @@
+$table-th-font-weight: normal;
+$table-cell-padding-x:  1.5rem;
+
+#pill-content thead tr th{
+    font-size: .87em;
+    color: $black_700;
+}
+
+#pill-content tbody tr{
+
+    & td, & th{
+        color: $black_800;
+    }
+
+}

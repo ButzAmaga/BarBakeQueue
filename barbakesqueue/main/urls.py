@@ -4,6 +4,6 @@ from .views import *
 app_name = 'main'
 
 urlpatterns = [
-    path('', Index.as_view(), name='index'), # chat room lobby
+    path('', Cake_page.as_view(), name='cake_page'), # cake customer page
     
 ] 

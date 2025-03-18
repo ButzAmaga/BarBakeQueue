@@ -12,18 +12,15 @@
     <div class="container">
         
 
-        <div>
-
-        </div>
-
-        <h3 class="fw-bold">Messages</h3>
-        <div class="row gap-5">
+        <h3 class="mt-5" style="font-family: Pacifico;">Messages</h3> 
+       
+        <div class="row gap-5 mt-4">
 
             <!-- customer accounts -->
             <div class="col col-3">
                 
                 <!-- search -->
-                <div class="">
+                <div class="mb-3">
                     <form class="position-relative" action="#" method="get">
                         <input type="text" name="name" class="form-control form-control-lg pe-5" placeholder="Search Message" style="font-size: .9em;">
                     <button class="btn position-absolute rounded rounded-1 d-flex align-items-center justify-content-center p-0" style="width: 2em; height: 2em; background-color: black; color: white; top: 50%; right: 2%; transform: translateY(-50%);">Q</button>
@@ -31,7 +28,9 @@
                 </div>
 
                 {% for customer in customers %}
-                    <p  href="{% url 'chat:room' customer.id %}" class="p-2" hx-get="{% url 'chat:room' customer.id %}" hx-target="#messageBox" hx-swap="innerHTML">{{customer}}</p>
+                    <div class="p-2 d-flex align-items-center gap-2" hx-get="{% url 'chat:room' customer.id %}" hx-target="#messageBox" hx-swap="innerHTML">
+                        <img src="{{customer.account.profile_pic.url}}" style="width: 2.5em; aspect-ratio: 1/1;" class="rounded rounded-5">
+                        {{customer.account.first_name}} {{customer.account.last_name}}</div>
                 {% endfor %}
             </div>
 

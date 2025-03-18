@@ -1,0 +1,93 @@
+{% load static %}
+<form class="d-flex flex-column gap-2 p-4" hx-post="{% url 'order:cart_items_v2' %}" hx-swap="outerHTML" method="post">
+
+    <h4 class="fw-bold">Cart</h4>
+
+    {% if form.non_form_errors %}
+        
+        <div id="cart-danger" class="alert alert-danger alert-dismissible fade show" role="alert">
+            {% for error in form.non_form_errors  %}
+                <strong style="font-size: .78em;">{{error}}</strong>
+            {% endfor %}
+
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+    
+    {% if carts %}
+        <div id="cart-alert" class="alert alert-info alert-dismissible fade show" role="alert">
+            <strong style="font-size: .78em;">Click a cart item to include it for place order.</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+        
+
+    
+        
+    {% csrf_token %}
+    
+
+    {{form.management_form}}
+    
+    <!-- cart items parent -->
+    <div class="d-flex flex-column gap-3">
+        
+        {% for cart in carts  %}
+
+            <div class="d-flex gap-1 cart_item" title="">
+                <!-- img with checkbox -->
+                <div  class="position-relative">
+                    <img src="{{cart.cake.main_pic.url}}" style="width: 5em; aspect-ratio: 1/1; object-fit: cover;" alt="">
+                    <!-- checkbox and cake_id -->
+                    <div class="d-flex top-0 position-absolute" style="height: fit-content;">
+                        <input class="border-0 m-0 form-check-input border border-primary" type="checkbox" name="form-{{forloop.counter0}}-is_ordered" id="id_form-{{forloop.counter0}}-is_ordered">
+                    </div>
+            
+                    <input class="d-none" type="hidden" name="form-{{forloop.counter0}}-id" value="{{cart.id}}" id="id_form-{{forloop.counter0}}-id">
+                </div>
+
+                <!-- cake text info -->
+                <div>
+                    <p>{{cart.cake.name}}</p>
+                    <p>{{cart.quantity}}</p>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+    </div>
+    
+    {% if carts %}
+        {% comment %}show only when there is a cart item{% endcomment %}
+        <button class="btn btn-primary align-self-end" type="submit">Place Order</button>
+    {% endif %}
+    
+    
+    
+    {% if not carts %}
+        <p class="fw-bold text-center">Empty Cart, choose one from our cakes!</p>
+    {% endif %}
+        
+</form>
+
+<!-- for cart items -->
+<script src="{% static 'js/jquery.min.js' %}"></script> 
+<script>
+
+    $(() => {
+
+        // clicking a cart item
+        $(".cart_item").on("click", function(ev){
+            
+            // find the checkbox of current invoked cart and trigger it
+            $(this).find("input[type='checkbox']").click()
+
+        })
+
+        // alert timeout
+        setTimeout(function(){
+            new bootstrap.Alert($("#cart-alert")).close()
+        }, 3000)
+    })
+</script>

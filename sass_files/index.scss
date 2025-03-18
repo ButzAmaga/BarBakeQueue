@@ -7,7 +7,8 @@ html{
 $primary: #BE2776;
 
 $black_900: #161616;
-
+$black_800: #3C3C3C;
+$black_700: #707070;
 
 
 // forms 
@@ -23,7 +24,9 @@ $input-focus-box-shadow:  none;
 // custom 
 
 @import 'fonts';
-
+@import 'img';
+@import 'table';
+@import 'cake_card';
 
 // navbar variables
 @import 'navbar_variables';
@@ -32,6 +35,12 @@ $input-focus-box-shadow:  none;
 @import '../node_modules/bootstrap/scss/functions';
 @import '../node_modules/bootstrap/scss/variables';
 
+// Merge with Bootstrap's default theme colors
+$theme-colors: map-merge($theme-colors, (
+  "black-900": $black_900,
+  "black-800": $black_800,
+  "black-700": $black_700,
+));
 
 @import '../node_modules/bootstrap/scss/bootstrap';
 

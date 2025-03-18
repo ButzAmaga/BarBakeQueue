@@ -16,14 +16,14 @@
     </style>
 
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
-
+    
     {% block links %}
         
     {% endblock links %}
         
 </head>
 <body>
-
+    {% include 'form_template/modalTemplate.html' with name="out" %}
     <!-- nav bar -->
     <nav class="navbar navbar-expand-lg ">
       <div class="container align-items-center ">
@@ -31,7 +31,6 @@
         <!-- business logo -->
         <a class="navbar-brand d-flex align-items-center gap-3" href="#">
             <img style="width: 4em; aspect-ratio: 1/1;" src="{% static 'images/logo/logo.png' %}" alt="">
-            <p class="mb-0" style="font-size: 1em;">Barbakesqueue</p>
         </a>
 
         <!-- mobile toggler -->
@@ -40,15 +39,15 @@
         </button>
 
         <!-- collapsable links -->
-        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse justify-content-end mt-3 mt-lg-0" id="navbarSupportedContent">
           <ul class="navbar-nav mb-2 mb-lg-0">
 
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link {{home_active}}" aria-current="page" href="#">Home</a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#">Cakes</a>
+              <a class="nav-link {{cake_active}}" href="#">Cakes</a>
             </li>
 
             <li class="nav-item">
@@ -58,9 +57,31 @@
             <li class="nav-item">
               <a class="nav-link fw-normal" href="#">About Us</a>
             </li>
+            
+            {% if user.is_authenticated %}
+              <li class="ms-lg-5 nav-item d-flex gap-3 align-items-center">
 
+                <!-- cart item button -->
+                <button data-bs-target="#modal_out" data-bs-toggle="modal" 
+                        class="btn p-0 position-relative" title="Cart"
+                        hx-get="{% url 'order:cart_items_v2' %}" hx-target="#modal_out_content"
+                        hx-swap="innerHTML">
+                  <img src="{% static 'images/icons/shopping_cart.png' %}" style="width: 2em; aspect-ratio: 1/1;" alt="">
+                  <div style="top: -5%; left: 28%; background-color: red; width: .9em; aspect-ratio: 1/1;" class="position-absolute rounded rounded-5"></div>
+                </button> 
+                <img src="{{user.account.profile_pic.url}}" style="width: 2.5em; aspect-ratio: 1/1;" class="border border-1 rounded rounded-5" alt="Profile Pic">
+              </li>
+            {% else %}
 
+              {% if not is_login_page %}
+                <a href="{% url 'account:login' %}" class="btn btn-primary mt-3 mt-lg-0 ms-lg-5">Login</a>
+              {% endif %}
+                
+            {% endif %}
           </ul>
+
+
+
         </div>
       </div>
     </nav>    
@@ -71,12 +92,12 @@
     
 
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script> 
+    <script src="{% static 'js/jquery.min.js' %}"></script> 
     <script src="{% static 'js/htmx.min.js' %}"></script> 
     <script src="{% static 'js/sse.js' %}"></script> 
     <script src="{% static 'js/ws.js' %}"></script> 
-    {% block script %}
-        
-    {% endblock script %}
+    
+    {% block script %}{% endblock script %}
 
         
 </body>
