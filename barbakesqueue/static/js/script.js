@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Toggle chat box visibility
     chatIcon.addEventListener('click', function() {
+        console.log("chaticon")
         if (chatBox.style.display === 'none' || chatBox.style.display === '') {
             chatBox.style.display = 'flex';
             initialMessage.style.display = 'none'; // Hide initial message if chat is opened

@@ -1,20 +1,20 @@
 {% extends 'core/core.html' %}
-
-{% block content %}
-    <link rel="stylesheet" href="styles.css">
-{% endblock content %}
+{% load static %}
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock links %}
 
 {% block content %}
 <div id="chat-container">
     <!-- Floating Chat Icon -->
-    <div id="chat-icon" onclick="toggleChat()" title="Chat with us">
+    <div id="chat-icon" title="Chat with us">
         💬
     </div>
     
     <!-- Initial Message Bubble -->
     <div id="initial-message" class="fade-in">
         Talk with the admin to personalize your cakes.
-        <span id="close-msg" onclick="closeMessage()">&times;</span>
+        <span id="close-msg" >&times;</span>
     </div>
     
     <!-- Floating Chat Box -->
@@ -32,5 +32,5 @@
 {% endblock content %}
 
 {% block scripts %}
-    <script defer src="script.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
 {% endblock scripts %}
