@@ -1,0 +1,150 @@
+/* General Chat Container - Positions the chat components on the screen */
+#chat-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-family: 'Arial', sans-serif;
+    z-index: 1000;
+}
+
+/* Floating Chat Icon - Circular button that toggles the chat window */
+#chat-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(90deg, #D83289 50%, white 50%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 8px 16px rgba(216, 50, 137, 0.4);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    font-size: 24px;
+    font-family: 'Arial', sans-serif;
+}
+
+#chat-icon:hover {
+    transform: scale(1.15);
+    box-shadow: 0 10px 20px rgba(216, 50, 137, 0.6);
+}
+
+/* Initial Message Bubble - Displays a welcome message above the chat icon */
+#initial-message {
+    position: absolute;
+    bottom: 80px;
+    right: 10px;
+    background: #fff5f8;
+    color: #D83289;
+    padding: 12px 18px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: fadeIn 1s ease-in-out;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Close Button for Initial Message Bubble */
+#close-msg {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Floating Chat Box - Main chat window */
+#chat-box {
+    width: 320px;
+    max-height: 450px;
+    background: #fff5f8;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(216, 50, 137, 0.4);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideUp 0.3s ease-in-out;
+    font-family: 'Arial', sans-serif;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Chat Header - Contains the chat title */
+#chat-header {
+    background: linear-gradient(90deg, #D83289 50%, white 50%);
+    color: white;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Chat History - Displays the conversation messages */
+#chat-history {
+    height: 300px;
+    padding: 12px;
+    overflow-y: auto;
+    border-bottom: 1px solid #D83289;
+    background: #fff0f5;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Input Container - Holds the message input field and send button */
+#chat-input-container {
+    display: flex;
+    padding: 10px;
+    background: #fff5f8;
+}
+
+/* Message Input Field */
+#chat-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #D83289;
+    border-radius: 6px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Send Button - Sends user messages */
+#send-btn {
+    background: linear-gradient(90deg, #D83289 50%, white 50%);
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    cursor: pointer;
+    margin-left: 6px;
+    border-radius: 6px; 
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
+    font-family: 'Arial', sans-serif;
+}
+
+#send-btn:hover {
+    transform: scale(1.1);
+    background: linear-gradient(90deg, #D83289 50%, white 50%);
+}
+
+/* Responsive Design - Adjusts chat box for smaller screens */
+@media (max-width: 500px) {
+    #chat-box {
+        width: 95vw;
+        max-height: 70vh;
+    }
+    #initial-message {
+        max-width: 75vw;
+    }
+}
