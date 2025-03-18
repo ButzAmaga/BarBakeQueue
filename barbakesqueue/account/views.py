@@ -12,4 +12,4 @@ class Login(LoginView):
         if self.request.user.groups.first().name == 'Staff':
             return reverse_lazy('chat:main')
         else:
-            return reverse_lazy('main:index') # a customer account 
+            return reverse_lazy('main:cake_page') # a customer account 
