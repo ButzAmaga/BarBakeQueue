@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
     {% block title %}
-        
     {% endblock title %}
     </title>
 
@@ -15,6 +14,7 @@
        
     </style>
 
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     
     {% block links %}
@@ -23,6 +23,30 @@
         
 </head>
 <body>
+    <div id="chat-container">
+        <!-- Floating Chat Icon -->
+        <div id="chat-icon" title="Chat with us">
+            💬
+        </div>
+        
+        <!-- Initial Message Bubble -->
+        <div id="initial-message" class="fade-in">
+            Talk with the admin to personalize your cakes.
+            <span id="close-msg" >&times;</span>
+        </div>
+        
+        <!-- Floating Chat Box -->
+        <div id="chat-box" class="hidden">
+            <div id="chat-header">
+                <span>Live Chat</span>
+            </div>
+            <div id="chat-history"></div>
+            <div id="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Type a message...">
+                <button id="send-btn">Send</button>
+            </div>
+        </div>
+    </div>
     {% include 'form_template/modalTemplate.html' with name="out" %}
     <!-- nav bar -->
     <nav class="navbar navbar-expand-lg ">
@@ -97,6 +121,7 @@
     <script src="{% static 'js/sse.js' %}"></script> 
     <script src="{% static 'js/ws.js' %}"></script> 
     
+    <script src="{% static 'js/script.js' %}"></script>
     {% block script %}{% endblock script %}
 
         

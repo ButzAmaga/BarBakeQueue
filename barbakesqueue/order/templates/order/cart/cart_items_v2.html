@@ -34,9 +34,9 @@
         
         {% for cart in carts  %}
 
-            <div class="d-flex gap-1 cart_item" title="">
+            <div style="cursor: pointer;" class="d-flex gap-1 cart_item" title="">
                 <!-- img with checkbox -->
-                <div  class="position-relative">
+                <div style="pointer-events: none;" class="position-relative">
                     <img src="{{cart.cake.main_pic.url}}" style="width: 5em; aspect-ratio: 1/1; object-fit: cover;" alt="">
                     <!-- checkbox and cake_id -->
                     <div class="d-flex top-0 position-absolute" style="height: fit-content;">
@@ -47,7 +47,7 @@
                 </div>
 
                 <!-- cake text info -->
-                <div>
+                <div style="pointer-events: none;">
                     <p>{{cart.cake.name}}</p>
                     <p>{{cart.quantity}}</p>
 
@@ -66,7 +66,7 @@
     
     
     {% if not carts %}
-        <p class="fw-bold text-center">Empty Cart, choose one from our cakes!</p>
+        <p class="text-center">Empty Cart, <b class="text-primary"> choose one</b> from our <b class="text-primary"> cakes!</b></p>
     {% endif %}
         
 </form>
@@ -81,7 +81,7 @@
         $(".cart_item").on("click", function(ev){
             
             // find the checkbox of current invoked cart and trigger it
-            $(this).find("input[type='checkbox']").click()
+            $(ev.target).find("input[type='checkbox']").click()
 
         })
 
