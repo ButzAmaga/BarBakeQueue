@@ -2,6 +2,7 @@ import chardet
 
 # Read the content of the original JSON file
 with open('data.json', 'rb') as f:
+    print(f)
     content = f.read()
 
 # Detect the encoding
