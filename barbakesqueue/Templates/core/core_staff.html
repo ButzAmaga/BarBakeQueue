@@ -62,6 +62,12 @@
               <a class="nav-link fw-normal" href="#">Transactions</a>
             </li>
 
+            <li class="nav-item">
+              <form action="{% url 'account:logout' %}" method="post">
+                {% csrf_token %}
+                <button class="ms-5 btn btn-primary" href="{% url 'account:logout' %}" type="submit">Logout</button>
+              </form>
+            </li>
 
           </ul>
         </div>

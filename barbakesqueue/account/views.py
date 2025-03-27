@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -16,8 +16,10 @@ class Login(LoginView):
         else:
             return reverse_lazy('main:cake_page') # a customer account 
 
-            
 
+class Logout(LogoutView):
+    next_page = reverse_lazy("main:cake_page")
+ 
 class Login_first_promp(generic.TemplateView):
     template_name = 'account/login_first_promp.html'
 
@@ -34,10 +36,16 @@ class GroupRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
         return False
 
     def handle_no_permission(self):
+        
         return HttpResponseRedirect(redirect_to=reverse_lazy("account:login_promp"))
 
 class StaffPermission(GroupRequiredMixin):
     group_required = 'Staff'
+    
+    def handle_no_permission(self):
+        
+        return HttpResponseRedirect(redirect_to=reverse_lazy("account:login"))
 
 class CustomerPermission(GroupRequiredMixin):
     group_required = 'Customer' 
+    
