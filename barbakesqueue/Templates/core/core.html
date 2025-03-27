@@ -1,4 +1,5 @@
 {% load static %}
+{% load account_customtags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,30 +24,47 @@
         
 </head>
 <body>
-    <div id="chat-container">
-        <!-- Floating Chat Icon -->
-        <div id="chat-icon" title="Chat with us">
-            💬
-        </div>
-        
-        <!-- Initial Message Bubble -->
-        <div id="initial-message" class="fade-in">
-            Talk with the admin to personalize your cakes.
-            <span id="close-msg" >&times;</span>
-        </div>
-        
-        <!-- Floating Chat Box -->
-        <div id="chat-box" class="hidden">
-            <div id="chat-header">
-                <span>Live Chat</span>
+
+  
+  {% if user.is_authenticated %}
+    
+  
+    {% if user|has_group:"Customer" %}
+
+        <div id="chat-container">
+            <!-- Floating Chat Icon -->
+            <div id="chat-icon" title="Chat with us">
+                💬
             </div>
-            <div id="chat-history"></div>
-            <div id="chat-input-container">
-                <input type="text" id="chat-input" placeholder="Type a message...">
-                <button id="send-btn">Send</button>
+
+            <!-- Initial Message Bubble -->
+            <div id="initial-message" class="fade-in">
+                Talk with the admin to personalize your cakes.
+                <span id="close-msg" >&times;</span>
+            </div>
+
+            <!-- Floating Chat Box -->
+            <div id="chat-box" class="hidden">
+                <div id="chat-header">
+                    <span>Live Chat</span>
+                </div>
+                <div id="chat-history"></div>
+                <div id="chat-input-container">
+                    <input type="text" id="chat-input" placeholder="Type a message...">
+                    <button id="send-btn">Send</button>
+                </div>
             </div>
         </div>
-    </div>
+      
+
+
+
+    {% endif %}
+    
+  {% endif %}
+    
+
+
     {% include 'form_template/modalTemplate.html' with name="out" %}
     <!-- nav bar -->
     <nav class="navbar navbar-expand-lg ">
@@ -83,18 +101,25 @@
             </li>
             
             {% if user.is_authenticated %}
-              <li class="ms-lg-5 nav-item d-flex gap-3 align-items-center">
+                 {% if user|has_group:"Customer" %}
+                  
+                    <li class="ms-lg-5 nav-item d-flex gap-3 align-items-center">
 
-                <!-- cart item button -->
-                <button data-bs-target="#modal_out" data-bs-toggle="modal" 
-                        class="btn p-0 position-relative" title="Cart"
-                        hx-get="{% url 'order:cart_items_v2' %}" hx-target="#modal_out_content"
-                        hx-swap="innerHTML">
-                  <img src="{% static 'images/icons/shopping_cart.png' %}" style="width: 2em; aspect-ratio: 1/1;" alt="">
-                  <div style="top: -5%; left: 28%; background-color: red; width: .9em; aspect-ratio: 1/1;" class="position-absolute rounded rounded-5"></div>
-                </button> 
-                <img src="{{user.account.profile_pic.url}}" style="width: 2.5em; aspect-ratio: 1/1;" class="border border-1 rounded rounded-5" alt="Profile Pic">
-              </li>
+                      <!-- cart item button -->
+                      <button data-bs-target="#modal_out" data-bs-toggle="modal" 
+                              class="btn p-0 position-relative" title="Cart"
+                              hx-get="{% url 'order:cart_items_v2' %}" hx-target="#modal_out_content"
+                              hx-swap="innerHTML">
+                        <img src="{% static 'images/icons/shopping_cart.png' %}" style="width: 2em; aspect-ratio: 1/1;" alt="">
+                        <div style="top: -5%; left: 28%; background-color: red; width: .9em; aspect-ratio: 1/1;" class="position-absolute rounded rounded-5"></div>
+                      </button> 
+                      <img src="{{user.account.profile_pic.url}}" style="width: 2.5em; aspect-ratio: 1/1;" class="border border-1 rounded rounded-5" alt="Profile Pic">
+                    </li>
+
+                    {% else %}
+
+                    <a class="btn btn-primary ms-5" href="{% url 'account:login' %}">Staff Page</a>
+                 {% endif %}
             {% else %}
 
               {% if not is_login_page %}

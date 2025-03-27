@@ -1,7 +1,7 @@
 from django.db import models
 from customer.models import *
 from cake.models import *
-
+from account import views as account
 
 
 class Cart(models.Model):

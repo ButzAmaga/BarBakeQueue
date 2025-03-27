@@ -9,6 +9,7 @@ from django.views.generic.list import MultipleObjectMixin
 from cake.models import *
 from django.urls import reverse_lazy
 from django.db.models import Sum, F
+from account import views as account
 # Create your views here.
 
 
@@ -44,7 +45,7 @@ class Cart_Created(generic.TemplateView):
     template_name = "order/cart/created_cart.html"
 
 # make sure that only authenticated users can access this view
-class Cart_form(CakeDetailMixin, generic.CreateView):
+class Cart_form(account.CustomerPermission, CakeDetailMixin, generic.CreateView):
     form_class = AddToCartForm
     model = Cart
     template_name = "order/cart/customize_cake.html"
