@@ -3,8 +3,10 @@ html{
     font-size: 16px !important;
 }
 
+
 // colors
 $primary: #BE2776;
+$primary-light: #FFF3F9;
 
 $black_900: #161616;
 $black_800: #3C3C3C;
@@ -40,6 +42,7 @@ $theme-colors: map-merge($theme-colors, (
   "black-900": $black_900,
   "black-800": $black_800,
   "black-700": $black_700,
+  "primary-light" : $primary-light
 ));
 
 @import '../node_modules/bootstrap/scss/bootstrap';

@@ -12,3 +12,9 @@
 .cake-img-zoom:hover .img-zoom-target{
     transform: scale(1.2);
 }
+
+
+
+.cart-item:has(input[type="checkbox"]:checked){
+    background-color: $primary-light;
+}

@@ -1,7 +1,7 @@
 {% load static %}
-<form class="d-flex flex-column gap-2 p-4" hx-post="{% url 'order:cart_items_v2' %}" hx-swap="outerHTML" method="post">
+<form class="d-flex flex-column gap-2" hx-post="{% url 'order:cart_items_v2' %}" hx-swap="outerHTML" method="post">
 
-    <h4 class="fw-bold">Cart</h4>
+    <h4 class="fw-bold ps-4 pt-4">Cart</h4>
 
     {% if form.non_form_errors %}
         
@@ -30,14 +30,14 @@
     {{form.management_form}}
     
     <!-- cart items parent -->
-    <div class="d-flex flex-column gap-3">
+    <div class="d-flex flex-column gap-3 overflow-y-auto scroll" style="max-height: 25em;">
         
         {% for cart in carts  %}
 
-            <div style="cursor: pointer;" class="d-flex gap-1 cart_item" title="">
+            <div style="cursor: pointer;  min-height: 9.8em;" class="d-flex gap-1 px-4 cart-item" title="">
                 <!-- img with checkbox -->
                 <div style="pointer-events: none;" class="position-relative">
-                    <img src="{{cart.cake.main_pic.url}}" style="width: 5em; aspect-ratio: 1/1; object-fit: cover;" alt="">
+                    <img src="{{cart.cake.main_pic.url}}" style="height: 9.8em; aspect-ratio: 5/4; object-fit: cover;" alt="">
                     <!-- checkbox and cake_id -->
                     <div class="d-flex top-0 position-absolute" style="height: fit-content;">
                         <input class="border-0 m-0 form-check-input border border-primary" type="checkbox" name="form-{{forloop.counter0}}-is_ordered" id="id_form-{{forloop.counter0}}-is_ordered">
@@ -47,9 +47,39 @@
                 </div>
 
                 <!-- cake text info -->
-                <div style="pointer-events: none;">
-                    <p>{{cart.cake.name}}</p>
-                    <p>{{cart.quantity}}</p>
+                <div style="pointer-events: none; " class="w-100 p-2 d-flex flex-column justify-content-between">
+                    <!-- heading -->
+                    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center">
+                        <p style="font-family: Pacifico; font-size: 1.25em;" class="mb-0">{{cart.cake.name}}</p>
+                        
+                        <!-- actions -->
+                        <div class="d-flex gap-2 ">
+                            <button class="btn p-0" title="detail">
+                                <img style="width: 1.25em; aspect-ratio: 1/1;" src="{% static 'images/icons/eye.png' %}" alt="">
+                            </button>    
+                            <button data-bs-target="#modal_out" data-bs-toggle="modal" 
+                                    class="btn p-0" title="add to cart">
+                                <img style="width: 1.25em; aspect-ratio: 1/1;" src="{% static 'images/icons/add_cart.png' %}" alt="">
+                            </button>    
+                        </div>
+                    </div>
+                    
+                    <!-- summary -->
+                    <div class=" d-flex justify-content-end justify-content-sm-between align-items-end">
+                        <!-- cake summary -->
+                        <div class="d-none row row-cols-2 g-2 overflow-hidden" style="max-width: 18em;">
+                            <p style="font-size: .87em; text-overflow: ellipsis; " class="mb-0 text">3 layer</p>                        
+                            <p style="font-size: .87em; text-overflow: ellipsis; " class="mb-0">Medium</p>                        
+                            <p style="font-size: .87em; text-overflow: ellipsis; overflow: hidden;" class="mb-0">White Mocho</p>
+                            <p style="font-size: .87em; text-overflow: ellipsis; " class="mb-0">Circle</p>                        
+                        </div>
+
+                        <!-- price summary -->
+                        <div>
+                            <p class="text-black-700 mb-0 text-end" style="font-size: .75em;">Total</p>
+                            <p style="font-size: 1.2em;" class="fw-bold mb-0" >$500</p>
+                        </div>
+                    </div>
 
                 </div>
 
@@ -60,7 +90,13 @@
     
     {% if carts %}
         {% comment %}show only when there is a cart item{% endcomment %}
-        <button class="btn btn-primary align-self-end" type="submit">Place Order</button>
+        <div class="p-4 pt-2 d-flex justify-content-end">
+
+            <div class="d-flex gap-4">
+                <button class="btn btn-outline-black-900" type="submit">Delivery Detail</button>
+                <button class="btn btn-primary" type="submit">Checkout</button>
+            </div>
+        </div>
     {% endif %}
     
     
@@ -78,11 +114,10 @@
     $(() => {
 
         // clicking a cart item
-        $(".cart_item").on("click", function(ev){
+        $(".cart-item").on("click", function(ev){
             
             // find the checkbox of current invoked cart and trigger it
             $(ev.target).find("input[type='checkbox']").click()
-
         })
 
         // alert timeout
