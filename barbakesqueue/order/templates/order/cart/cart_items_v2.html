@@ -1,7 +1,14 @@
 {% load static %}
 <form class="d-flex flex-column gap-2" hx-post="{% url 'order:cart_items_v2' %}" hx-swap="outerHTML" method="post">
 
-    <h4 class="fw-bold ps-4 pt-4">Cart</h4>
+    <div class="d-flex justify-content-between p-4">
+        <h4 class="fw-bold">Cart</h4>
+
+        <button data-bs-target="#modal_out" data-bs-toggle="modal" 
+            class="btn p-0" title="customize cake">
+            <img style="width: 1.5em; aspect-ratio: 1/1;" src="{% static 'images/icons/order.png' %}"  alt="">
+        </button>    
+    </div>
 
     {% if form.non_form_errors %}
         
