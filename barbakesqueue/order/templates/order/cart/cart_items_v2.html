@@ -5,7 +5,7 @@
 
     {% if form.non_form_errors %}
         
-        <div id="cart-danger" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div id="cart-danger" class="alert alert-danger alert-dismissible fade show rounded-0" role="alert">
             {% for error in form.non_form_errors  %}
                 <strong style="font-size: .78em;">{{error}}</strong>
             {% endfor %}
@@ -15,7 +15,7 @@
     {% endif %}
     
     {% if carts %}
-        <div id="cart-alert" class="alert alert-info alert-dismissible fade show" role="alert">
+        <div id="cart-alert" class="alert alert-info alert-dismissible fade show rounded-0" role="alert">
             <strong style="font-size: .78em;">Click a cart item to include it for place order.</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -34,10 +34,10 @@
         
         {% for cart in carts  %}
 
-            <div style="cursor: pointer;  min-height: 9.8em;" class="d-flex gap-1 px-4 cart-item" title="">
+            <div style="cursor: pointer;" class="d-flex flex-column flex-sm-row gap-4 gap-sm-0 px-4 cart-item" title="">
                 <!-- img with checkbox -->
                 <div style="pointer-events: none;" class="position-relative">
-                    <img src="{{cart.cake.main_pic.url}}" style="height: 9.8em; aspect-ratio: 5/4; object-fit: cover;" alt="">
+                    <img src="{{cart.cake.main_pic.url}}" class="picture picture-sm" style="aspect-ratio: 5/4;" alt="">
                     <!-- checkbox and cake_id -->
                     <div class="d-flex top-0 position-absolute" style="height: fit-content;">
                         <input class="border-0 m-0 form-check-input border border-primary" type="checkbox" name="form-{{forloop.counter0}}-is_ordered" id="id_form-{{forloop.counter0}}-is_ordered">
@@ -47,27 +47,27 @@
                 </div>
 
                 <!-- cake text info -->
-                <div style="pointer-events: none; " class="w-100 p-2 d-flex flex-column justify-content-between">
+                <div style="pointer-events: none; " class="w-100 p-2 d-flex flex-column gap-3 gap-sm-0 justify-content-between">
                     <!-- heading -->
-                    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center">
-                        <p style="font-family: Pacifico; font-size: 1.25em;" class="mb-0">{{cart.cake.name}}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p style="font-family: Pacifico; font-size: 1.25em;" class="mb-0 d-flex align-items-center gap-2">{{cart.cake.name}} <span class="text-black-700" style="font-size: .6em; font-family: Poppins;">({{cart.quantity}})</span></p>
                         
                         <!-- actions -->
                         <div class="d-flex gap-2 ">
-                            <button class="btn p-0" title="detail">
-                                <img style="width: 1.25em; aspect-ratio: 1/1;" src="{% static 'images/icons/eye.png' %}" alt="">
+                            <button class="btn p-0" title="delete from cart">
+                                <img style="width: 1.25em; aspect-ratio: 1/1;" src="{% static 'images/icons/Delete.png' %}"  alt="">
                             </button>    
                             <button data-bs-target="#modal_out" data-bs-toggle="modal" 
-                                    class="btn p-0" title="add to cart">
-                                <img style="width: 1.25em; aspect-ratio: 1/1;" src="{% static 'images/icons/add_cart.png' %}" alt="">
+                                    class="btn p-0" title="customize cake">
+                                <img style="width: 1.25em; aspect-ratio: 1/1;" src="{% static 'images/icons/Edit.png' %}"  alt="">
                             </button>    
                         </div>
                     </div>
                     
                     <!-- summary -->
-                    <div class=" d-flex justify-content-end justify-content-sm-between align-items-end">
+                    <div class=" d-flex justify-content-between align-items-end">
                         <!-- cake summary -->
-                        <div class="d-none row row-cols-2 g-2 overflow-hidden" style="max-width: 18em;">
+                        <div class=" row row-cols-2 g-2 overflow-hidden" style="max-width: 18em;">
                             <p style="font-size: .87em; text-overflow: ellipsis; " class="mb-0 text">3 layer</p>                        
                             <p style="font-size: .87em; text-overflow: ellipsis; " class="mb-0">Medium</p>                        
                             <p style="font-size: .87em; text-overflow: ellipsis; overflow: hidden;" class="mb-0">White Mocho</p>
@@ -93,7 +93,7 @@
         <div class="p-4 pt-2 d-flex justify-content-end">
 
             <div class="d-flex gap-4">
-                <button class="btn btn-outline-black-900" type="submit">Delivery Detail</button>
+                <button class="btn btn-outline-black-900" type="submit">Delivery Info</button>
                 <button class="btn btn-primary" type="submit">Checkout</button>
             </div>
         </div>

@@ -54,10 +54,27 @@ html {
   transform: scale(1.2);
 }
 
+.cart-item {
+  transition: 0.3s ease;
+}
+
 .cart-item:has(input[type=checkbox]:checked) {
   background-color: #FFF3F9;
 }
 
+.cart-item .picture {
+  width: 100% !important;
+  aspect-ratio: 5/4;
+  object-fit: cover;
+}
+
+@media (min-width: 576px) {
+  .cart-item .picture-sm {
+    width: 10em !important;
+    aspect-ratio: 5/4;
+    object-fit: cover;
+  }
+}
 .nav-link.active {
   font-weight: bold;
 }
