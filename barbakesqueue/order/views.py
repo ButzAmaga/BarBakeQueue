@@ -72,7 +72,7 @@ class Cart_form(account.CustomerPermission, CakeDetailMixin, generic.CreateView)
         
         return super().form_valid(form)
 
-  
+# not used 
 class Cart_items(generic.ListView):
     model = Cart
     template_name = "order/cart/cart_items.html"
@@ -96,14 +96,16 @@ class Cart_items_v2(generic.FormView):
 
     def get_queryset(self):
         ''' get the user`s cart '''
-        user_cart = self.model.objects.filter(customer = self.request.user.account, is_ordered = False)
+        user_cart = self.model.objects.annotate(total_price=Sum( F("cake__price") * F("quantity") )).filter(customer = self.request.user.account, is_ordered = False)
+
+        
         return user_cart
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
         """ get the user`s cart """        
-        context["carts"] = self.get_queryset()
+        context["carts"] = self.queryset_cache
 
         return context
         
@@ -113,6 +115,9 @@ class Cart_items_v2(generic.FormView):
 
         # pass the queryset to get the cart of logged in user, use as basis for the form validation
         context['queryset'] = self.get_queryset()
+        
+        # save it to a variable to avoid refetching
+        self.queryset_cache = context["queryset"]
                 
         return context 
     

@@ -54,8 +54,13 @@ html {
   transform: scale(1.2);
 }
 
-.cart-item {
+.cart-item button {
   transition: 0.3s ease;
+  border-radius: 10;
+}
+
+.cart-item button:hover {
+  background-color: rgb(235, 235, 235);
 }
 
 .cart-item:has(input[type=checkbox]:checked) {

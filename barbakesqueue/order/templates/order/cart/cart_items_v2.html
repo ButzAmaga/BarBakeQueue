@@ -1,7 +1,7 @@
 {% load static %}
 <form class="d-flex flex-column gap-2" hx-post="{% url 'order:cart_items_v2' %}" hx-swap="outerHTML" method="post">
 
-    <div class="d-flex justify-content-between p-4">
+    <div class="d-flex justify-content-between p-4 pb-0">
         <h4 class="fw-bold">Cart</h4>
 
         <button data-bs-target="#modal_out" data-bs-toggle="modal" 
@@ -12,7 +12,7 @@
 
     {% if form.non_form_errors %}
         
-        <div id="cart-danger" class="alert alert-danger alert-dismissible fade show rounded-0" role="alert">
+        <div id="cart-danger" class="alert alert-danger alert-dismissible fade show rounded-0 mb-2" role="alert">
             {% for error in form.non_form_errors  %}
                 <strong style="font-size: .78em;">{{error}}</strong>
             {% endfor %}
@@ -43,7 +43,7 @@
 
             <div style="cursor: pointer;" class="d-flex flex-column flex-sm-row gap-4 gap-sm-0 px-4 cart-item" title="">
                 <!-- img with checkbox -->
-                <div style="pointer-events: none;" class="position-relative">
+                <div class="position-relative" style="pointer-events: none;">
                     <img src="{{cart.cake.main_pic.url}}" class="picture picture-sm" style="aspect-ratio: 5/4;" alt="">
                     <!-- checkbox and cake_id -->
                     <div class="d-flex top-0 position-absolute" style="height: fit-content;">
@@ -54,25 +54,27 @@
                 </div>
 
                 <!-- cake text info -->
-                <div style="pointer-events: none; " class="w-100 p-2 d-flex flex-column gap-3 gap-sm-0 justify-content-between">
+                <div style="pointer-events: none;" class="w-100 p-2 d-flex flex-column gap-3 gap-sm-0 justify-content-between">
                     <!-- heading -->
                     <div class="d-flex justify-content-between align-items-center">
                         <p style="font-family: Pacifico; font-size: 1.25em;" class="mb-0 d-flex align-items-center gap-2">{{cart.cake.name}} <span class="text-black-700" style="font-size: .6em; font-family: Poppins;">({{cart.quantity}})</span></p>
                         
+
                         <!-- actions -->
-                        <div class="d-flex gap-2 ">
-                            <button class="btn p-0" title="delete from cart">
+                        <div class="d-flex" style="pointer-events: auto;">
+                            <button class="btn p-1" title="delete from cart"
+                                data-bs-target="#modal_out2" data-bs-toggle="modal">
                                 <img style="width: 1.25em; aspect-ratio: 1/1;" src="{% static 'images/icons/Delete.png' %}"  alt="">
                             </button>    
-                            <button data-bs-target="#modal_out" data-bs-toggle="modal" 
-                                    class="btn p-0" title="customize cake">
+                            <button data-bs-target="#modal_out2" data-bs-toggle="modal"
+                                    class="btn p-1" title="customize cake">
                                 <img style="width: 1.25em; aspect-ratio: 1/1;" src="{% static 'images/icons/Edit.png' %}"  alt="">
                             </button>    
                         </div>
                     </div>
                     
                     <!-- summary -->
-                    <div class=" d-flex justify-content-between align-items-end">
+                    <div style="pointer-events: none;" class="d-flex justify-content-between align-items-end">
                         <!-- cake summary -->
                         <div class=" row row-cols-2 g-2 overflow-hidden" style="max-width: 18em;">
                             <p style="font-size: .87em; text-overflow: ellipsis; " class="mb-0 text">3 layer</p>                        
@@ -84,7 +86,7 @@
                         <!-- price summary -->
                         <div>
                             <p class="text-black-700 mb-0 text-end" style="font-size: .75em;">Total</p>
-                            <p style="font-size: 1.2em;" class="fw-bold mb-0" >$500</p>
+                            <p style="font-size: 1.2em;" class="fw-bold mb-0" >${{cart.total_price}}</p>
                         </div>
                     </div>
 

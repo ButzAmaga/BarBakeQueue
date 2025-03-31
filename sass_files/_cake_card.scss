@@ -13,28 +13,3 @@
     transform: scale(1.2);
 }
 
-
-
-.cart-item{
-    transition: .3s ease;
-}
-
-.cart-item:has(input[type="checkbox"]:checked){
-    background-color: $primary-light;
-}
-
-.cart-item .picture{
-      width: 100% !important;
-      aspect-ratio: 5/4;
-      object-fit: cover;
-}
-
-@media (min-width: 576px) { 
-    .cart-item .picture-sm{
-        width: 10em !important;
-        aspect-ratio: 5/4;
-        object-fit: cover;
-    }
-}
-
-

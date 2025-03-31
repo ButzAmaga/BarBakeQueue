@@ -1,0 +1,26 @@
+.cart-item button{
+    transition: .3s ease;
+    border-radius: 10;
+}
+.cart-item button:hover{
+    background-color: rgb(235, 235, 235);
+}
+
+.cart-item:has(input[type="checkbox"]:checked){
+    background-color: $primary-light;
+}
+
+.cart-item .picture{
+      width: 100% !important;
+      aspect-ratio: 5/4;
+      object-fit: cover;
+}
+
+@media (min-width: 576px) { 
+    .cart-item .picture-sm{
+        width: 10em !important;
+        aspect-ratio: 5/4;
+        object-fit: cover;
+    }
+}
+
