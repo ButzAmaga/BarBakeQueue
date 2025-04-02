@@ -1,5 +1,5 @@
 {% extends 'core/core_staff.html' %}
-
+{% load static %}
 
 {% block content %}
 
@@ -31,24 +31,6 @@
 
 
 {% block script %}
-    <script>
-
-        $(() => {
-
-            const order_pills_link = $("#order_pills .nav-link") 
-            
-            order_pills_link.on("click", function() {
-
-                // clear the active class to the order_pills_link
-                order_pills_link.removeClass("active")
-
-                // add the active class to current invoked pill
-                $(this).addClass("active")
-            })
-
-            console.log(order_pills_link)
-        })
-
-    </script>
+    <script src="{% static 'js/nav.pills.script.js' %}"></script>
 {% endblock script %}
     

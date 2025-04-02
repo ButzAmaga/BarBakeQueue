@@ -1,0 +1,45 @@
+{% load static %}
+<div class="p-4">
+
+    <div class="d-flex justify-content-between align-items-center">
+        <h4 class="fw-bold mb-0">Order</h4>
+
+        <button class="btn p-1" title="Cart"
+                data-bs-target="#modal_out" data-bs-toggle="modal">
+            <img style="width: 1.5em; aspect-ratio: 1/1;" src="{% static 'images/icons/shopping_cart_normal.png' %}"  alt="">
+        </button>    
+    </div>
+
+    <!-- content -->
+    <div>
+
+        <ul id="order_pills" class="nav nav-pills mt-4">
+            <li style="width: 7.8em;" class="nav-item text-center"
+                hx-get="{% url 'order:customer_orders_pending' %}" hx-target="#pill-content" hx-swap="innerHTML">
+                <a class="nav-link active" aria-current="page" href="#">Pending</a>
+            </li>
+            <li style="width: 7.8em;" class="nav-item text-center">
+              <a class="nav-link" href="#">On Progress</a>
+            </li>
+            <li style="width: 7.8em;" class="nav-item text-center">
+              <a class="nav-link" href="#">Delivered</a>
+            </li>
+        </ul>
+        
+
+
+        <!-- changable content -->
+        <div id="pill-content" class="table-responsive mt-4"
+              hx-get="{% url 'order:customer_orders_pending' %}" hx-swap="innerHTML"
+              hx-trigger="load">
+
+              <p class="text-center">loading...</p>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<script src="{% static 'js/nav.pills.script.js' %}"></script>

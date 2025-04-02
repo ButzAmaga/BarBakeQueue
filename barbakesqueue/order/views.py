@@ -143,3 +143,18 @@ class Cart_items_v2(generic.FormView):
         return super().form_valid(form)
     
 
+class Customer_orders(generic.TemplateView):
+    template_name = "order/customer_order/index.html"
+
+class Customer_orders_pending(generic.ListView):
+    template_name = "order/customer_order/pending_order_table.html"
+    model = Order
+    context_object_name = "orders"
+
+    def get_queryset(self):
+        ''' return the orders that are specific to current logged in customer '''
+        user_orders = self.model.objects.filter(customer = self.request.user.account, status="not paid")\
+                      .annotate(total_price = Sum( F("cart_items__quantity") * F("cart_items__cake__price"))).order_by("-date_ordered")
+        
+        return user_orders
+    

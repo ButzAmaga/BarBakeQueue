@@ -4,8 +4,10 @@
     <div class="d-flex justify-content-between p-4 pb-0">
         <h4 class="fw-bold">Cart</h4>
 
-        <button data-bs-target="#modal_out" data-bs-toggle="modal" 
-            class="btn p-0" title="customize cake">
+        <button data-bs-target="#modal_out2" data-bs-toggle="modal"
+                hx-target="#modal_out2_content" hx-swap="innerHTML" 
+                hx-get="{% url 'order:customer_orders' %}" 
+            class="btn p-0" title="orders">
             <img style="width: 1.5em; aspect-ratio: 1/1;" src="{% static 'images/icons/order.png' %}"  alt="">
         </button>    
     </div>
