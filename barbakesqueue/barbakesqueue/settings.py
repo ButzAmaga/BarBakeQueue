@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'cake',
     'order',
     'account',
-    'main'
+    'main',
+    'common'
 ]
 
 MIDDLEWARE = [

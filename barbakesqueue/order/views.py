@@ -10,18 +10,23 @@ from cake.models import *
 from django.urls import reverse_lazy
 from django.db.models import Sum, F
 from account import views as account
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from common.views import LoginWithPermissionMixin
 # Create your views here.
+
 
 
 # admin view
 
-class Index(generic.TemplateView):
+class Index(LoginWithPermissionMixin, generic.TemplateView):
     template_name = "order/index.html"
+    permission_required = ["Order.view_order", "Order.delete_order"]
 
-class Get_unpaid_order(generic.ListView):
+class Get_unpaid_order(LoginWithPermissionMixin,generic.ListView):
     model = Order
     template_name = "order/unpaid_order_instances.html"
     context_object_name = "orders"
+    permission_required = ["Order.view_order", "Order.delete_order"]
     
     def get_queryset(self):
         ''' return all order that is not paid '''
