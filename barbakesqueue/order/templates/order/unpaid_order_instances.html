@@ -1,3 +1,4 @@
+{% load static %}
 <table class="table table-borderless">
     <thead>
         <tr>
@@ -23,7 +24,24 @@
                 <td class="align-middle">{{order.date_ordered|date:'m/d/y'}}</td>
                 <td class="fw-bold align-middle">Not Set</td>
                 <td class="text-end fw-bold align-middle">${{order.total_price}}</td>
-                <td class="align-middle">Not Set</td>
+                <td class="align-middle">
+                    <div>
+                        <!-- order payment -->
+                        <button class="btn p-1" title="order transaction">
+                            <img style="width: 1.25em; aspect-ratio: 1/1;" src="{% static 'images/icons/payment.png' %}" alt="">
+                        </button>
+
+                        <!-- view order -->
+                        <button class="btn p-1" title="order details">
+                            <img style="width: 1.25em; aspect-ratio: 1/1;" src="{% static 'images/icons/eye.png' %}" alt="">
+                        </button>
+
+                        <!-- delete order -->
+                        <button class="btn p-1" title="remove order">
+                            <img style="width: 1.25em; aspect-ratio: 1/1;" src="{% static 'images/icons/Delete.png' %}" alt="">
+                        </button>
+                    </div>
+                </td>
             </tr>
         {% endfor %}
     </tbody>
