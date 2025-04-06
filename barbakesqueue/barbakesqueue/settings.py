@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'order',
     'account',
     'main',
+    'transaction',
     'common'
 ]
 

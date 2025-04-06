@@ -29,9 +29,9 @@
                 <td class="align-middle">
                     <div class="d-flex gap-2">
                         
-                        <button data-bs-target="#modal_out2" data-bs-toggle="modal"
-                                hx-target="#modal_out2_content" hx-swap="innerHTML" 
-                                hx-get="{% url 'order:customer_orders' %}" 
+                        <button data-bs-target="#modal_out" data-bs-toggle="modal"
+                                hx-target="#modal_out_content" hx-swap="innerHTML" 
+                                hx-get="{% url 'transaction:customer_form' order.id %}" 
                             class="btn p-0" title="orders">
                             <img style="width: 1.25em; aspect-ratio: 1/1;" src="{% static 'images/icons/order.png' %}"  alt="">
                         </button>    
