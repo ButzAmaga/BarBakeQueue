@@ -1,0 +1,91 @@
+{% extends 'core/core.html' %}
+
+
+{% block content %}
+
+    <section class="container">
+
+        <div class="d-flex justify-content-center align-items-center mt-5">
+
+            <form class="p-4 shadow shadow-sm rounded-4" style="max-width: 35em;"  method="post">
+
+                <h4 class="fw-bold">Registration</h4> 
+
+                <!-- group fields -->
+                <div class="mt-4">
+
+                    <p class="text-black-700">Basic Information</p>
+                    <div class="row row-cols-1 row-cols-sm-2 g-4">
+
+                        <div class="col">
+                            {% include 'form_template/text_template.html' with field=form.first_name %}
+                        </div>
+                        <div class="col">
+                            {% include 'form_template/text_template.html' with field=form.init_name %}
+                        </div>
+
+                        <div class="col">
+                            {% include 'form_template/text_template.html' with field=form.last_name %}
+                        </div>
+                        
+                        <div class="col">
+                            {% include 'form_template/text_template.html' with field=form.gender %}
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- group fields -->
+                <div class="mt-4">
+
+                    <p class="text-black-700">Account Information</p>
+                    <div class="row row-cols-1 row-cols-4 g-4">
+
+                        <div class="col-6">
+                            {% include 'form_template/text_template.html' with field=form.username %}
+                        </div>
+                        <div class="col-6">
+                            {% include 'form_template/text_template.html' with field=form.password %}
+                        </div>
+
+                        <div class="col-12">
+                            {% include 'form_template/image_template.html' with field=form.profile_pic is_create=True %}
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- group fields -->
+                <div class="mt-4">
+
+                    <p class="text-black-700">Contact Information</p>
+                    <div class="row row-cols-1 row-cols-sm-2 g-4">
+
+                        <div class="col">
+                            {% include 'form_template/text_template.html' with field=form.phone_num %}
+                        </div>
+                        <div class="col">
+                            {% include 'form_template/text_template.html' with field=form.home_address %}
+                        </div>
+
+                        <div class="col">
+                            {% include 'form_template/email_template.html' with field=form.email_address %}
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <button class="btn btn-primary mt-5" type="submit">Submit</button>
+
+            </form>
+
+        </div>
+
+
+    </section>
+
+
+{% endblock content %}
+    

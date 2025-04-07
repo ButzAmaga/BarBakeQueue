@@ -4,8 +4,19 @@ from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponseRedirect
-
+from django.views import generic
+from customer.models import *
+from customer.forms import *
 # Create your views here.
+
+
+class Customer_registration(generic.CreateView):
+    model = customer
+    form_class = Customer_registration_form
+    success_url = reverse_lazy("main:cake_page")
+    template_name = "account/register.html"
+
+
 class Login(LoginView):
     template_name = 'account/login.html'
     redirect_authenticated_user = True  # Redirect already authenticated users
