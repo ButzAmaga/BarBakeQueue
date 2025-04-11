@@ -9,7 +9,8 @@ urlpatterns = [
     path('chat/', include('chat.urls')),
     path('account/', include('account.urls')),
     path('order/', include('order.urls')),
-    path('transaction/', include('transaction.urls'))
+    path('transaction/', include('transaction.urls')),
+    path('common/', include('common.urls'))
 ]
 
 # Serve media files in development

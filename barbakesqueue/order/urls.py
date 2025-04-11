@@ -6,6 +6,7 @@ app_name = 'order'
 urlpatterns = [
     path('orders/', Index.as_view(), name='orders'), # list of orders
     path('orders/get/not_paid', Get_unpaid_order.as_view(), name='not_paid'), # list of unpaid order
+    path('orders/delete/<pk>', Delete_order.as_view(), name='delete_order'), # list of unpaid order
     
      
     path('cart/customer/customize/<pk>', Cart_form.as_view(), name='cart_form'), # customize cart

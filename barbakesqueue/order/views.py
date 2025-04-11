@@ -8,10 +8,13 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.list import MultipleObjectMixin
 from cake.models import *
 from django.urls import reverse_lazy
-from django.db.models import Sum, F
+from django.db.models import Sum, F, Exists, OuterRef, Value
 from account import views as account
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from common.views import LoginWithPermissionMixin
+from common.mixin import FormResponseMixin
+from transaction.models import *
+from urllib.parse import urlencode
 # Create your views here.
 
 
@@ -30,11 +33,27 @@ class Get_unpaid_order(LoginWithPermissionMixin,generic.ListView):
     
     def get_queryset(self):
         ''' return all order that is not paid '''
-        instances = self.model.objects.filter(status = "not paid").annotate(total_price = Sum( F("cart_items__quantity") * F("cart_items__cake__price")) ).order_by("-date_ordered")
+        instances = self.model.objects.filter(status = "not paid").annotate(total_price = Sum( F("cart_items__quantity") * F("cart_items__cake__price")), is_have_transactions = Exists( Transaction.objects.filter(order_id = OuterRef('pk')) ) ).order_by("-date_ordered")
+
+        for var in instances:
+            print(var.is_have_transactions)
+
         return instances
 
 
+class Delete_order(LoginWithPermissionMixin, FormResponseMixin ,generic.DeleteView):
+    template_name = "order/admin/order_delete.html"
+    model = Order
+    context_object_name = "order"
+    permission_required = ["order.delete_order"]
+    form_success_message = "Deleted Order"
+    
+    def get_queryset(self):
+        return self.model.objects.prefetch_related("cart_items__cake").all()
 
+ 
+    
+    
 
 
 # customer view 

@@ -1,0 +1,20 @@
+<form hx-post="{% url 'order:delete_order' order.id %}" class="p-4">
+    {% csrf_token %}
+    <h4 class="btn-black-900 fw-bold">Delete Order</h4>
+    <p>Are you sure to delete the order of {{order.customer.first_name}}?</p>
+    
+    <p class="mb-2 text-black-700">Order`s cart</p>
+    <!-- Items -->
+    <div class="d-flex gap-1">
+        
+        {% for cart in order.cart_items.all  %}
+            <img src="{{cart.cake.main_pic.url}}" style="width: 1.5em; aspect-ratio: 1/1; object-fit: cover; border-radius: 100%;" title="{{cart.cake.name}} quantity: ({{cart.quantity}})">
+        {% endfor %}
+            
+    </div>
+
+    <div class="d-flex justify-content-end">
+        <button style="width: 5em;" class="btn" type="button" data-bs-dismiss="modal">No</button>
+        <button style="width:5em;" class="btn btn-danger" type="submit">Yes</button>
+    </div>
+</form>
