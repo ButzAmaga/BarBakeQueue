@@ -1,5 +1,10 @@
 {% extends 'core/core.html' %}
+{% load static %}
 
+{% block links %}
+   <link rel="stylesheet" href="{% static 'css/form/styles.css' %}"> 
+{% endblock links %}
+    
 
 {% block content %}
 
@@ -7,12 +12,36 @@
 
         <div class="d-flex justify-content-center align-items-center mt-5">
 
-            <form class="p-4 shadow shadow-sm rounded-4" style="max-width: 35em;"  method="post">
-
+            <form data-multi-step class="multi-step-form p-4 shadow shadow-sm rounded-4" style="max-width: 35em;" enctype="multipart/form-data"  method="post">
+                {% csrf_token %}
                 <h4 class="fw-bold">Registration</h4> 
 
                 <!-- group fields -->
-                <div class="mt-4">
+                <div data-step class="card-form mt-4">
+
+                    <p class="text-black-700">Account Information</p>
+                    <div class="row row-cols-1 row-cols-4 g-4">
+
+                        <div class="col-6">
+                            {% include 'form_template/text_template.html' with field=form.username %}
+                        </div>
+                        <div class="col-6">
+                            {% include 'form_template/text_template.html' with field=form.password %}
+                        </div>
+
+                        <div class="col-6">
+                            {% include 'form_template/text_template.html' with field=form.retype_password %}
+                        </div>
+
+                        <div class="col-12">
+                            {% include 'form_template/image_template.html' with field=form.profile_pic is_create=True %}
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- group fields -->
+                <div data-step class="card-form mt-4">
 
                     <p class="text-black-700">Basic Information</p>
                     <div class="row row-cols-1 row-cols-sm-2 g-4">
@@ -36,28 +65,7 @@
                 </div>
 
                 <!-- group fields -->
-                <div class="mt-4">
-
-                    <p class="text-black-700">Account Information</p>
-                    <div class="row row-cols-1 row-cols-4 g-4">
-
-                        <div class="col-6">
-                            {% include 'form_template/text_template.html' with field=form.username %}
-                        </div>
-                        <div class="col-6">
-                            {% include 'form_template/text_template.html' with field=form.password %}
-                        </div>
-
-                        <div class="col-12">
-                            {% include 'form_template/image_template.html' with field=form.profile_pic is_create=True %}
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <!-- group fields -->
-                <div class="mt-4">
+                <div data-step class="card-form mt-4">
 
                     <p class="text-black-700">Contact Information</p>
                     <div class="row row-cols-1 row-cols-sm-2 g-4">
@@ -76,8 +84,12 @@
 
                 </div>
 
-
-                <button class="btn btn-primary mt-5" type="submit">Submit</button>
+                <!-- buttons -->
+                <div id="form-buttons" class="mt-5 d-flex gap-2 justify-content-end">
+                    <button id="btn-prev" type="button" class="btn btn-secondary" data-previous>Previous</button>
+                    <button type="button" class="btn btn-secondary" data-next>Next</button>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
 
             </form>
 
@@ -88,4 +100,9 @@
 
 
 {% endblock content %}
+
+
+{% block script %}
+   <script src="{% static 'js/form/script.js' %}"></script> 
+{% endblock script %}
     

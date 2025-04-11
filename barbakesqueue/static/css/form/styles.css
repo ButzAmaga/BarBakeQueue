@@ -1,0 +1,61 @@
+.card-form {
+  background-color: white;
+  animation: fade 250ms ease-in-out forwards;
+}
+
+
+.card-form.active{
+  animation: slide 250ms 125ms ease-in-out both;
+}
+
+.card-form.active:first-child ~ #form-buttons #btn-prev{
+  
+}
+
+.multi-step-form {
+  overflow: hidden;
+  position: relative;
+}
+
+
+.hide {
+  display: none;
+}
+
+
+@keyframes slide {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+/*
+@keyframes fade {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(.75);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+*/
