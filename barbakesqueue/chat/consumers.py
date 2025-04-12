@@ -7,6 +7,7 @@ from django.utils.timezone import now
 from .models import Message
 from django.db.models import Q
 from django.template.loader import render_to_string
+from django.utils.timezone import localtime, get_current_timezone
 
 class Async_ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -57,12 +58,11 @@ class Async_ChatConsumer(AsyncWebsocketConsumer):
             
             sender , is_align_end = self.get_sender_and_align_connect(message=message)         
 
-            time = message.created_at.strftime("%I:%M%p - %b %d")
             # Render HTML template with message data
             html_content = render_to_string("chat/chat_instance.html", {
                 "message":  message.message,
                 "sender": sender, 
-                "time": time,
+                "time": message.created_at,
                 "align_end" : is_align_end
             })
         
@@ -139,8 +139,8 @@ class Async_ChatConsumer(AsyncWebsocketConsumer):
             is_channel_sender = channel_sender
        )
        
-       data["time"] = message.created_at.strftime("%I:%M%p - %b %d")
-       
+       data["time"] = message.created_at
+       print(message.created_at)
        '''
             group_send only supports JSON-serializable data.
        '''
