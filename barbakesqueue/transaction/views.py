@@ -6,6 +6,7 @@ from .forms import TransactionForm
 from django.urls import reverse_lazy
 from django.contrib import messages
 from common.views import LoginWithPermissionMixin
+
 # Create your views here.
 
 

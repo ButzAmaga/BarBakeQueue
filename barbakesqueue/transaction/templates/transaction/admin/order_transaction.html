@@ -1,11 +1,34 @@
 <div class="p-4">
     <h4 class="fw-bold">Transaction</h4>
     
-        
-    {% for transaction in transactions  %}
-        <div>
-            {{transaction}}
-        </div>
-    {% endfor %}
-        
+    <div class="d-flex flex-column gap-2">
+
+        {% for transaction in transactions  %}
+            <div>
+                <img src="{{transaction.image_prof.url}}" style="width: 100%; aspect-ratio: 16/9; object-fit: cover;"  alt="">
+                <div class="row row-cols-2 mt-2">
+                    
+                    <div class="col">
+                        <p style="font-size: .8em;" class="text-black-700 mb-0">Transaction ID</p>
+                        <p>{{transaction.id}}</p>
+                    </div>
+                    <div class="col">
+                        <p style="font-size: .8em;" class="text-black-700 mb-0">Amount</p>
+                        <p>{{transaction.amount}}</p>
+                    </div>
+                    <div class="col">
+                        <p style="font-size: .8em;" class="text-black-700 mb-0">Reference number</p>
+                        <p>{{transaction.reference_number}}</p>
+                    </div>
+                    <div class="col">
+                        <p style="font-size: .8em;" class="text-black-700 mb-0">Date Submitted</p>
+                        <p>{{transaction.date_submitted}}</p>
+                    </div>
+
+                </div>
+            </div>
+        {% endfor %}
+
+   </div>
+
 </div>

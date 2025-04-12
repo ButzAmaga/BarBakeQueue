@@ -57,10 +57,12 @@ class Async_ChatConsumer(AsyncWebsocketConsumer):
             
             sender , is_align_end = self.get_sender_and_align_connect(message=message)         
 
+            time = message.created_at.strftime("%I:%M%p - %b %d")
             # Render HTML template with message data
             html_content = render_to_string("chat/chat_instance.html", {
                 "message":  message.message,
                 "sender": sender, 
+                "time": time,
                 "align_end" : is_align_end
             })
         
@@ -131,12 +133,13 @@ class Async_ChatConsumer(AsyncWebsocketConsumer):
            
            
        # save to the database
-       message = await database_sync_to_async(Message.objects.create)(  
+       message = await Message.objects.acreate(  
             user = self.target_user,
             message = data['message'],
             is_channel_sender = channel_sender
        )
        
+       data["time"] = message.created_at.strftime("%I:%M%p - %b %d")
        
        '''
             group_send only supports JSON-serializable data.
@@ -178,6 +181,7 @@ class Async_ChatConsumer(AsyncWebsocketConsumer):
         # Render HTML template with message data
         html_content = render_to_string("chat/chat_instance.html", {
             "message": data['message'],
+            "time": data['time'],
             "sender": sender_name, 
             "align_end" : is_align_end
         })

@@ -3,7 +3,7 @@
 {% block content %}
     
 
-    <div class="w-100" hx-ext="ws" ws-connect="/ws/chat/channel_{{object.id}}/">
+    <div class="w-100" hx-ext="ws" id="chat_container" ws-connect="/ws/chat/channel_{{object.id}}/">
 
         <p class="mt-2 mb-0">{{object}}</p>
 
@@ -30,48 +30,26 @@
         document.body.addEventListener("htmx:wsAfterSend", function () {
             document.getElementById("chat-message-input").value = "";
         });
+
+        /*
+            when a message arrived, update the scroll position
+        */
+        var chat_container = document.getElementById("chat_container")
+        var chat_box = document.getElementById("chat_box")
+
+        chat_container.addEventListener("htmx:wsAfterMessage", function(ev){
+            console.log("test")
+            chat_box.scrollTo({
+                top: chat_box.scrollHeight, 
+                behavior : "smooth"
+            })
+        })
+
+
     </script>
-    <!-- 
-    <script>
-        const roomName = JSON.parse(document.getElementById('room-name').textContent);
-        console.log(roomName)
-        const socket_path = 'ws://' + window.location.host + '/ws/chat/' + "xxx" + '/'
-
-        console.log(socket_path)
-        // connect to the server chat features
-        const chatSocket = new WebSocket(
-           socket_path
-        );
-        
-        // execute when a new message is recieved
-        chatSocket.onmessage = function(e) {
-            const data = JSON.parse(e.data);
-            console.log(data)
-            document.querySelector('#chat-log').value += (`${data.sender} : ${data.message}` + `\n`);
-            console.log(data.type)
-        };
-
-        // execute when the connection to the server is unreached
-        chatSocket.onclose = function(e) {
-            console.error('Chat socket closed unexpectedly or you are not logged in');
-        };
-
-        document.querySelector('#chat-message-submit').onclick = function(e) {
-            const messageInputDom = document.querySelector('#chat-message-input');
-            const message = messageInputDom.value;
-            chatSocket.send(JSON.stringify({
-                'message': message
-            }));
-            messageInputDom.value = '';
-        };
-    console.log(htmx.extensions);
-    </script>-->
 
 
 {% endblock script %}
     
 
-{% block scripts %}
-    
-{% endblock scripts %}
      
