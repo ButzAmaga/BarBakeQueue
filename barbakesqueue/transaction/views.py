@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
-from .models import Transaction
+from .models import Transaction, Status_choices
 from order.models import Order
 from .forms import TransactionForm
 from django.urls import reverse_lazy
@@ -66,5 +66,32 @@ class Order_transactions(LoginWithPermissionMixin, generic.ListView):
         transactions = self.model.objects.filter(order_id = self.kwargs["order_id"])    
         return transactions
     
+class Accept_transaction(LoginWithPermissionMixin, generic.RedirectView):
+
+    permission_required = ["transaction.change_transaction"]
+    query_string = True
+    pattern_name = "common:form_response"
+
+    
+    def get_redirect_url(self, *args, **kwargs):
+        print("Test")
+        """ 
+            accept the transaction and then update the status of the order
+        """
+        
+        transaction = get_object_or_404(Transaction, pk = kwargs["pk"])
+        transaction.status = Status_choices.accepted
+    
+        # update the order status 
+        order_id = transaction.order_id
+        order_id.status = "paid"
+        order_id.save()
+        
+        # save the changes
+        transaction.save()
+        
+        kwargs.pop("pk")
+        
+        return super().get_redirect_url(*args, **kwargs) 
     
     

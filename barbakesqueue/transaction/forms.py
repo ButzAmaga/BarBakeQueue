@@ -3,11 +3,12 @@ from order.models import Order
 
 from .models import Transaction
 
+# customer transaction form
 class TransactionForm(forms.ModelForm):
     
     class Meta:
         model = Transaction
-        exclude = ["order_id",]
+        exclude = ["order_id","status"]
    
     def __init__(self, *args, **kwargs):
        self.order_id = kwargs.pop("order_id") # already the instance of the object
@@ -22,3 +23,5 @@ class TransactionForm(forms.ModelForm):
         instance.order_id = self.order_id
 
         instance.save()
+
+

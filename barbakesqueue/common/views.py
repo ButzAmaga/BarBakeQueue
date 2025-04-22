@@ -10,8 +10,6 @@ class LoginWithPermissionMixin(PermissionRequiredMixin, LoginRequiredMixin):
     permission_required = "None"
 
 
-    
-
 class FormResponse(generic.TemplateView):
     template_name = "common/form_response/response.html"
     

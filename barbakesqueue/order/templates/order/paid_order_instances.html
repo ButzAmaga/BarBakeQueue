@@ -1,0 +1,67 @@
+{% load static %}
+<table class="table table-borderless">
+    <thead>
+        <tr>
+          <th >Order id</th>
+          <th >Customer</th>
+          <th >Date ordered</th>
+          <th >Delivery date</th>
+          <th >Total</th>
+          <th >Actions</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        {% for order in orders  %}
+            <tr>
+                <th scope="row" class="text-end align-middle">{{order.id}}</th>
+                <td class="align-middle">
+                    <div class="d-flex align-items-center gap-2">
+                        <img src="{{order.customer.profile_pic.url}}" style="width: 2em; aspect-ratio: 1/1;" class="rounded-5">
+                        <span>{{order.customer.first_name}}</span>
+                    </div>
+                </td>
+                <td class="align-middle">{{order.date_ordered|date:'m/d/y'}}</td>
+                <td class="fw-bold align-middle">Not Set</td>
+                <td class="text-end fw-bold align-middle">${{order.total_price}}</td>
+                <td class="align-middle">
+                    <div>
+                        <!-- order payment -->
+                        
+                        {% if order.is_have_transactions %}
+                            <button
+                                data-bs-target="#modal_out" data-bs-toggle="modal"
+                                hx-target="#modal_out_content" hx-swap="innerHTML" 
+                                hx-get="{% url 'transaction:order_transactions' order.id %}"
+                                class="btn p-1" title="order transaction">
+                                <img style="width: 1.25em; aspect-ratio: 1/1;" src="{% static 'images/icons/payment.png' %}" alt="">
+                            </button>
+                        
+                        {% else %}
+                            <button
+                                class="btn p-1" title="order transaction (no transaction yet) ">
+                                <img style="width: 1.25em; aspect-ratio: 1/1; filter: grayscale(100%);" src="{% static 'images/icons/payment.png' %}" alt="">
+                            </button>
+                        {% endif %}
+                            
+
+                        <!-- view order -->
+                        <button class="btn p-1" title="order details">
+                            <img style="width: 1.25em; aspect-ratio: 1/1;" src="{% static 'images/icons/eye.png' %}" alt="">
+                        </button>
+
+                        <!-- delete order -->
+                        <button 
+                            data-bs-target="#modal_out" data-bs-toggle="modal"
+                            hx-target="#modal_out_content" hx-swap="innerHTML" 
+                            hx-get="{% url 'order:delete_order' order.id %}"
+                            class="btn p-1" title="remove order">
+                            <img style="width: 1.25em; aspect-ratio: 1/1;" src="{% static 'images/icons/Delete.png' %}" alt="">
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+        
+</table>

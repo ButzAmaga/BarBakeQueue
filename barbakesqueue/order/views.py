@@ -31,14 +31,19 @@ class Get_unpaid_order(LoginWithPermissionMixin,generic.ListView):
     context_object_name = "orders"
     permission_required = ["Order.view_order", "Order.delete_order"]
     
+    status = "not paid"
+    
     def get_queryset(self):
         ''' return all order that is not paid '''
-        instances = self.model.objects.filter(status = "not paid").annotate(total_price = Sum( F("cart_items__quantity") * F("cart_items__cake__price")), is_have_transactions = Exists( Transaction.objects.filter(order_id = OuterRef('pk')) ) ).order_by("-date_ordered")
+        instances = self.model.objects.filter(status = self.status).annotate(total_price = Sum( F("cart_items__quantity") * F("cart_items__cake__price")), is_have_transactions = Exists( Transaction.objects.filter(order_id = OuterRef('pk')) ) ).order_by("-date_ordered")
 
         for var in instances:
             print(var.is_have_transactions)
 
         return instances
+
+class Get_paid_order(Get_unpaid_order):
+    status = "paid"
 
 
 class Delete_order(LoginWithPermissionMixin, FormResponseMixin ,generic.DeleteView):

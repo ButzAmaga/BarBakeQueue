@@ -1,7 +1,7 @@
-<div class="p-4">
+<div class="p-4" id="box">
     <h4 class="fw-bold">Transaction</h4>
     
-    <div class="d-flex flex-column gap-2">
+    <div class="d-flex flex-column gap-4">
 
         {% for transaction in transactions  %}
             <div>
@@ -25,6 +25,12 @@
                         <p>{{transaction.date_submitted}}</p>
                     </div>
 
+                </div>
+
+                <div  class="d-flex justify-content-end mt-3">
+                    <button hx-get="{% url 'transaction:accept_transaction' transaction.id %}?response=Accepted+transaction" 
+                            hx-target="#box" hx-swap="innerHTML"
+                            class="btn btn-dark">Accept</button>
                 </div>
             </div>
         {% endfor %}
