@@ -8,7 +8,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.list import MultipleObjectMixin
 from cake.models import *
 from django.urls import reverse_lazy
-from django.db.models import Sum, F, Exists, OuterRef, Value
+from django.db.models import Sum, F, Exists, OuterRef, Value, Q
 from account import views as account
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from common.views import LoginWithPermissionMixin
@@ -37,14 +37,32 @@ class Get_unpaid_order(LoginWithPermissionMixin,generic.ListView):
         ''' return all order that is not paid '''
         instances = self.model.objects.filter(status = self.status).annotate(total_price = Sum( F("cart_items__quantity") * F("cart_items__cake__price")), is_have_transactions = Exists( Transaction.objects.filter(order_id = OuterRef('pk')) ) ).order_by("-date_ordered")
 
-        for var in instances:
-            print(var.is_have_transactions)
-
         return instances
 
 class Get_paid_order(Get_unpaid_order):
-    status = "paid"
+    template_name = "order/paid_order_instances.html"
+    
+    def get_queryset(self):
+        ''' return all order that is paid '''
+        instances = self.model.objects.filter(~Q(status = 'not paid'), ~Q(status = "delivered")).annotate(total_price = Sum( F("cart_items__quantity") * F("cart_items__cake__price")), is_have_transactions = Exists( Transaction.objects.filter(order_id = OuterRef('pk')) ) ).order_by("-date_ordered")
 
+        return instances
+
+class Get_delivered_order(Get_unpaid_order):
+    status = 'delivered'
+    template_name = "order/delivered_order_instances.html"
+    
+    def get_queryset(self):
+        ''' return all order that are delivered and fully paid '''
+        instances = self.model.objects.filter(Q(status = 'delivered') | Q(status = 'fully paid')).annotate(total_price = Sum( F("cart_items__quantity") * F("cart_items__cake__price"))).order_by("-date_ordered")
+
+        return instances
+
+class Status_form(FormResponseMixin, generic.UpdateView):
+    form_class = ChangeStatusForm
+    model = Order
+    form_success_message = "Updated Status"
+    template_name = "order/admin/change_status.html"
 
 class Delete_order(LoginWithPermissionMixin, FormResponseMixin ,generic.DeleteView):
     template_name = "order/admin/order_delete.html"
@@ -57,7 +75,7 @@ class Delete_order(LoginWithPermissionMixin, FormResponseMixin ,generic.DeleteVi
         return self.model.objects.prefetch_related("cart_items__cake").all()
 
  
-    
+
     
 
 
@@ -180,10 +198,28 @@ class Customer_orders_pending(generic.ListView):
     model = Order
     context_object_name = "orders"
 
+    def get_status(self):
+        return Q(status = "not paid")
+    
     def get_queryset(self):
         ''' return the orders that are specific to current logged in customer '''
-        user_orders = self.model.objects.filter(customer = self.request.user.account, status="not paid")\
+        user_orders = self.model.objects.filter(self.get_status() ,customer = self.request.user.account)\
                       .annotate(total_price = Sum( F("cart_items__quantity") * F("cart_items__cake__price"))).order_by("-date_ordered")
-        
+
         return user_orders
+
+class Customer_orders_on_progress(Customer_orders_pending):
     
+    def get_status(self):
+        ''' 
+            Pending orders are status that are not the status of not paid, delivered, and fully paid
+        '''
+        return ~Q(status = "not paid") & ~Q(status = "delivered") & ~Q(status = "fully paid")
+
+class Customer_orders_delivered(Customer_orders_pending):
+    
+    def get_status(self):
+        ''' 
+            are status are delivered and fully paid
+        '''
+        return Q(status = "delivered") | Q(status = "fully paid") 

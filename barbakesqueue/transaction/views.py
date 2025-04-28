@@ -6,9 +6,10 @@ from .forms import TransactionForm
 from django.urls import reverse_lazy
 from django.contrib import messages
 from common.views import LoginWithPermissionMixin
+import csv
+from django.http import HttpResponse
 
 # Create your views here.
-
 
 # customer order transaction form
 class Customer_form(LoginWithPermissionMixin, generic.CreateView):
@@ -94,4 +95,22 @@ class Accept_transaction(LoginWithPermissionMixin, generic.RedirectView):
         
         return super().get_redirect_url(*args, **kwargs) 
     
+
+def export_transaction_to_csv(request):
+    # Create the HttpResponse object with CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="yourmodel.csv"'
+
+    writer = csv.writer(response)
+    # Write the header row (field names)
+    writer.writerow(['Order Id', 'Name and order id', 'Image Prof', 'Reference Number', 'Amount', 'Status ( 0 - not_accepted | 1 - accepted )', 'Payment Type (0 - partial | 1 - full)', 'Date Submitted'])  # replace with your field names
     
+    # Get model field names
+    field_names = [field.name for field in Transaction._meta.get_fields() if not field.many_to_many and not field.one_to_many]
+
+    # Write data rows
+    for instance in Transaction.objects.all():
+        writer.writerow([getattr(instance, field) for field in field_names])
+
+    return response
+ 

@@ -1,6 +1,13 @@
 from django import forms
 from .models import *
 
+
+class ChangeStatusForm(forms.ModelForm):
+    class  Meta():
+        model = Order
+        fields = ["status"]
+        
+
 '''
     form for adding a cake to the cart of the user
 '''

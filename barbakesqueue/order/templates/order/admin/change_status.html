@@ -1,0 +1,9 @@
+<form hx-post="{% url 'order:status_change' object.id %}" class="p-4">
+    {% csrf_token %}
+
+    {{form}}
+
+    <div class="d-flex justify-content-end">
+        <button style="width:5em;" class="btn btn-danger" type="submit">Save</button>
+    </div>
+</form>

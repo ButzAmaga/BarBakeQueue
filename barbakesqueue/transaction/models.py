@@ -7,6 +7,10 @@ class Status_choices(models.IntegerChoices):
     not_accepted = 0, 'not_accepted'
     accepted = 1, 'accepted'
 
+class Type_choices(models.IntegerChoices):
+    partial = 0, 'partial payment'
+    full = 1, 'full payment'
+
 
 class Transaction(models.Model):
 
@@ -15,4 +19,5 @@ class Transaction(models.Model):
     reference_number = models.CharField(max_length=15)
     amount = models.IntegerField()
     status = models.IntegerField(choices=Status_choices, default=0)
+    payment_type = models.IntegerField(choices=Type_choices, default=0)
     date_submitted = models.DateTimeField(auto_now_add=True)  

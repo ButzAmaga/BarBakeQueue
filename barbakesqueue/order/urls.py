@@ -6,7 +6,9 @@ app_name = 'order'
 urlpatterns = [
     path('orders/', Index.as_view(), name='orders'), # list of orders
     path('orders/get/not_paid', Get_unpaid_order.as_view(), name='not_paid'), # list of unpaid order
-    path('orders/get/paid', Get_paid_order.as_view(), name='paid'), # list of unpaid order
+    path('orders/get/paid', Get_paid_order.as_view(), name='paid'), # list of paid order
+    path('orders/get/delivered', Get_delivered_order.as_view(), name='delivered'), # list of delivered order
+    path('orders/get/paid/change_status/<pk>', Status_form.as_view(), name='status_change'), # list of unpaid order
     path('orders/delete/<pk>', Delete_order.as_view(), name='delete_order'), # list of unpaid order
     
      
@@ -15,4 +17,6 @@ urlpatterns = [
     path('cart/customer/v2/cart_items/', Cart_items_v2.as_view(), name='cart_items_v2'), # cart items for the current user
     path('order/customer/orders', Customer_orders.as_view(), name='customer_orders'), # main order interface for the customer user
     path('order/customer/orders/pending', Customer_orders_pending.as_view(), name='customer_orders_pending'), # pending order interface for the customer user
+    path('order/customer/orders/on_progress', Customer_orders_on_progress.as_view(), name='customer_orders_on_progress'), # on progress order interface for the customer user
+    path('order/customer/orders/delivered', Customer_orders_delivered.as_view(), name='customer_orders_delivered'), # delivered and fully paid order interface for the customer user
 ] 

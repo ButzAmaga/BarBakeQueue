@@ -24,7 +24,11 @@ class Order(models.Model):
         ("not paid", "not paid"),
         ("paid", "paid"),
         ("in progress", "in progress"),
-        ("delivered", "delivered")
+        ("halfway", "halfway"),
+        ("almost finished", "almost finished"),
+        ("finished", "finished"),
+        ("delivered", "delivered"),
+        ("fully paid", "fully paid")
     )
     
     customer = models.ForeignKey(customer, related_name="orders", on_delete=models.CASCADE)

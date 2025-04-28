@@ -18,10 +18,12 @@
                 hx-get="{% url 'order:customer_orders_pending' %}" hx-target="#pill-content" hx-swap="innerHTML">
                 <a class="nav-link active" aria-current="page" href="#">Pending</a>
             </li>
-            <li style="width: 7.8em;" class="nav-item text-center">
+            <li style="width: 7.8em;" class="nav-item text-center"
+                hx-get="{% url 'order:customer_orders_on_progress' %}" hx-target="#pill-content" hx-swap="innerHTML">
               <a class="nav-link" href="#">On Progress</a>
             </li>
-            <li style="width: 7.8em;" class="nav-item text-center">
+            <li style="width: 7.8em;" class="nav-item text-center"
+                hx-get="{% url 'order:customer_orders_delivered' %}" hx-target="#pill-content" hx-swap="innerHTML">
               <a class="nav-link" href="#">Delivered</a>
             </li>
         </ul>
