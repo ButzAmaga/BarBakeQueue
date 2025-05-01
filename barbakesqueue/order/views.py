@@ -44,7 +44,7 @@ class Get_paid_order(Get_unpaid_order):
     
     def get_queryset(self):
         ''' return all order that is paid '''
-        instances = self.model.objects.filter(~Q(status = 'not paid'), ~Q(status = "delivered")).annotate(total_price = Sum( F("cart_items__quantity") * F("cart_items__cake__price")), is_have_transactions = Exists( Transaction.objects.filter(order_id = OuterRef('pk')) ) ).order_by("-date_ordered")
+        instances = self.model.objects.filter(~Q(status = 'not paid'), ~Q(status = "delivered"), ~Q(status = "fully paid")).annotate(total_price = Sum( F("cart_items__quantity") * F("cart_items__cake__price")), is_have_transactions = Exists( Transaction.objects.filter(order_id = OuterRef('pk')) ) ).order_by("-date_ordered")
 
         return instances
 
@@ -54,7 +54,7 @@ class Get_delivered_order(Get_unpaid_order):
     
     def get_queryset(self):
         ''' return all order that are delivered and fully paid '''
-        instances = self.model.objects.filter(Q(status = 'delivered') | Q(status = 'fully paid')).annotate(total_price = Sum( F("cart_items__quantity") * F("cart_items__cake__price"))).order_by("-date_ordered")
+        instances = self.model.objects.filter(Q(status = 'delivered') | Q(status = 'fully paid')).annotate(total_price = Sum( F("cart_items__quantity") * F("cart_items__cake__price")), is_have_transactions = Exists( Transaction.objects.filter(order_id = OuterRef('pk'), status = Status_choices.not_accepted) )).order_by("-date_ordered")
 
         return instances
 

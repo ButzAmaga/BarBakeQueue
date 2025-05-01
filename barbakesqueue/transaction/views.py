@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
-from .models import Transaction, Status_choices
+from .models import Transaction, Status_choices, Type_choices
 from order.models import Order
 from .forms import TransactionForm
 from django.urls import reverse_lazy
@@ -64,7 +64,7 @@ class Order_transactions(LoginWithPermissionMixin, generic.ListView):
         """ 
             return the transactions associated with this order id
         """
-        transactions = self.model.objects.filter(order_id = self.kwargs["order_id"])    
+        transactions = self.model.objects.filter(order_id = self.kwargs["order_id"], status = Status_choices.not_accepted)    
         return transactions
     
 class Accept_transaction(LoginWithPermissionMixin, generic.RedirectView):
@@ -82,12 +82,23 @@ class Accept_transaction(LoginWithPermissionMixin, generic.RedirectView):
         
         transaction = get_object_or_404(Transaction, pk = kwargs["pk"])
         transaction.status = Status_choices.accepted
-    
-        # update the order status 
+            
+        # get the order_jd instance 
         order_id = transaction.order_id
-        order_id.status = "paid"
-        order_id.save()
         
+        if order_id.status == "delivered":
+            # if order instance is already delivered then the current transaction is for full payment and the order instance 
+            # status should be fully paid
+            transaction.payment_type = Type_choices.full
+            order_id.status = "fully paid"
+            order_id.save()
+        else:
+            # update the order status, byu default transaction type is partial
+            order_id.status = "paid"
+            order_id.save()
+        
+        
+             
         # save the changes
         transaction.save()
         

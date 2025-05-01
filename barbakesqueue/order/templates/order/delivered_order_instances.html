@@ -26,7 +26,25 @@
                 <td class="text-end fw-bold align-middle">${{order.total_price}}</td>
                 <td class="align-middle">
                     <div>
-                        <!-- order payment -->
+
+                        <!-- order transaction -->
+                        {% if order.is_have_transactions %}
+                            <button
+                                data-bs-target="#modal_out" data-bs-toggle="modal"
+                                hx-target="#modal_out_content" hx-swap="innerHTML" 
+                                hx-get="{% url 'transaction:order_transactions' order.id %}"
+                                class="btn p-1" title="order transaction">
+                                <img style="width: 1.25em; aspect-ratio: 1/1;" src="{% static 'images/icons/payment.png' %}" alt="">
+                            </button>
+                        
+                        {% else %}
+                            <button
+                                class="btn p-1" title="order transaction (no transaction yet) ">
+                                <img style="width: 1.25em; aspect-ratio: 1/1; filter: grayscale(100%);" src="{% static 'images/icons/payment.png' %}" alt="">
+                            </button>
+                        {% endif %}
+
+                        <!-- order status -->
                         
                         <button
                             data-bs-target="#modal_out" data-bs-toggle="modal"
@@ -42,14 +60,6 @@
                             <img style="width: 1.25em; aspect-ratio: 1/1;" src="{% static 'images/icons/eye.png' %}" alt="">
                         </button>
 
-                        <!-- delete order -->
-                        <button 
-                            data-bs-target="#modal_out" data-bs-toggle="modal"
-                            hx-target="#modal_out_content" hx-swap="innerHTML" 
-                            hx-get="{% url 'order:delete_order' order.id %}"
-                            class="btn p-1" title="remove order">
-                            <img style="width: 1.25em; aspect-ratio: 1/1;" src="{% static 'images/icons/Delete.png' %}" alt="">
-                        </button>
                     </div>
                 </td>
             </tr>
