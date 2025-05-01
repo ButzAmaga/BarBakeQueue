@@ -9,7 +9,7 @@ class Status_choices(models.IntegerChoices):
 
 class Type_choices(models.IntegerChoices):
     partial = 0, 'partial payment'
-    full = 1, 'full payment'
+    full = 1, 'completion payment'
 
 
 class Transaction(models.Model):

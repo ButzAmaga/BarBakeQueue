@@ -8,7 +8,7 @@ class TransactionForm(forms.ModelForm):
     
     class Meta:
         model = Transaction
-        exclude = ["order_id","status"]
+        exclude = ["order_id","status", "payment_type"]
    
     def __init__(self, *args, **kwargs):
        self.order_id = kwargs.pop("order_id") # already the instance of the object
