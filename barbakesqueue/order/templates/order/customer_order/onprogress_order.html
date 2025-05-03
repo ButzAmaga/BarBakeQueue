@@ -1,0 +1,43 @@
+{% load static %}
+
+<!-- container -->
+<div class="d-flex gap-2 pb-4">
+        {% for order in orders  %}
+            
+            <!-- order -->
+            <div class="overflow-hidden rounded shadow shadow-sm d-flex flex-column justify-content-between" style="min-width: 18.75em;">
+                
+                <!-- group 1 -->
+                <div class="p-4 pb-0">
+
+                    <p style="font-size: .8em;" class="text-black-700 text-end">{{order.date_ordered|date:'m/d/y'}}</p>
+
+                    <!-- order carts -->
+                    <div class="d-flex flex-column gap-3">
+
+                        {% for cart in order.cart_items.all  %}
+                                <div class="d-flex gap-3 align-items-center">
+                                    <img src="{{cart.cake.main_pic.url}}" style="width: 3.5em; aspect-ratio: 1/1; object-fit: cover; border-radius: 10%;" title="{{cart.cake.name}} quantity: ({{cart.quantity}})">
+                                    <p class="d-flex justify-content-between text-black-700 mb-0 w-100">{{cart.cake.name}} <span class="text-black-600">{{cart.quantity}}</span></p>
+                                </div>
+                        {% endfor %}
+
+                    </div>
+
+                </div>    
+
+                <!-- group 2 -->
+                <div class="mt-4">
+
+
+                    <!-- total and actions -->
+                    <div class="d-flex justify-content-end align-items-center p-4 py-3" style="background-color: #f8f8f8;">
+
+                        <p class="text-center p-1 rounded rounded-4 mb-0 text-white" style="font-size:.8em; background-color: #2f2f2f; min-width: 6em;">{{order.status}}</p>
+
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+</div>

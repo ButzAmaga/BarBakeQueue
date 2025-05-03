@@ -210,6 +210,7 @@ class Customer_orders_pending(generic.ListView):
 
 class Customer_orders_on_progress(Customer_orders_pending):
     
+    template_name = "order/customer_order/onprogress_order.html"
     def get_status(self):
         ''' 
             Pending orders are status that are not the status of not paid, delivered, and fully paid
