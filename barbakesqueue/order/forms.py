@@ -20,6 +20,7 @@ class AddToCartForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["quantity"].initial = 1
+
         
 
 class AddToOrderForm(forms.ModelForm):
@@ -29,7 +30,28 @@ class AddToOrderForm(forms.ModelForm):
         # fields = '__all__'
 
 
+""" 
+    For setting delivery date and etc for the order
+"""    
+
+class OrderForm(forms.Form):
     
+    date_delivery = forms.DateField(initial=date.today(),widget=forms.DateInput(attrs={"type":"date"}))
+    
+    def clean_date_delivery(self):
+        """
+            the delivery date must be 7 days
+        """ 
+        field = self.cleaned_data["date_delivery"]
+        
+        if field < date.today() + timedelta(days=7):
+            raise forms.ValidationError("Date must be at least 7 days from now")
+        
+        return field 
+    
+    def get_date_delivery(self):
+        return self.cleaned_data["date_delivery"]
+            
 
 orderBaseModelFormSet = forms.modelformset_factory(Cart, form=AddToOrderForm,  extra=0) 
 

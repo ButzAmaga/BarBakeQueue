@@ -1,0 +1,9 @@
+
+{% comment %}
+    custom date for cart customer interface
+{% endcomment %}
+    
+<div class="form-group d-flex gap-2 align-items-center">
+    <label for="{{ field.id_for_label }}" class="mb-0 form-label w-100">{{field.label}}</label>
+    <input value="{{field.value|date:'Y-m-d'}}" id="{{ field.id_for_label }}" name="{{ field.name }}" type="date" class="form-control {% if field.errors|length %}is-invalid{% endif %}"  {% if  field.field.required %}required{% endif %}>
+</div>

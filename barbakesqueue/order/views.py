@@ -141,6 +141,21 @@ class Cart_items_v2(generic.FormView):
     success_url = reverse_lazy("order:cart_items_v2")
     model = Cart
 
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        order_form = OrderForm(self.request.POST)
+        
+        if form.is_valid() and order_form.is_valid():
+            
+            self.order_form_validated = order_form
+            
+            return self.form_valid(form)
+        else:
+            if order_form.errors:
+                self.order_form = order_form
+                
+            return self.form_invalid(form)
+    
     def get_queryset(self):
         ''' get the user`s cart '''
         user_cart = self.model.objects.annotate(total_price=Sum( F("cake__price") * F("quantity") )).filter(customer = self.request.user.account, is_ordered = False)
@@ -153,7 +168,9 @@ class Cart_items_v2(generic.FormView):
         
         """ get the user`s cart """        
         context["carts"] = self.queryset_cache
-
+        context["order_form"] = OrderForm
+        
+        
         return context
         
         
@@ -181,13 +198,21 @@ class Cart_items_v2(generic.FormView):
             self.request.session["customer_id"] = self.request.user.account.id
             customer_id = self.request.session.get("customer_id")
 
-        order = Order.objects.create(customer = customer.objects.get(id = customer_id))
+        order = Order.objects.create(customer = customer.objects.get(id = customer_id), delivery_date=self.order_form_validated.get_date_delivery())
 
         for instance in instances:
             instance.order_id = order
             instance.save() 
         
         return super().form_valid(form)
+    
+    def form_invalid(self, form):
+       context = self.get_context_data(form=form)
+       context["order_form"] = OrderForm(self.request.POST)
+       
+       return self.render_to_response(context) 
+        
+    
     
 
 class Customer_orders(generic.TemplateView):

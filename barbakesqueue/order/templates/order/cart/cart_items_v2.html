@@ -22,6 +22,24 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     {% endif %}
+
+    
+    {% if order_form.errors %}
+   
+        {% for field in order_form %}
+            <div id="cart-danger" class="alert alert-danger alert-dismissible fade show rounded-0 mb-2" role="alert">
+
+
+                    {% for error in field.errors  %}
+                        <strong style="font-size: .78em;">{{error}}</strong>
+                    {% endfor %}
+
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+        
     
     {% if carts %}
         <div id="cart-alert" class="alert alert-info alert-dismissible fade show rounded-0" role="alert">
@@ -37,7 +55,6 @@
     
 
     {{form.management_form}}
-    
     <!-- cart items parent -->
     <div class="d-flex flex-column gap-3 overflow-y-auto scroll" style="max-height: 25em;">
         
@@ -101,12 +118,10 @@
     
     {% if carts %}
         {% comment %}show only when there is a cart item{% endcomment %}
-        <div class="p-4 pt-2 d-flex justify-content-end">
+        <div class="p-4 mt-2 d-flex justify-content-between">
 
-            <div class="d-flex gap-4">
-                <button class="btn btn-outline-black-900" type="submit">Delivery Info</button>
+                {% include 'form_template/date_template.html' with field=order_form.date_delivery %}
                 <button class="btn btn-primary" type="submit">Checkout</button>
-            </div>
         </div>
     {% endif %}
     
