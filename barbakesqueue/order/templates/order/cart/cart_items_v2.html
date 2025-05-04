@@ -105,7 +105,7 @@
                         <!-- price summary -->
                         <div>
                             <p class="text-black-700 mb-0 text-end" style="font-size: .75em;">Total</p>
-                            <p style="font-size: 1.2em;" class="fw-bold mb-0" >${{cart.total_price}}</p>
+                            <p style="font-size: 1.2em;" class="fw-bold mb-0" >&#8369 {{cart.total_price}}</p>
                         </div>
                     </div>
 
@@ -119,8 +119,10 @@
     {% if carts %}
         {% comment %}show only when there is a cart item{% endcomment %}
         <div class="p-4 mt-2 d-flex justify-content-between">
+                <div class="pe-2 pe-sm-0">
 
-                {% include 'form_template/date_template.html' with field=order_form.date_delivery %}
+                    {% include 'form_template/date_template.html' with field=order_form.date_delivery %}
+                </div>
                 <button class="btn btn-primary" type="submit">Checkout</button>
         </div>
     {% endif %}

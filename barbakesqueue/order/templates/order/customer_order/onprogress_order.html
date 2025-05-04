@@ -10,7 +10,6 @@
                 <!-- group 1 -->
                 <div class="p-4 pb-0">
 
-                    <p style="font-size: .8em;" class="text-black-700 text-end">{{order.date_ordered|date:'m/d/y'}}</p>
 
                     <!-- order carts -->
                     <div class="d-flex flex-column gap-3">
@@ -31,9 +30,10 @@
 
 
                     <!-- total and actions -->
-                    <div class="d-flex justify-content-end align-items-center p-4 py-3" style="background-color: #f8f8f8;">
+                    <div class="d-flex justify-content-between align-items-center p-4 py-3" style="background-color: #f8f8f8;">
 
-                        <p class="text-center p-1 rounded rounded-4 mb-0 text-white" style="font-size:.8em; background-color: #2f2f2f; min-width: 6em;">{{order.status}}</p>
+                        <p style="font-size: .8em;" class="text-black-700 text-end mb-0">Delivery: <span class="text-black-900"> {{order.delivery_date|date:'m/d/y'}}</span></p>
+                        <p class="text-center p-1 rounded rounded-4 mb-0 text-black-900 fw-bold" style="font-size:.8em; border-color: #2f2f2f; min-width: 6em;">{{order.status}}</p>
 
                     </div>
                 </div>
