@@ -2,6 +2,7 @@ from django.db import models
 from customer.models import *
 from cake.models import *
 from account import views as account
+from datetime import date, timedelta
 
 
 class Cart(models.Model):
@@ -34,7 +35,8 @@ class Order(models.Model):
     customer = models.ForeignKey(customer, related_name="orders", on_delete=models.CASCADE)
     
     status = models.CharField(choices=status_choices, max_length=15, default="not paid")
-     
+    
+    delivery_date = models.DateField(default=date.today() + timedelta(days=7)) 
     date_ordered = models.DateTimeField(auto_now_add=True)    
     
     def __str__(self):

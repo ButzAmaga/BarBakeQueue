@@ -8,6 +8,7 @@ from django.contrib import messages
 from common.views import LoginWithPermissionMixin
 import csv
 from django.http import HttpResponse
+from django.db.models import Sum, F
 
 # Create your views here.
 
@@ -30,7 +31,8 @@ class Customer_form(LoginWithPermissionMixin, generic.CreateView):
             is not found
         ''' 
         data = super().get_form_kwargs()
-        data["order_id"] = get_object_or_404(Order, id = self.kwargs.get("order_id", None))
+        #data["order_id"] = get_object_or_404(Order, id = self.kwargs.get("order_id", None))
+        data["order_id"] = Order.objects.annotate(total_price = Sum( F("cart_items__quantity") * F("cart_items__cake__price"))).get(id = self.kwargs.get("order_id"))
         
         # save the fetched order instance for the template context
         self.order_instance = data["order_id"]

@@ -8,7 +8,7 @@ class TransactionForm(forms.ModelForm):
     
     class Meta:
         model = Transaction
-        exclude = ["order_id","status", "payment_type"]
+        exclude = ["order_id","status", "payment_type", "amount"]
    
     def __init__(self, *args, **kwargs):
        self.order_id = kwargs.pop("order_id") # already the instance of the object
@@ -21,6 +21,7 @@ class TransactionForm(forms.ModelForm):
         instance = super().save(commit=False, *args, **kwargs)
 
         instance.order_id = self.order_id
+        instance.amount = self.order_id.total_price / 2
 
         instance.save()
 

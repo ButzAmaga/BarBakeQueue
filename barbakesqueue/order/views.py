@@ -219,8 +219,16 @@ class Customer_orders_on_progress(Customer_orders_pending):
 
 class Customer_orders_delivered(Customer_orders_pending):
     
+    template_name = "order/customer_order/delivered_progress.html"
     def get_status(self):
         ''' 
             are status are delivered and fully paid
         '''
         return Q(status = "delivered") | Q(status = "fully paid") 
+    
+    def get_queryset(self):
+        ''' return the orders that are specific to current logged in customer '''
+        user_orders = self.model.objects.filter(self.get_status() ,customer = self.request.user.account)\
+                      .annotate(total_price = Sum( F("cart_items__quantity") * F("cart_items__cake__price"))).order_by("status")
+
+        return user_orders

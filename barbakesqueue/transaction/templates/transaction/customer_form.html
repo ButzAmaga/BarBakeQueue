@@ -5,7 +5,21 @@
 
       {% csrf_token %}
 
-    <h4 class="fw-bold" style="font-size: 1.5em;">Downpayment</h4>
+    <div>
+        <h4 class="fw-bold" style="font-size: 1.5em;">Payment</h4>
+        <p><span class="text-primary">50% downpayment</span> for unpaid order and remaining  <span class="text-primary">50% when delivered</span>.</p>
+    </div>
+
+    <div class="mb-4">
+        <p class="mb-0">
+            <span>Gcash:</span>
+            <span>0993 867 6351</span>
+        </p>
+        <p class="mb-0">
+            <span>Bank Account:</span>
+            <span>Eunese A. Molleno</span>
+        </p>
+    </div>
 
     
     {% if messages %}
@@ -21,9 +35,12 @@
         
     <div class="d-flex flex-column gap-2 mt-4">
         {% include 'form_template/image_template.html' with field=form.image_prof is_create=True %}
-        {% include 'form_template/text_template.html' with field=form.reference_number %}
-        {% include 'form_template/number_template.html' with field=form.amount %}
-        <button class="btn btn-primary align-self-end mt-5" type="submit">Submit</button>
+        {% include 'form_template/text_template.html' with field=form.reference_number placeholder="N/A if not applicable" %}
+
+        <div class="d-flex justify-content-between mt-5">
+            <p class="fw-bold mb-0" style="font-size: 1.5em;">&#8369 {% widthratio order.total_price 2 1 %}<span style="font-size: .5em;" class="text-black-700"> total</span></p>
+            <button class="btn btn-primary align-self-end" type="submit">Submit</button>
+        </div>
     </div>
 
 
