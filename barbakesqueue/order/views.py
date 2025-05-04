@@ -254,6 +254,6 @@ class Customer_orders_delivered(Customer_orders_pending):
     def get_queryset(self):
         ''' return the orders that are specific to current logged in customer '''
         user_orders = self.model.objects.filter(self.get_status() ,customer = self.request.user.account)\
-                      .annotate(total_price = Sum( F("cart_items__quantity") * F("cart_items__cake__price"))).order_by("status")
+                      .annotate(total_price = Sum( F("cart_items__quantity") * F("cart_items__cake__price"))).order_by("status", "-date_ordered")
 
         return user_orders
