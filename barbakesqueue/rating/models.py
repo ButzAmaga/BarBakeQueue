@@ -1,5 +1,6 @@
 from django.db import models
 from customer.models import *
+from cake.models import *
 # Create your models here.
 
 
@@ -11,8 +12,8 @@ class Rating_rate_choices(models.IntegerChoices):
     five = 5, "Very Satisfied"
     
 class Rating(models.Model):
-    customer = models.ForeignKey('customer', related_name='ratings', on_delete=models.CASCADE)
-    cake = models.ForeignKey('Cake', related_name='ratings', on_delete=models.CASCADE)
+    customer = models.ForeignKey(customer, related_name='ratings', on_delete=models.CASCADE)
+    cake = models.ForeignKey(Cake, related_name='ratings', on_delete=models.CASCADE)
     
     rate = models.IntegerField(choices=Rating_rate_choices, default=1)
     comment = models.TextField()
