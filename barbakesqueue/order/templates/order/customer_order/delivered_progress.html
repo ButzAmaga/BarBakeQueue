@@ -18,7 +18,7 @@
                         <!-- group 1 -->
                         <div class="p-4 pb-0">
 
-                            <p style="font-size: .8em;" class="text-black-700 text-end">{{order.date_ordered|date:'m/d/y'}}</p>
+                            <p style="font-size: .8em;" class="text-black-700 text-end" title="date ordered">{{order.date_ordered|date:'m/d/y'}}</p>
 
                             <!-- order carts -->
                             <div class="d-flex flex-column gap-3">
@@ -27,6 +27,18 @@
                                         <div class="d-flex gap-3 align-items-center">
                                             <img src="{{cart.cake.main_pic.url}}" style="width: 3.5em; aspect-ratio: 1/1; object-fit: cover; border-radius: 10%;" title="{{cart.cake.name}} quantity: ({{cart.quantity}})">
                                             <p class="d-flex justify-content-between text-black-700 mb-0 w-100">{{cart.cake.name}} <span class="text-black-600">{{cart.quantity}}</span></p>
+
+
+                                            {% if  order.status == "fully paid"  %}
+                                                <button 
+                                                    data-bs-target="#modal_out" data-bs-toggle="modal"
+                                                    hx-target="#modal_out_content" hx-swap="innerHTML" 
+                                                    hx-get="{% url 'rating:customer_rate' cart.cake.id %}" 
+                                                    class="btn p-0" title="rate cake">
+                                                    <img style="width: 1.25em; aspect-ratio: 1/1;" src="{% static 'images/icons/like.png' %}"  alt="">
+                                                </button>    
+                                            {% endif %}
+
                                         </div>
                                 {% endfor %}
 
@@ -78,6 +90,10 @@
 
                                     </div>
                                 
+                               
+
+
+
                                 {% endif %}
                             </div>
                         </div>

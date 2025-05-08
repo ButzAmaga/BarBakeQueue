@@ -80,6 +80,27 @@ html {
     object-fit: cover;
   }
 }
+.rate-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.rate-wrapper img {
+  transition: 0.3s ease;
+  cursor: pointer;
+  width: 4em;
+  aspect-ratio: 1/1;
+  filter: brightness(400%);
+}
+.rate-wrapper p {
+  font-size: 0.85em;
+}
+
+.rate-wrapper:has(input[type=radio]:checked) img {
+  filter: brightness(100%);
+}
+
 .nav-link.active {
   font-weight: bold;
 }

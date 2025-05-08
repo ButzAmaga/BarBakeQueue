@@ -1,8 +1,44 @@
-
-<form class="p-4" method="post" action="{% url 'rating:customer_rate' cake.id %}">
+{% load static %}
+<form 
+        class="p-4" method="post" 
+        hx-swap="outerHTML"
+        hx-post="{% url 'rating:customer_rate' cake.id %}">
     {% csrf_token %}
 
-    {{form}}
+
+    <div class="d-flex align-items-center flex-column gap-2">
+        <img src="{{cake.main_pic.url}}" style="width: 10em;" class="ratio-1x1 rounded rounded-5" alt="">        
+        <p>{{cake.name}}</p>
+    </div>
+
+    <p class="mt-3 fw-bold text-center">How`s the experience with the cake?</p>
+    <div class="d-flex justify-content-around">
+        
+        {% for rate in form.rate  %}
+            
+            <label class="rate-wrapper xxx" for="{{rate.id_for_label}}">
+
+                
+                {% if rate.data.value == 1 %}
+                    <img src="{% static 'images/icons/crying.png' %}" alt="">
+                {% elif rate.data.value == 2 %}
+                    <img src="{% static 'images/icons/sad.png' %}" alt="">
+                {% elif rate.data.value == 3 %}
+                    <img src="{% static 'images/icons/neutral.png' %}" alt="">
+                {% elif rate.data.value == 4 %}
+                    <img src="{% static 'images/icons/happy.png' %}" alt="">
+                {% elif rate.data.value == 5 %}
+                    <img src="{% static 'images/icons/lol.png' %}" alt="">
+                {% endif %}
+                    
+                <p>{{rate.data.label}}</p>
+                <input class="d-none" id="{{rate.id_for_label}}" type="radio" name="{{form.rate.name}}" value="{{rate.data.value}}">
+            </label>
+
+        {% endfor %}
+            
+    </div>
+
 
     <button type="submit">Submit</button>
 </form>
