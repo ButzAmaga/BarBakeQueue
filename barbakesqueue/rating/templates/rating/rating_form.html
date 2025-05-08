@@ -1,7 +1,8 @@
-<form class="p-4">
+
+<form class="p-4" method="post" action="{% url 'rating:customer_rate' cake.id %}">
     {% csrf_token %}
 
     {{form}}
 
-    
+    <button type="submit">Submit</button>
 </form>

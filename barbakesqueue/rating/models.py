@@ -17,5 +17,8 @@ class Rating(models.Model):
     
     rate = models.IntegerField(choices=Rating_rate_choices, default=1)
     comment = models.TextField()
+
+    def __str__(self):
+        return f"{self.customer}`s {self.cake} => {self.rate}"
     
     
