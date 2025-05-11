@@ -33,7 +33,7 @@
 
         <div id="chat-container">
             <!-- Floating Chat Icon -->
-            <div id="chat-icon" title="Chat with us">
+            <div id="chat-icon" title="Chat with us" hx-get="{% url 'chat:room' user.id %}" hx-target="#messageBox" hx-swap="innerHTML">
                 💬
             </div>
 
@@ -48,11 +48,7 @@
                 <div id="chat-header">
                     <span>Live Chat</span>
                 </div>
-                <div id="chat-history"></div>
-                <div id="chat-input-container">
-                    <input type="text" id="chat-input" placeholder="Type a message...">
-                    <button id="send-btn">Send</button>
-                </div>
+                <div id="messageBox" class="px-2"></div>
             </div>
         </div>
       

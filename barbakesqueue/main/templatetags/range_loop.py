@@ -4,4 +4,8 @@ register = template.Library()
 
 @register.filter
 def times(number):
-    return range(int(number))
+    if number:
+        return range(int(number))
+
+    return None
+

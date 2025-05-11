@@ -41,7 +41,7 @@
 
         </div>
 
-        <textarea class="form-control" rows="3" placeholder="Input your experience, suggestions, etc here" name="{{form.comment.name}}" id="">{{form.comment.value}}</textarea>
+        <textarea class="form-control" rows="3" placeholder="Input your experience, suggestions, etc here" name="{{form.comment.name}}" id="">{% if form.comment.value %}{{form.comment.value}}{% endif %}</textarea>
 
         <div class="d-flex justify-content-end mt-4">
             <button class="btn btn-primary" type="submit">Submit</button>

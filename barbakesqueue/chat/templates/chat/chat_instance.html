@@ -1,4 +1,4 @@
-
+{% load tz %}
 
 <!-- will be appended to #message div -->
 <div id="chat_box" hx-swap-oob="beforeend">
@@ -6,6 +6,10 @@
         <p style="font-size: .8em;" class="mb-0">{{sender}}</p>
         <p class="p-2 rounded border border-1 mb-0 {% if align_end %}bg-black text-white{% endif %}
             ">{{message}}</p>
-        <p class="text-black-700" style="font-size: .8em;">{{time|date:"g:iA - M j e"}}</p>
+        <p class="text-black-700" style="font-size: .8em;">
+            {% timezone "Asia/Manila" %}
+                {{time|date:"g:iA - M j"}}
+            {% endtimezone %}
+        </p>
     </div>
 </div>

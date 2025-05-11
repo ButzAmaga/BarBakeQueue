@@ -11,7 +11,7 @@
 #chat-icon {
     width: 60px;
     height: 60px;
-    background: linear-gradient(90deg, #D83289 50%, white 50%);
+    background: #D83289;
     color: white;
     display: flex;
     align-items: center;
@@ -21,7 +21,8 @@
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
     font-size: 24px;
-    font-family: 'Arial', sans-serif;
+    font-family: 'rial', sans-serif;
+    border: 2px solid rgb(37, 37, 37);
 }
 
 #chat-icon:hover {
@@ -35,7 +36,7 @@
     bottom: 80px;
     right: 10px;
     background: #fff5f8;
-    color: #D83289;
+    color: #2e2e2e;
     padding: 12px 18px;
     border-radius: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -46,6 +47,7 @@
     font-size: 14px;
     font-weight: bold;
     font-family: 'Arial', sans-serif;
+    width: 18em;
 }
 
 /* Close Button for Initial Message Bubble */
@@ -64,7 +66,6 @@
 /* Floating Chat Box - Main chat window */
 #chat-box {
     width: 320px;
-    max-height: 450px;
     background: #fff5f8;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(216, 50, 137, 0.4);
@@ -82,7 +83,7 @@
 
 /* Chat Header - Contains the chat title */
 #chat-header {
-    background: linear-gradient(90deg, #D83289 50%, white 50%);
+    background: rgb(26, 26, 26);
     color: white;
     padding: 12px;
     display: flex;

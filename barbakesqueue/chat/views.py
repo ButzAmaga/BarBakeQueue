@@ -3,6 +3,7 @@ from django.views.generic import TemplateView, FormView, ListView, DetailView
 from django.contrib.auth.models import User, Group
 from django.urls import reverse_lazy
 from .forms import *
+from customer.models import customer
 # Create your views here.
 
 
@@ -21,6 +22,9 @@ class Index(ListView):
 class Room(DetailView):
     template_name = 'chat/chatroom_2.html'
     model = User
+    
+    def get_queryset(self):
+        return super().get_queryset().prefetch_related("account") 
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

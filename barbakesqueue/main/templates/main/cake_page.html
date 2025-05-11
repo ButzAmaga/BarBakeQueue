@@ -30,9 +30,19 @@
                                 
                                 <div class="d-flex gap-2">
                                     <div>
-                                        {% for _ in cake.avg_rating|times %}
-                                            <img style="width: 1em; aspect-ratio: 1/1;" src="{% static 'images/icons/active_star.png' %}" alt="">
-                                        {% endfor %}
+
+                                        
+                                        {% if cake.avg_rating|times %}
+                                            
+                                            {% for _ in cake.avg_rating|times %}
+                                                <img style="width: 1em; aspect-ratio: 1/1;" src="{% static 'images/icons/active_star.png' %}" alt="">
+                                            {% endfor %}
+
+                                            {% else %}
+
+                                                <p class="mb-0 text-black-700">No Rating Yet</p>
+                                        {% endif %}
+                                            
                                     </div> 
                                     <p class="mb-0" title="number of cake ordered by the customer">({{cake.sold}})</p>
                                 </div>

@@ -28,7 +28,7 @@
                 </div>
 
                 {% for customer in customers %}
-                    <div class="p-2 d-flex align-items-center gap-2" hx-get="{% url 'chat:room' customer.id %}" hx-target="#messageBox" hx-swap="innerHTML">
+                    <div class="p-2 d-flex align-items-center gap-2" hx-get="{% url 'chat:room' customer.id %}" hx-target="#messageBox" hx-swap="innerHTML" style="cursor: pointer;">
                         <img src="{{customer.account.profile_pic.url}}" style="width: 2.5em; aspect-ratio: 1/1;" class="rounded rounded-5">
                         {{customer.account.first_name}} {{customer.account.last_name}}</div>
                 {% endfor %}
@@ -36,7 +36,7 @@
 
             <!-- Message Box -->
             <div class="col border border-1 rounded" id="messageBox">
-                Message
+                
             </div>
         </div>
         

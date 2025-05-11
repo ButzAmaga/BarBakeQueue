@@ -3,9 +3,7 @@
 {% block content %}
     
 
-    <div class="w-100" hx-ext="ws" id="chat_container" ws-connect="/ws/chat/channel_{{object.id}}/">
-
-        <p class="mt-2 mb-0">{{object}}</p>
+    <div class="w-100 pt-2" hx-ext="ws" id="chat_container" ws-connect="/ws/chat/channel_{{object.id}}/">
 
 
         <div style="height: 350px; " id="chat_box" class="d-flex flex-column gap-4 overflow-y-scroll">
@@ -13,9 +11,9 @@
         </div>
 
         <!-- send form --> 
-        <form class="mt-2 d-flex gap-2" id="form"  ws-send>
+        <form class="my-2 d-flex gap-2" id="form"  ws-send>
 
-            <input id="chat-message-input" class="form-control" type="text" name="message" size="100"/><br>
+            <input id="chat-message-input" class="form-control" type="text" name="message" size="100" placeholder="Type your message here"/><br>
             <button class="btn btn-primary" type="submit">Send</button>
         </form> 
     </div>
