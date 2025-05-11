@@ -7,7 +7,7 @@ from datetime import date, timedelta
 
 class Cart(models.Model):
     customer = models.ForeignKey(customer, related_name="cart_items", on_delete=models.CASCADE)
-    cake = models.ForeignKey(Cake, on_delete=models.CASCADE)
+    cake = models.ForeignKey(Cake, on_delete=models.CASCADE, related_name="cart")
     quantity = models.IntegerField()
     
     order_id = models.ForeignKey("Order", related_name= "cart_items", on_delete=models.SET_NULL, null=True, blank=True, default=None) 
@@ -17,7 +17,7 @@ class Cart(models.Model):
     
     
     def __str__(self):
-        return f"{self.customer}`s {self.cake}" 
+        return f"{self.customer}`s {self.cake} Q: {self.quantity} S: {self.is_ordered}" 
 
 class Order(models.Model):
     
