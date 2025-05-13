@@ -51,6 +51,8 @@ class Cake(models.Model):
     caketype = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
 
+    description = models.TextField(default="No description yet")    
+
     main_pic = models.ImageField(upload_to='cake/main/', null=True)
     
    #layer = models.ManyToManyField('Layer')
