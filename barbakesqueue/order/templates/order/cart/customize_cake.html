@@ -1,9 +1,45 @@
-<form class="p-4" hx-post="{% url 'order:cart_form' cake.id %}" method="post">
-    <img src="{{cake.main_pic.url}}" style="width: 3em; aspect-ratio: 1/1;" alt="">
-    <p>{{cake}}</p>
-
+<form hx-post="{% url 'order:cart_form' cake.id %}" method="post">
+    
     {% csrf_token %}
-    {{form}}
+    
+    <img src="{{cake.main_pic.url}}" style="width: 100%; aspect-ratio: 21/9; object-fit: cover;" alt="">
+    
+    <div class="p-4 pt-4">
 
-    <button class="btn btn-primary">Add to cart</button>
+        <h4 class="fw-bold mt-2">{{cake.name}}</h4>
+        <p class="text-black-800">{{cake.description}}</p>
+
+        <!-- Reviews -->
+        <div class="mt-5">
+            <p class="fw-bold">Reviews</p>
+
+            <!-- list -->
+            <div 
+                hx-trigger="load" hx-get="{% url 'rating:cake_reviews' cake.id %}" 
+                hx-swap="innerHTML" class="overflow-auto d-flex flex-column gap-2"
+                style="max-height: 15em;">
+                <!-- loading --> 
+                <div class="d-flex justify-content-center" title="Getting reviews...">
+                    <div class="spinner-border text-center text-primary" role="status"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between mt-5">
+            
+            <div class="form-group d-flex align-items-center gap-2">
+                <label for="quantity" class="text-black-700" style="font-size: .9em;">Quantity</label>
+                <input 
+                    id="quantity" name="{{form.quantity.name}}" 
+                    class="form-control" type="number" 
+                    style="max-width: 4em;"
+                    value="{{form.quantity.value}}">
+            </div>
+            
+
+
+            <button class="btn btn-primary">Add to cart</button>
+        </div>
+
+    </div>
 </form>

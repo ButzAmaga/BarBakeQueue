@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import *
-from django.views.generic import CreateView, UpdateView, View, FormView
+from django.views.generic import CreateView, UpdateView, View, FormView, ListView
 from common.views import LoginWithPermissionMixin
 from common.mixin import FormResponseMixin
 from django.shortcuts import get_object_or_404, redirect
@@ -74,7 +74,15 @@ class RatingForm(FormResponseMixin, LoginWithPermissionMixin, FormView):
         context["cake"] = self.cake
         
         return context
-            
+
+
+class CakeReviews(ListView):
+    template_name = "rating/rating_list.html"
+    model = Rating
+    context_object_name = "ratings"
+    
+    def get_queryset(self):
+        return self.model.objects.filter(cake = self.kwargs["cake_id"]).order_by("-last_modified")
 ''' 
 
 

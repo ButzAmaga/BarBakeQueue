@@ -24,6 +24,7 @@ class Room(DetailView):
     model = User
     
     def get_queryset(self):
+        
         return super().get_queryset().prefetch_related("account") 
     
     def get_context_data(self, **kwargs):

@@ -1,6 +1,7 @@
 from django.db import models
 from customer.models import *
 from cake.models import *
+
 # Create your models here.
 
 
@@ -17,6 +18,8 @@ class Rating(models.Model):
     
     rate = models.IntegerField(choices=Rating_rate_choices, default=1)
     comment = models.TextField()
+
+    last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.customer}`s {self.cake} => {self.rate}"

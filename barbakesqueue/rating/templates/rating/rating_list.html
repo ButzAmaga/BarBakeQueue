@@ -1,0 +1,37 @@
+{% load static %}
+{% load range_loop %}
+
+{% for rating in ratings  %}
+    <!-- rating -->
+    <div>
+        <!-- top -->
+        <div class="d-flex justify-content-between">
+
+            <!-- name with picture -->
+            <div class="d-flex gap-2">
+                <img 
+                    src="{{rating.customer.profile_pic.url}}" 
+                    style="width: 2.5em; aspect-ratio: 1/1;" 
+                    class="rounded rounded-5" alt="">
+                <p class="mb-0">{{rating.customer.first_name}} {{rating.customer.last_name}} </p>
+            </div>
+
+            <p class="mb-0 text-black-800" style="font-size: .9em;">{{rating.last_modified|date:"j/n/Y"}}</p>
+
+        </div>
+
+        <!-- comment -->
+        <p class="mt-2">{{rating.comment}}</p>
+
+        <!-- rate -->
+        <div class="d-flex gap-2">
+            
+               {% for _ in rating.rate|times  %}
+                    <img style="width: 1em; aspect-ratio: 1/1; filter: brightness(80%);" src="{% static 'images/icons/active_star.png' %}" alt="">
+               {% endfor %} 
+            
+                
+        </div>
+    </div>
+{% endfor %}
+    
