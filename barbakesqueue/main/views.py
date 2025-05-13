@@ -13,7 +13,7 @@ class Cake_page(ListView):
     filterset = Cake_filter
 
     def get_queryset(self):
-        cakes = self.model.objects.annotate(avg_rating = Ceil(Avg("ratings__rate")), sold=Sum("cart__quantity", filter=Q(cart__is_ordered=True)))
+        cakes = self.model.objects.annotate(avg_rating = Ceil(Avg("ratings__rate")), sold=Sum("cart__quantity", filter=Q(cart__is_ordered=True))).order_by("group_by")
         self.filterset = self.filterset(self.request.GET, queryset=cakes)
         return self.filterset.qs
 
