@@ -8,8 +8,67 @@
     
 
 {% block content %}
-   
+
+
+
     <div class="container mt-3">
+        
+        <div class="d-flex justify-content-end py-4">
+            <form class="d-flex align-items-end gap-4" action="{% url 'main:cake_page' %}">
+
+                <!-- cake name -->
+                <div class="form-group">
+                    <label for="search_field">Rating</label>
+                    <input 
+                        id="search_field"
+                        type="text" name="{{filter.form.name.name}}"
+                        class="form-control" placeholder="Type a cake name" >
+                </div>
+
+                <!-- rating -->
+                <div class="form-group">
+                    <label for="rating_field">Rating</label>
+                    <select class="form-select" name="{{filter.form.rating.name}}" id="rating_field">
+                        
+                        {% for choice in filter.form.rating %}
+                            <option value="{{choice.data.value}}" {% if choice.data.selected %}selected{% endif %}>
+                                
+                                {% if choice.data.index == "0" %}
+                                    All 
+                                {% else %}
+                                    {{choice.data.label}}
+                                {% endif %}
+                                    
+                                </option>  
+                        {% endfor %}
+
+                    </select>
+                </div>
+                
+                <!-- Price -->
+                <div class="form-group">
+                    <label for="price_field">Price</label>
+                    <select class="form-select" name="{{filter.form.price__lt.name}}" id="price_field">
+                        
+                        {% for choice in filter.form.price__lt %}
+                            <option value="{{choice.data.value}}" {% if choice.data.selected %}selected{% endif %}>
+                                
+                                {% if choice.data.index == "0" %}
+                                    All 
+                                {% else %}
+                                    {{choice.data.label}}
+                                {% endif %}
+                                    
+                                </option>  
+                        {% endfor %}
+
+                    </select>
+                </div>
+                
+                <button class="btn btn-primary" type="submit">Filter</button>
+            </form>
+        </div>
+
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xxl-4 g-3">
 
             

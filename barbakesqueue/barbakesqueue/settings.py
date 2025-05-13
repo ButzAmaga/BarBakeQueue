@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'main',
     'transaction',
     'rating',
-    'common'
+    'common',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
