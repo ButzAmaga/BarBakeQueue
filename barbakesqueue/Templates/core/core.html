@@ -17,6 +17,7 @@
 
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
     
     {% block links %}
         
@@ -72,10 +73,49 @@
             <img style="width: 4em; aspect-ratio: 1/1;" src="{% static 'images/logo/logo.png' %}" alt="">
         </a>
 
-        <!-- mobile toggler -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+
+        <div class="d-flex align-items-center gap-4">
+
+            <!-- mobile specific -->
+            <div class="d-flex d-lg-none">
+
+                {% if user.is_authenticated %}
+                     {% if user|has_group:"Customer" %}
+
+                        <li class="nav-item d-flex gap-3 align-items-center">
+
+                          <!-- cart item button -->
+                          <button data-bs-target="#modal_out" data-bs-toggle="modal" 
+                                  class="btn p-0 position-relative" title="Cart"
+                                  hx-get="{% url 'order:cart_items_v2' %}" hx-target="#modal_out_content"
+                                  hx-swap="innerHTML">
+                            <img src="{% static 'images/icons/shopping_cart.png' %}" style="width: 2em; aspect-ratio: 1/1;" alt="">
+                            <div style="top: -5%; left: 28%; background-color: red; width: .9em; aspect-ratio: 1/1;" class="position-absolute rounded rounded-5"></div>
+                          </button> 
+                          <img src="{{user.account.profile_pic.url}}" style="width: 2.5em; aspect-ratio: 1/1;" class="border border-1 rounded rounded-5" alt="Profile Pic">
+                        </li>
+
+                        {% else %}
+
+                        <a class="btn btn-primary ms-5" href="{% url 'account:login' %}">Staff Page</a>
+                     {% endif %}
+                {% else %}
+
+                  {% if not is_login_page %}
+                    <a href="{% url 'account:login' %}" class="btn btn-primary">Login</a>
+                  {% endif %}
+                      
+                {% endif %}
+            </div>
+
+            <!-- mobile toggler -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+
+
+    
 
         <!-- collapsable links -->
         <div class="collapse navbar-collapse justify-content-end mt-3 mt-lg-0" id="navbarSupportedContent">
@@ -100,7 +140,7 @@
             {% if user.is_authenticated %}
                  {% if user|has_group:"Customer" %}
                   
-                    <li class="ms-lg-5 nav-item d-flex gap-3 align-items-center">
+                    <li class="ms-lg-5 nav-item d-none d-lg-flex gap-3 align-items-center">
 
                       <!-- cart item button -->
                       <button data-bs-target="#modal_out" data-bs-toggle="modal" 
@@ -115,12 +155,12 @@
 
                     {% else %}
 
-                    <a class="btn btn-primary ms-5" href="{% url 'account:login' %}">Staff Page</a>
+                    <a class="d-none d-lg-block btn btn-primary ms-5" href="{% url 'account:login' %}">Staff Page</a>
                  {% endif %}
             {% else %}
 
               {% if not is_login_page %}
-                <a href="{% url 'account:login' %}" class="btn btn-primary mt-3 mt-lg-0 ms-lg-5">Login</a>
+                <a href="{% url 'account:login' %}" class="d-none d-lg-block btn btn-primary mt-3 mt-lg-0 ms-lg-5">Login</a>
               {% endif %}
                 
             {% endif %}
@@ -144,6 +184,10 @@
     <script src="{% static 'js/ws.js' %}"></script> 
     
     <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/aos.js' %}"></script>
+    <script>
+       AOS.init();
+    </script>
     {% block script %}{% endblock script %}
 
         

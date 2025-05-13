@@ -11,19 +11,21 @@
 
 
 
-    <div class="container mt-3">
+    <div class="container mt-3 pb-5">
         
         <div class="d-flex justify-content-end py-4">
-            <form class="d-flex align-items-end gap-4" action="{% url 'main:cake_page' %}">
+            <form class="d-flex flex-column flex-md-row align-items-md-end gap-2 gap-md-4" action="{% url 'main:cake_page' %}" style="max-width: 36em; width: 100%;">
 
                 <!-- cake name -->
                 <div class="form-group">
-                    <label for="search_field">Rating</label>
+                    <label for="search_field">Searcn</label>
                     <input 
                         id="search_field"
                         type="text" name="{{filter.form.name.name}}"
                         class="form-control" placeholder="Type a cake name" >
                 </div>
+
+                <div class="row row-cols-2">
 
                 <!-- rating -->
                 <div class="form-group">
@@ -65,14 +67,15 @@
                     </select>
                 </div>
                 
-                <button class="btn btn-primary" type="submit">Filter</button>
+                </div>
+                <button class="btn btn-primary mt-4 mt-md-0" type="submit">Filter</button>
             </form>
         </div>
 
 
         {% regroup cakes by group_by as cakes_group %}
         <!-- cake list -->
-        <div class="d-flex flex-column gap-5">
+        <div class="d-flex flex-column gap-5 pb-5">
 
             {% for cake_item in cakes_group  %}
               
@@ -85,7 +88,7 @@
 
                     {% for cake in cake_item.list  %}
                         <div class="col">
-                            <div style="cursor: pointer;" class=" shadow shadow-sm cake-card cake-img-zoom">
+                            <div style="cursor: pointer;" data-aos="fade-up" class=" shadow shadow-sm cake-card cake-img-zoom">
                                     
                                 <div  class="overflow-hidden">
                                     <img src="{{cake.main_pic.url}}" style="width: 100%; aspect-ratio: 1.5/1;" class="object-fit-cover img-zoom-target" alt="cake_image">
