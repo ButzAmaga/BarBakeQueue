@@ -13,6 +13,7 @@ urlpatterns = [
     
      
     path('cart/customer/customize/<pk>', Cart_form.as_view(), name='cart_form'), # customize cart
+    path('cart/customer/delete_cart/<pk>', Remove_cart.as_view(), name='cart_remove'), # delete cart
     path('cart/customer/cart_added/', Cart_Created.as_view(), name='cart_created'), # success message for creating the cart
     path('cart/customer/v2/cart_items/', Cart_items_v2.as_view(), name='cart_items_v2'), # cart items for the current user
     path('order/customer/orders', Customer_orders.as_view(), name='customer_orders'), # main order interface for the customer user

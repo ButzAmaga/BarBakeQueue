@@ -257,3 +257,15 @@ class Customer_orders_delivered(Customer_orders_pending):
                       .annotate(total_price = Sum( F("cart_items__quantity") * F("cart_items__cake__price"))).order_by("status", "-date_ordered")
 
         return user_orders
+
+
+class Remove_cart(LoginWithPermissionMixin, FormResponseMixin, generic.DeleteView):
+    model = Cart
+    template_name = "order/cart/delete_cart.html"
+    context_object_name = "cart"
+    form_success_message = "Deleted cart item"
+    permission_required = ["order.delete_cart"]
+    
+    def get_queryset(self):
+        # make sure that the cart items to query is related only to the user
+        return self.model.objects.filter(customer = customer.objects.get(account = self.request.user))

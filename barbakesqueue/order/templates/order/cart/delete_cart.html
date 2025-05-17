@@ -1,0 +1,20 @@
+<form hx-post="{% url 'order:cart_remove' cart.id %}" class="">
+    {% csrf_token %}
+    <img 
+        src="{{cart.cake.main_pic.url}}" 
+        style="width: 100%; aspect-ratio: 27/9; object-fit: cover;" 
+        title="{{cart.cake.name}} quantity: ({{cart.quantity}})">
+    
+    <div class="p-4">
+
+        <h4 class="btn-black-900 fw-bold">Delete cart</h4>
+        <p>Are you sure to delete {{cart.cake.name}} on your cart items</p>
+    
+
+
+        <div class="d-flex justify-content-end">
+            <button style="width: 5em;" class="btn" type="button" data-bs-dismiss="modal">No</button>
+            <button style="width:5em;" class="btn btn-danger" type="submit">Yes</button>
+        </div>
+    </div>
+</form>
