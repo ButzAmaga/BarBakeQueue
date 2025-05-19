@@ -127,7 +127,7 @@ class TransactionDetail(LoginWithPermissionMixin, generic.DetailView):
     context_object_name = "transaction"
     permission_required = ["transaction.view_transaction"]
     
-    
+
     
 def export_transaction_to_csv(request):
     # Create the HttpResponse object with CSV header.

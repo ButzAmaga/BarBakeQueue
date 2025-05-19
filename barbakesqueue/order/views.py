@@ -74,8 +74,11 @@ class Delete_order(LoginWithPermissionMixin, FormResponseMixin ,generic.DeleteVi
     def get_queryset(self):
         return self.model.objects.prefetch_related("cart_items__cake").all()
 
- 
-
+class Detail_order(LoginWithPermissionMixin, generic.DetailView):
+    template_name = "order/admin/order_cart_list.html"
+    model = Order
+    context_object_name = "order"
+    permission_required = ["order.view_order", "order.delete_order"]
     
 
 

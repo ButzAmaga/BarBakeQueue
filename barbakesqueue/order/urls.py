@@ -10,7 +10,7 @@ urlpatterns = [
     path('orders/get/delivered', Get_delivered_order.as_view(), name='delivered'), # list of delivered order
     path('orders/get/paid/change_status/<pk>', Status_form.as_view(), name='status_change'), # list of unpaid order
     path('orders/delete/<pk>', Delete_order.as_view(), name='delete_order'), # list of unpaid order
-    
+     path('orders/detail/<pk>', Detail_order.as_view(), name='detail_order'),
      
     path('cart/customer/customize/<pk>', Cart_form.as_view(), name='cart_form'), # customize cart
     path('cart/customer/delete_cart/<pk>', Remove_cart.as_view(), name='cart_remove'), # delete cart

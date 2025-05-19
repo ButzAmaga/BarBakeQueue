@@ -1,0 +1,25 @@
+{% load math_filter %}
+<div class="p-4">
+
+    <h4 class="fw-bold">Order Detail</h4>
+
+    <!-- cart list -->
+    <p class="mt-4">Associated Cart</p>
+
+    <div class="row row-cols-2">
+        {% for cart in order.cart_items.all  %}
+            <div class="col">
+                <div class="rounded shadow shadow-sm d-flex gap-4 align-items-center">
+                    <img src="{{cart.cake.main_pic.url}}" style="aspect-ratio: 1/1; width: 3.5em;">
+                    
+                    <div>
+                        <p class="mb-0">{{cart.cake.name}} ({{cart.quantity}})</p>
+                        <p class="mb-0 fw-bold">&#8369 {{cart.quantity|multiply:cart.cake.price}}</p>
+                    </div>
+   
+                </div>
+            </div>
+            
+        {% endfor %}
+    </div>
+</div>
