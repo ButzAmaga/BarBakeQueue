@@ -8,9 +8,11 @@ from django.contrib import messages
 from common.views import LoginWithPermissionMixin
 import csv
 from django.http import HttpResponse
-from django.db.models import Sum, F
+from django.db.models import Sum, F, Value
 from customer.models import customer
+from .filters import *
 
+from django.db.models.functions import Concat
 # Create your views here.
 
 # customer order transaction form
@@ -116,10 +118,21 @@ class TransactionList(LoginWithPermissionMixin, generic.ListView):
     context_object_name = "transactions"
     paginate_by = 10
     permission_required = ["transaction.view_transaction"]
-
-    def get_queryset(self):
-        return self.model.objects.all().filter(status = 1).order_by("-date_submitted")
+    filterset = TransactionFilter
     
+    def get_queryset(self):
+        transactions = self.model.objects.filter(status = 1)\
+            .annotate(full_name = Concat('order_id__customer__first_name', Value(' '), 'order_id__customer__last_name') )\
+            .order_by("-date_submitted")
+        
+        self.filter_set = self.filterset(self.request.GET, queryset = transactions)
+        
+        return self.filter_set.qs
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["filter"] = self.filterset
+        return context    
   
 class TransactionDetail(LoginWithPermissionMixin, generic.DetailView):
     model = Transaction
