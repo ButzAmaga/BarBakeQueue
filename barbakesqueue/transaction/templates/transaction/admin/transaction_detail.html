@@ -1,0 +1,46 @@
+<div class="p-4">
+
+    <h4 class="fw-bold">Transaction Detail</h4>
+
+    <!-- list of orders -->
+    <p class="mt-4">Orders</p>
+    <div class="row row-cols-2">
+        {% for cart in transaction.order_id.cart_items.all  %}
+          
+            <div class="col">
+                <div class="rounded shadow shadow-sm d-flex gap-4 align-items-center">
+                    <img src="{{cart.cake.main_pic.url}}" style="aspect-ratio: 1/1; width: 3.5em;">
+                    <p class="mb-0">{{cart.cake.name}} ({{cart.quantity}})</p>
+                </div>
+            </div>
+            
+        {% endfor %}
+    </div>
+
+    <!-- list of transactions related to the order -->
+    <p class="mt-4 mb-0">Related Transactions</p>
+    <div class="row row-cols-2">
+        {% for transaction in transaction.order_id.transactions.all  %}
+          
+            <div class="col">
+                <div class="rounded p-4 shadow shadow-sm">
+                    
+                    <p style="font-size: .89em; background-color: rgb(27, 19, 23); {% if transaction.payment_type == 1 %} background-color: rgb(255, 182, 221); {% endif %}"  class="mb-2 d-inline rounded-5 p-1 mb-0 text-black text-center {% if transaction.payment_type == 1 %} text-black {% else %} text-white {% endif %}">
+
+                        {% if transaction.payment_type == 0 %}
+                            Partial payment
+
+                        {% else %} 
+                            Full payment
+                        {% endif %}
+                            
+                    </p>
+
+                    <p class=" mb-0 mt-2">{{transaction.date_submitted|date:'m/d/y'}}</p>
+                </div>
+            </div>
+            
+        {% endfor %}
+    </div>
+
+</div>

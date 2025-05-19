@@ -9,7 +9,7 @@ urlpatterns = [
     
     # admin
     path('order/transaction/list', TransactionList.as_view(), name='transaction_list'), 
-
+    path('order/transaction/detail/<pk>', TransactionDetail.as_view(), name='transaction_detail'), 
 
     path('order/transaction/<int:order_id>', Order_transactions.as_view(), name='order_transactions'), # order transaction    
     path('order/transaction/<pk>/accept', Accept_transaction.as_view(), name='accept_transaction'), # accept transaction

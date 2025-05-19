@@ -9,6 +9,7 @@ from common.views import LoginWithPermissionMixin
 import csv
 from django.http import HttpResponse
 from django.db.models import Sum, F
+from customer.models import customer
 
 # Create your views here.
 
@@ -109,18 +110,25 @@ class Accept_transaction(LoginWithPermissionMixin, generic.RedirectView):
         return super().get_redirect_url(*args, **kwargs) 
  
 
-class TransactionList(generic.ListView):
+class TransactionList(LoginWithPermissionMixin, generic.ListView):
     model = Transaction
     template_name = "transaction/admin/index.html"
     context_object_name = "transactions"
     paginate_by = 10
+    permission_required = ["transaction.view_transaction"]
 
     def get_queryset(self):
         return self.model.objects.all().filter(status = 1).order_by("-date_submitted")
     
   
-
-
+class TransactionDetail(LoginWithPermissionMixin, generic.DetailView):
+    model = Transaction
+    template_name = "transaction/admin/transaction_detail.html"
+    context_object_name = "transaction"
+    permission_required = ["transaction.view_transaction"]
+    
+    
+    
 def export_transaction_to_csv(request):
     # Create the HttpResponse object with CSV header.
     response = HttpResponse(content_type='text/csv')
