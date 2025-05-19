@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cake Haven</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="test.css">
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg sticky-top shadow-sm" style="background-color: #ffffff;">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-pink" href="#">Cake Haven</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#new">What's New</a></li>
+          <li class="nav-item"><a class="nav-link" href="#cakes">Cakes</a></li>
+          <li class="nav-item"><a class="nav-link" href="#order">Order</a></li>
+          <li class="nav-item"><a class="nav-link" href="#footer">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero d-flex align-items-center justify-content-center text-center text-white" style="
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+    url('https://via.placeholder.com/1000x300?text=Cake+Banner') center/cover no-repeat;
+    height: 60vh;">
+    <div>
+      <h1 class="display-5 fw-semibold">Delight in Every Bite</h1>
+      <p class="lead">Freshly baked specialty cakes delivered to your door</p>
+      <a href="#order" class="btn btn-pink mt-3">Order Now</a>
+    </div>
+  </div>
+
+  <!-- What's New Section -->
+  <section id="new">
+    <div class="container">
+      <h2 class="text-center fw-semibold mb-4 text-pink">What's New</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card cake-card">
+            <img src="https://via.placeholder.com/400x250?text=Carrot+Cake" class="card-img-top" alt="Carrot Cake">
+            <div class="card-body">
+              <h5 class="card-title">Carrot Cake</h5>
+              <p class="card-text">Moist and spiced with a creamy frosting.</p>
+              <a href="#order" class="btn btn-pink">Order Now</a>
+            </div>
+          </div>
+        </div>
+        <!-- You can add more cake cards here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Cakes Section -->
+  <section id="cakes" class="section-alt">
+    <div class="container">
+      <h2 class="text-center fw-semibold mb-4 text-pink">Our Cakes</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card cake-card">
+            <img src="https://via.placeholder.com/400x250?text=Specialty+Cake" class="card-img-top" alt="Specialty Cake">
+            <div class="card-body">
+              <h5 class="card-title">Specialty Cakes</h5>
+              <p class="card-text">Perfect for events and celebrations.</p>
+            </div>
+          </div>
+        </div>
+        <!-- More cake categories can be added -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Order Section -->
+  <section id="order">
+    <div class="container text-center">
+      <h2 class="fw-semibold mb-4 text-pink">Order Now</h2>
+      <p class="mb-4">Get your favorite cakes delivered fast and fresh.</p>
+      <a href="#" class="btn btn-pink m-2">Add to Cart</a>
+      <a href="#" class="btn btn-outline-dark m-2 rounded-pill">Checkout</a>
+      <div class="mt-4">
+        <a href="#" class="btn btn-dark me-2 rounded-pill">Get it on Google Play</a>
+        <a href="#" class="btn btn-secondary rounded-pill">Download on iOS</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="footer" style="background-color: #fff6f6; padding: 2rem 1rem; border-top: 1px solid #ddd;">
+    <div class="container">
+      <div class="row text-center text-md-start">
+        <div class="col-md-4 mb-3">
+          <h5 class="fw-bold text-pink">Cake Haven</h5>
+          <p>Sweetening your day, one slice at a time.</p>
+        </div>
+        <div class="col-md-4 mb-3 footer-links">
+          <h6 class="fw-semibold">Quick Links</h6>
+          <a href="#">Contact Us</a><br>
+          <a href="#">FAQs</a><br>
+          <a href="#">About</a>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h6 class="fw-semibold">Follow Us</h6>
+          <a href="#">Facebook</a> | <a href="#">Instagram</a>
+        </div>
+      </div>
+      <div class="text-center mt-3 small text-muted">&copy; 2025 Cake Haven. All Rights Reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
