@@ -107,7 +107,19 @@ class Accept_transaction(LoginWithPermissionMixin, generic.RedirectView):
         kwargs.pop("pk")
         
         return super().get_redirect_url(*args, **kwargs) 
+ 
+
+class TransactionList(generic.ListView):
+    model = Transaction
+    template_name = "transaction/admin/index.html"
+    context_object_name = "transactions"
+    paginate_by = 10
+
+    def get_queryset(self):
+        return self.model.objects.all().filter(status = 1).order_by("-date_submitted")
     
+  
+
 
 def export_transaction_to_csv(request):
     # Create the HttpResponse object with CSV header.

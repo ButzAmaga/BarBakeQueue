@@ -1,0 +1,66 @@
+{% extends 'core/core_staff.html' %}
+{% load static %}
+
+
+{% block content %}
+    
+    <div class="container mt-4">
+        <h4 class="fw-bold">Transactions</h4>
+
+
+        <table class="table table-btransactionless">
+            <thead>
+                <tr>
+                  <th >Id</th>
+                  <th >Customer</th>
+                  <th >Status</th>
+                  <th >Date</th>
+                  <th >Amount</th>
+                  <th >Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for transaction in transactions  %}
+
+                    <tr>
+                        <th scope="row" class="text-end align-middle">{{transaction.id}}</th>
+                        <td class="align-middle">
+                            <div class="d-flex align-items-center gap-2">
+                                <img src="{{transaction.order_id.customer.profile_pic.url}}" style="width: 2em; aspect-ratio: 1/1;" class="rounded-5">
+                                <span>{{transaction.order_id.customer.first_name}} {{transaction.order_id.customer.last_name}}</span>
+                            </div>
+                        </td>
+                        
+                        <td class="align-middle "><p style="font-size: .8em; background-color: rgb(27, 19, 23); {% if transaction.payment_type == 1 %} background-color: rgb(255, 182, 221); {% endif %}"  class="rounded rounded-5 p-1 mb-0 text-black text-center {% if transaction.payment_type == 1 %} text-black {% else %} text-white {% endif %}"> 
+
+
+
+                        {% if transaction.payment_type == 0  %}
+                               partial  
+                            {% else %}
+                                full
+
+                            {% endif %}</p></td>
+                            
+                        <td class="align-middle">{{transaction.date_submitted|date:'m/d/y'}}</td>
+                        <td class="text-end fw-bold align-middle">&#8369 {{transaction.amount}}</td>
+                        <td class="align-middle">
+                            <div>
+                            
+                                <!-- view transaction -->
+                                <button class="btn p-1" title="transaction details">
+                                    <img style="width: 1.25em; aspect-ratio: 1/1;" src="{% static 'images/icons/eye.png' %}" alt="">
+                                </button>
+                            
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+    </div>
+{% endblock content %}
+    

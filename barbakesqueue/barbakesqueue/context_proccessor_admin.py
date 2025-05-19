@@ -17,4 +17,7 @@ def navigation_context(request):
     if url == reverse('cake:cakes'):
         return { 'cakes_active' : 'active' } # return variable orders_active
 
+    if url == reverse('transaction:transaction_list'):
+        return { 'transaction_active' : 'active' } # return variable orders_active
+        
     return {} # return nothing
