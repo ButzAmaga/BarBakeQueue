@@ -1,0 +1,53 @@
+{% extends 'core/core_staff.html' %}
+
+
+{% block content %}
+    <div class="container">
+        <h3 class="mt-5 pb-5" style="font-family: Pacifico;">Cake Management</h3>
+        
+        {% regroup cakes by group_by|slice:":1" as cakes_group %}
+        <!-- cake list container -->
+        <div class="d-flex flex-column gap-5 pb-5">
+
+            {% for cake_item in cakes_group  %}
+            <!-- cake group -->
+            <div class="">
+
+
+                <h4 class="fw-bold mb-4">{{cake_item.grouper|capfirst}}</h4>
+
+                <!-- cake list -->
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xxl-4 g-3">
+
+                    {% for cake in cake_item.list  %}
+                    <!-- cake item -->
+                    <div class="col">
+                            <a href="{% url 'cake:edit' cake.id %}">
+                            <div style="cursor: pointer;" data-aos="fade-up" class=" shadow shadow-sm cake-card cake-img-zoom">
+                                    
+                                <div  class="overflow-hidden">
+                                    <img src="{{cake.main_pic.url}}" style="width: 100%; aspect-ratio: 1.5/1;" class="object-fit-cover img-zoom-target" alt="cake_image">
+                                </div>
+
+                                <div class="p-3 mt-2">
+                                    <p style="font-size: 1.5em;" class="fw-bold mb-0">&#8369 {{cake.price}}</p>
+                                    <p style="font-family: Pacifico;" class="m-0 text-black">{{cake.name}}</p>
+
+
+                                </div>
+                                
+
+                            </div>
+                            </a>
+                    </div>
+
+                    {% endfor %}
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock content %}
+    

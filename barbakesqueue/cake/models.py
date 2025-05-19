@@ -48,22 +48,19 @@ class Cake(models.Model):
      # Other fields
 
     price = models.IntegerField()
-    caketype = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
-
     description = models.TextField(default="No description yet")    
-
     main_pic = models.ImageField(upload_to='cake/main/', null=True)
-    
-   #layer = models.ManyToManyField('Layer')
-    flavor = models.CharField(max_length=100)
-   #filling = models.ManyToManyField('Filling')
-    availability = models.CharField(max_length=20, choices=AVAILABILITY_CHOICES)
     group_by = models.CharField(max_length=20, choices=OCCASION_CHOICES)
-
-    rating = models.CharField(max_length=5, default='xxxxx')
-    
     created_at = models.DateTimeField(auto_now_add=True)
+
+    # caketype = models.CharField(max_length=100)
+    #layer = models.ManyToManyField('Layer')
+    #flavor = models.CharField(max_length=100)
+    #filling = models.ManyToManyField('Filling')
+    #availability = models.CharField(max_length=20, choices=AVAILABILITY_CHOICES)
+    #rating = models.CharField(max_length=5, default='xxxxx')
+    
 
     def __str__(self):
         return f"{self.id} {self.name}"

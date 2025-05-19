@@ -14,4 +14,7 @@ def navigation_context(request):
         return { 'messages_active' : 'active'} # return variable chat_active    
 
     
+    if url == reverse('cake:cakes'):
+        return { 'cakes_active' : 'active' } # return variable orders_active
+
     return {} # return nothing
