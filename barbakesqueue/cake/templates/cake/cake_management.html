@@ -3,7 +3,11 @@
 
 {% block content %}
     <div class="container">
-        <h3 class="mt-5 pb-5" style="font-family: Pacifico;">Cake Management</h3>
+        <div class="d-flex justify-content-between align-items-center">
+
+            <h3 class="mt-5 pb-5" style="font-family: Pacifico;">Cake Management</h3>
+            <a href="{% url 'cake:create' %}" class="btn btn-primary">New Cake</a>
+        </div>
         
         {% regroup cakes by group_by|slice:":1" as cakes_group %}
         <!-- cake list container -->

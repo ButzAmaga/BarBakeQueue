@@ -1,0 +1,21 @@
+
+{% extends 'core/core_staff.html' %}
+
+{% block content %}
+   
+    <div class="container mt-4">
+        
+        <form action="{% url 'cake:create' %}" enctype="multipart/form-data"  method="post">
+            <h4 class="fw-bold">New Cake</h4>
+            {% csrf_token %}
+            {{form}}
+
+
+            <button class="btn btn-primary" type="submit">Save</button>
+
+        </form>
+
+    </div>
+
+{% endblock content %}
+    
