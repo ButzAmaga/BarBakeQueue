@@ -30,6 +30,13 @@ class Index_page(TemplateView):
         
         context["occasions"] = Cake.OCCASION_CHOICES
         
+        
+        top_ten_cake = Cake.objects.annotate(avg_rating = Ceil(Avg("ratings__rate")), sold=Sum("cart__quantity", filter=Q(cart__is_ordered=True))).order_by("-avg_rating", "-sold")[:3]
+        context["top_ten_cake"] = top_ten_cake
+        
+        most_sold = Cake.objects.annotate(avg_rating = Ceil(Avg("ratings__rate")), sold=Sum("cart__quantity", filter=Q(cart__is_ordered=True))).order_by("-sold")[:3]
+        context["most_sold"] = most_sold    
+        
         return context        
     
 from django.utils.timezone import now

@@ -1,5 +1,6 @@
 {% extends 'core/core.html' %}
 {% load static %}
+{% load range_loop %}
 {% block links %}
     <link rel="stylesheet" href="{% static 'css/ui_final.css' %}">
 {% endblock links %}
@@ -42,7 +43,7 @@
             
                 <div
                     
-                    class="row row-cols-1 row-cols-md-3 g-3 g-md-5 overflow-auto py-4">
+                    class="row row-cols-1 row-cols-md-3 g-3 g-md-5 overflow-none py-4">
 
                     {% for key,label in occasions  %}
 
@@ -64,6 +65,147 @@
             
         </section>         
 
+        <!-- High Rated Section -->
+        <section id="new" style="" class="py-4">
+            <h2 class="text-center fw-semibold mb-4 text-pink">High Rated Cakes</h2>
+            
+            <div class="container">
+                
+            
+                <div
+                    
+                    class="row row-cols-1 row-cols-md-3 g-3 g-md-5 overflow-none py-4">
+
+                    {% for cake in top_ten_cake  %}
+
+                        <div class="col">
+                            <div style="cursor: pointer;" data-aos="fade-up" class=" shadow shadow-sm cake-card cake-img-zoom">
+                                    
+                                <div  class="overflow-hidden">
+                                    <img src="{{cake.main_pic.url}}" style="width: 100%; aspect-ratio: 1.5/1;" class="object-fit-cover img-zoom-target" alt="cake_image">
+                                </div>
+                        
+                                <div class="p-3 mt-2">
+                                    <p style="font-size: 1.5em;" class="fw-bold mb-0">&#8369 {{cake.price}}</p>
+                                    <p style="font-family: Pacifico;" class="m-0 text-black">{{cake.name}}</p>
+                        
+                        
+                                    <div class="d-flex align-items-center justify-content-between mt-3">
+                                        
+                                        <div class="d-flex gap-2">
+                                            <div>
+                        
+                                                
+                                                {% if cake.avg_rating|times %}
+                                                    
+                                                    {% for _ in cake.avg_rating|times %}
+                                                        <img style="width: 1em; aspect-ratio: 1/1; filter: brightness(80%);" src="{% static 'images/icons/active_star.png' %}" alt="">
+                                                    {% endfor %}
+                        
+                                                    {% else %}
+                        
+                                                        <p class="mb-0 text-black-700">No Rating Yet</p>
+                                                {% endif %}
+                                                    
+                                            </div> 
+                                            <p class="mb-0" title="number of cake ordered by the customers">({{cake.sold}})</p>
+                                        </div>
+                        
+                                        <div class="d-flex justify-content-end gap-2 ">
+                                            <button data-bs-target="#modal_out" data-bs-toggle="modal" 
+                                                    class="btn p-0" title="add to cart"
+                                                    hx-get="{% url 'order:cart_form' cake.id %}" hx-target="#modal_out_content" 
+                                                    hx-swap="innerHTML">
+                                                <img style="width: 1.5em; aspect-ratio: 1/1;" src="{% static 'images/icons/add_cart.png' %}" alt="">
+                                            </button>    
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                        
+                            </div>
+                        </div>
+
+
+                    {% endfor %}
+
+                    
+                </div>
+
+            </div>
+            
+        </section>         
+
+        <!-- Most Sold Section -->
+        <section id="new" style="" class="py-4">
+            <h2 class="text-center fw-semibold mb-4 text-pink">Most Sold Cakes</h2>
+            
+            <div class="container">
+                
+            
+                <div
+                    
+                    class="row row-cols-1 row-cols-md-3 g-3 g-md-5 overflow-none py-4">
+
+                    {% for cake in most_sold  %}
+
+                        <div class="col">
+                            <div style="cursor: pointer;" data-aos="fade-up" class=" shadow shadow-sm cake-card cake-img-zoom">
+                                    
+                                <div  class="overflow-hidden">
+                                    <img src="{{cake.main_pic.url}}" style="width: 100%; aspect-ratio: 1.5/1;" class="object-fit-cover img-zoom-target" alt="cake_image">
+                                </div>
+                        
+                                <div class="p-3 mt-2">
+                                    <p style="font-size: 1.5em;" class="fw-bold mb-0">&#8369 {{cake.price}}</p>
+                                    <p style="font-family: Pacifico;" class="m-0 text-black">{{cake.name}}</p>
+                        
+                        
+                                    <div class="d-flex align-items-center justify-content-between mt-3">
+                                        
+                                        <div class="d-flex gap-2">
+                                            <div>
+                        
+                                                
+                                                {% if cake.avg_rating|times %}
+                                                    
+                                                    {% for _ in cake.avg_rating|times %}
+                                                        <img style="width: 1em; aspect-ratio: 1/1; filter: brightness(80%);" src="{% static 'images/icons/active_star.png' %}" alt="">
+                                                    {% endfor %}
+                        
+                                                    {% else %}
+                        
+                                                        <p class="mb-0 text-black-700">No Rating Yet</p>
+                                                {% endif %}
+                                                    
+                                            </div> 
+                                            <p class="mb-0" title="number of cake ordered by the customers">({{cake.sold}})</p>
+                                        </div>
+                        
+                                        <div class="d-flex justify-content-end gap-2 ">
+                                            <button data-bs-target="#modal_out" data-bs-toggle="modal" 
+                                                    class="btn p-0" title="add to cart"
+                                                    hx-get="{% url 'order:cart_form' cake.id %}" hx-target="#modal_out_content" 
+                                                    hx-swap="innerHTML">
+                                                <img style="width: 1.5em; aspect-ratio: 1/1;" src="{% static 'images/icons/add_cart.png' %}" alt="">
+                                            </button>    
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                        
+                            </div>
+                        </div>
+
+
+                    {% endfor %}
+
+                    
+                </div>
+
+            </div>
+            
+        </section>         
 
         <!-- Order Section -->
         <section id="order">
@@ -77,7 +219,32 @@
                 <a href="#" class="btn btn-secondary rounded-pill">Download on iOS</a>
             </div>
             </div>
-        </section>        
+        </section>       
+        
+
+        <!-- Footer -->
+        <footer id="footer" style="background-color: #fff6f6; padding: 2rem 1rem; border-top: 1px solid #ddd;">
+            <div class="container">
+            <div class="row text-center text-md-start">
+                <div class="col-md-4 mb-3">
+                <h5 class="fw-bold text-pink">BarbakesQueue</h5>
+                <p>Sweetening your day, one slice at a time.</p>
+                </div>
+                <div class="col-md-4 mb-3 footer-links">
+                <h6 class="fw-semibold">Quick Links</h6>
+                <a href="#">Contact Us</a><br>
+                <a href="#">FAQs</a><br>
+                <a href="#">About</a>
+                </div>
+                <div class="col-md-4 mb-3">
+                <h6 class="fw-semibold">Follow Us</h6>
+                <a href="#">Facebook</a> | <a href="#">Instagram</a>
+                </div>
+            </div>
+            <div class="text-center mt-3 small text-muted">&copy; 2025 Cake Haven. All Rights Reserved.</div>
+            </div>
+        </footer>
+
     </main>
 {% endblock content %}
 
