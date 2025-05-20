@@ -1,0 +1,51 @@
+{% load static %}
+{% load range_loop %}
+{% for cake in cakes  %}
+<div class="col">
+    <div style="cursor: pointer;" data-aos="fade-up" class=" shadow shadow-sm cake-card cake-img-zoom">
+            
+        <div  class="overflow-hidden">
+            <img src="{{cake.main_pic.url}}" style="width: 100%; aspect-ratio: 1.5/1;" class="object-fit-cover img-zoom-target" alt="cake_image">
+        </div>
+
+        <div class="p-3 mt-2">
+            <p style="font-size: 1.5em;" class="fw-bold mb-0">&#8369 {{cake.price}}</p>
+            <p style="font-family: Pacifico;" class="m-0 text-black">{{cake.name}}</p>
+
+
+            <div class="d-flex align-items-center justify-content-between mt-3">
+                
+                <div class="d-flex gap-2">
+                    <div>
+
+                        
+                        {% if cake.avg_rating|times %}
+                            
+                            {% for _ in cake.avg_rating|times %}
+                                <img style="width: 1em; aspect-ratio: 1/1; filter: brightness(80%);" src="{% static 'images/icons/active_star.png' %}" alt="">
+                            {% endfor %}
+
+                            {% else %}
+
+                                <p class="mb-0 text-black-700">No Rating Yet</p>
+                        {% endif %}
+                            
+                    </div> 
+                    <p class="mb-0" title="number of cake ordered by the customers">({{cake.sold}})</p>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 ">
+                    <button data-bs-target="#modal_out" data-bs-toggle="modal" 
+                            class="btn p-0" title="add to cart"
+                            hx-get="{% url 'order:cart_form' cake.id %}" hx-target="#modal_out_content" 
+                            hx-swap="innerHTML">
+                        <img style="width: 1.5em; aspect-ratio: 1/1;" src="{% static 'images/icons/add_cart.png' %}" alt="">
+                    </button>    
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+</div>
+{% endfor %}

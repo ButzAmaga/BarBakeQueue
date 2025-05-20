@@ -1,36 +1,83 @@
 {% extends 'core/core.html' %}
 {% load static %}
 {% block links %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ui_final.css' %}">
 {% endblock links %}
 
 {% block content %}
-<div id="chat-container">
-    <!-- Floating Chat Icon -->
-    <div id="chat-icon" title="Chat with us">
-        💬
-    </div>
-    
-    <!-- Initial Message Bubble -->
-    <div id="initial-message" class="fade-in">
-        Talk with the admin to personalize your cakes.
-        <span id="close-msg" >&times;</span>
-    </div>
-    
-    <!-- Floating Chat Box -->
-    <div id="chat-box" class="hidden">
-        <div id="chat-header">
-            <span>Live Chat</span>
+    <main class="">
+        
+        <!-- Hero Section -->
+        <div class="hero d-flex align-items-center justify-content-center text-center text-white" style="
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://via.placeholder.com/1000x300?text=Cake+Banner') center/cover no-repeat;
+            height: 60vh;">
+            <div>
+                <h1 class="display-5 fw-semibold">Delight in Every Bite</h1>
+                <p class="lead">Freshly baked specialty cakes delivered to your door</p>
+                <a href="#order" class="btn btn-pink mt-3">Order Now</a>
+            </div>
         </div>
-        <div id="chat-history"></div>
-        <div id="chat-input-container">
-            <input type="text" id="chat-input" placeholder="Type a message...">
-            <button id="send-btn">Send</button>
-        </div>
-    </div>
-</div>
+
+        <!-- What's New Section -->
+        <section id="new" class="container">
+            <h2 class="text-center fw-semibold mb-4 text-pink">What's New</h2>
+            
+            <div
+                hx-get="{% url 'main:index_whats_new' %}" 
+                hx-trigger="load"
+                hx-swap="innerHTML"
+                class="row row-cols-4 g-4 overflow-auto py-4">
+
+            </div>
+            
+        </section>        
+
+
+        <!-- Our Cakes Section -->
+        <section id="new" style="background-color:rgb(252, 252, 252);" class="py-4">
+            <h2 class="text-center fw-semibold mb-4 text-pink">Our Cakes Category</h2>
+            
+            <div class="container">
+                
+            
+                <div
+                    
+                    class="row row-cols-1 row-cols-md-3 g-3 g-md-5 overflow-auto py-4">
+
+                    {% for key,label in occasions  %}
+
+                        <div class="col">
+                            <a href="{% url 'main:cake_page' %}?group_by={{key}}" class="text-decoration-none">
+
+                                <div data-aos="fade-up" style="cursor: pointer;" class="category p-4 rounded shadow shadow-sm">
+                                    <p class="mb-0 text-center">{{label}}</p>
+                                </div>
+                            </a>
+                        </div>
+
+                    {% endfor %}
+
+                    
+                </div>
+
+            </div>
+            
+        </section>         
+
+
+        <!-- Order Section -->
+        <section id="order">
+            <div class="container text-center">
+            <h2 class="fw-semibold mb-4 text-pink">Order Now</h2>
+            <p class="mb-4">Get your favorite cakes delivered fast and fresh.</p>
+            <a href="#" class="btn btn-pink m-2">Add to Cart</a>
+            <a href="#" class="btn btn-outline-dark m-2 rounded-pill">Checkout</a>
+            <div class="mt-4">
+                <a href="#" class="btn btn-dark me-2 rounded-pill">Get it on Google Play</a>
+                <a href="#" class="btn btn-secondary rounded-pill">Download on iOS</a>
+            </div>
+            </div>
+        </section>        
+    </main>
 {% endblock content %}
 
-{% block scripts %}
-    <script src="{% static 'js/script.js' %}"></script>
-{% endblock scripts %}

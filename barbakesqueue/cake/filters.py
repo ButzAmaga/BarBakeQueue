@@ -22,3 +22,9 @@ class Cake_filter(django_filters.FilterSet):
     name = django_filters.CharFilter(lookup_expr='icontains') 
     price__lt = django_filters.ChoiceFilter(field_name='price',  lookup_expr='lt', choices = PRICE_CHOICES  )
     rating = django_filters.ChoiceFilter(field_name="avg_rating", choices = RATING_CHOICES)
+    
+    group_by = django_filters.ChoiceFilter(
+        field_name='group_by',
+        choices=Cake.OCCASION_CHOICES,
+        label='Occasion'
+    )
